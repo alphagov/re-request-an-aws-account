@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>ReRequestAnAwsAccount</title>
+<% content_for :page_title, 'Request an AWS account' %>
+
+<% content_for :head do %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<% end %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-  </head>
+<% content_for :content do %>
+    <main id="content">
+      <%= yield %>
+    </main>
+<% end %>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+<%= render file: 'layouts/govuk_template' %>

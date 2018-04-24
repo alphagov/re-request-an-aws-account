@@ -1,2 +1,8 @@
 en:
-  hello: "Hello world"
+  submit_button_text: "Submit"
+  account_name_label: "Account name"
+  programme_label: "Which programme will be using the account?"
+  admin_users_label: "Which users should be bootstrap admins?"
+  is_production_label: "Will the account host production services?"
+  is_production_yes_label: "Yes"
+  is_production_no_label: "No"

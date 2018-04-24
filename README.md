@@ -1,24 +1,8 @@
-# README
+# Reliability Engineering: Request an AWS Account
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+GDS use separate AWS accounts to manage isolation of services. This repo
+contains the source for a form which allows teams to request a new account.
 
-Things you may want to cover:
+Accounts are created by the Reliability Engineering team, but provisioned and
+owned by individual teams.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -1,3 +1,14 @@
+<% @omit_header = true %>
+<% content_for :after_header do %>
+<header role="banner" id="global-header" class="<%= yield(:header_class) %>">
+  <div class="header-wrapper">
+    <div class="header-global">
+      <div class="header-title">Reliability Engineering <strong class="phase-tag">Internal</strong></div>
+    </div>
+  </div>
+</header>
+<% end %>
+
 <% content_for :page_title, 'Request an AWS account' %>
 
 <% content_for :head do %>

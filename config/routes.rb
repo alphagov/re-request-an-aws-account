@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   get '/confirmation', to: 'confirmation#confirmation', as: :confirmation
   post '/confirmation', to: 'confirmation#post'
+
+  get '/auth/google_oauth2/callback', to: 'google_auth#callback'
 end

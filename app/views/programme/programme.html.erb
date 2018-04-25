@@ -1,0 +1,42 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <h1 class="heading-large">Request an AWS account</h1>
+    <%= form_for @form, url: programme_path, html: { novalidate: true } do |f| %>
+        <fieldset class="form-group">
+          <legend><p><%= t('programme_label') %></p></legend>
+
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'GOV.UK', id: 'programme_govuk', required: true %>
+            <%= f.label :programme, 'GOV.UK', for: 'programme_govuk'  %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'GOV.UK Verify', id: 'programme_verify', required: true %>
+            <%= f.label :programme,  'GOV.UK Verify', for: 'programme_verify' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Government as a Platform', id: 'programme_gaap', required: true %>
+            <%= f.label :programme,  'Government as a Platform', for: 'programme_gaap' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Digital Marketplace', id: 'programme_digital_marketplace', required: true %>
+            <%= f.label :programme,  'Digital Marketplace', for: 'programme_digital_marketplace' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Technology and Operations', id: 'programme_tech_ops', required: true %>
+            <%= f.label :programme,  'Technology and Operations', for: 'programme_tech_ops' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Common Technology Services', id: 'programme_cts', required: true %>
+            <%= f.label :programme,  'Common Technology Services', for: 'programme_cts' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Data Science', id: 'programme_data', required: true %>
+            <%= f.label :programme,  'Data Science', for: 'programme_data' %>
+          </div>
+        </fieldset>
+        <div>
+          <%= f.submit t('submit_button_text'), class: 'button' %>
+        </div>
+    <% end %>
+  </div>
+</div>

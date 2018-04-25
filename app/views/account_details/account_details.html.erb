@@ -1,0 +1,26 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <h1 class="heading-large">Request an AWS account</h1>
+    <%= form_for @form, url: account_details_path, html: { novalidate: true } do |f| %>
+        <fieldset class="form-group">
+          <%= f.label :account_name, t('account_name_label'), class: 'form-label' %>
+          <%= f.text_field :account_name, required: true, class: 'form-control' %>
+        </fieldset>
+        <fieldset class="form-group inline">
+          <legend><p><%= t('is_production_label') %></p></legend>
+
+          <div class="multiple-choice">
+            <%= f.radio_button :is_production, '1', id: 'is_production_yes', required: true %>
+            <%= f.label :is_production,  t('is_production_yes_label'), for: 'is_production_yes' %>
+          </div>
+          <div class="multiple-choice">
+            <%= f.radio_button :is_production, '0', id: 'is_production_no', required: true %>
+            <%= f.label :is_production, t('is_production_no_label'), for: 'is_production_no'  %>
+          </div>
+        </fieldset>
+        <div>
+          <%= f.submit t('submit_button_text'), class: 'button' %>
+        </div>
+    <% end %>
+  </div>
+</div>

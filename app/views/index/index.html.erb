@@ -1,7 +1,13 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <h1 class="heading-large">Request an AWS account</h1>
-    <a href="/auth/google_oauth2" class="button button-start">Start now</a>
+    <% if @email %>
+      <p>You are logged in as <%= @email %></p>
+      <a href="<%= account_details_path %>" class="button button-start">Start now</a>
+    <% else %>
+      <p>To request an account you need to sign in with your GDS Google account so we know who you are.</p>
+      <a href="/auth/google_oauth2" class="button button-start">Sign in</a>
+    <% end %>
   </div>
 </div>
 

@@ -8,18 +8,13 @@ end
 
 class AdministratorsController < ApplicationController
   def administrators
-    @form = RequestAnAwsAccountForm.new({})
+    @form = AdministratorsForm.new({})
   end
 
   def post
-    form_params = params.fetch('request_an_aws_account_form', {})
-    all_params = session.fetch('form', {}).merge form_params.permit(
-      :account_name,
-      :programme,
-      :is_production,
-      :admin_users
-    )
-    @form = RequestAnAwsAccountForm.new(all_params.with_indifferent_access)
+    form_params = params.fetch('administrators_form', {}).permit(:admin_users).to_h
+    all_params = session.fetch('form', {}).merge form_params
+    @form = AdministratorsForm.new(form_params.with_indifferent_access)
     session['form'] = all_params
 
     # This is the last controller, so we should do the side effects now.
@@ -27,7 +22,7 @@ class AdministratorsController < ApplicationController
     pr_url = create_pull_request(JSON.pretty_generate(all_params))
     card_id = Trello::Card.create(
       list_id: '5ade08f50b5895b033065f71',
-      name: "#{@form.account_name} (#{@form.programme})",
+      name: "#{all_params['account_name']} (#{all_params['programme']})",
       desc: "New AWS account requested by #{session['email']}\n\nA pull request has been generated for you: #{pr_url}"
     ).short_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
 

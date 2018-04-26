@@ -1,17 +1,15 @@
 class AccountDetailsController < ApplicationController
   def account_details
-    @form = RequestAnAwsAccountForm.new({})
+    @form = AccountDetailsForm.new({})
   end
 
   def post
-    form_params = params.fetch('request_an_aws_account_form', {})
-    all_params = session.fetch('form', {}).merge form_params.permit(
+    form_params = params.fetch('account_details_form', {}).permit(
       :account_name,
-      :programme,
-      :is_production,
-      :admin_users
-    )
-    @form = RequestAnAwsAccountForm.new(all_params.with_indifferent_access)
+      :is_production
+    ).to_h
+    all_params = session.fetch('form', {}).merge form_params
+    @form = AccountDetailsForm.new(form_params.with_indifferent_access)
     session['form'] = all_params
     redirect_to programme_path
   end

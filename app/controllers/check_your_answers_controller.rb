@@ -9,7 +9,7 @@ end
 
 class CheckYourAnswersController < ApplicationController
   def check_your_answers
-    @answers = session['form'].with_indifferent_access
+    @answers = session.fetch('form', {}).with_indifferent_access
   end
 
   def post

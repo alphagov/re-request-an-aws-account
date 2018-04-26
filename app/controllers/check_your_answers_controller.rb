@@ -3,8 +3,8 @@ require 'octokit'
 require 'notifications/client'
 
 Trello.configure do |config|
-  config.developer_public_key = ENV['TRELLO_DEVELOPER_PUBLIC_KEY']
-  config.member_token = ENV['TRELLO_MEMBER_TOKEN']
+  config.developer_public_key = ENV.fetch 'TRELLO_DEVELOPER_PUBLIC_KEY'
+  config.member_token = ENV.fetch 'TRELLO_MEMBER_TOKEN'
 end
 
 class CheckYourAnswersController < ApplicationController
@@ -66,7 +66,7 @@ class CheckYourAnswersController < ApplicationController
 
   def create_pull_request(new_value)
     new_branch_name = 'bau-test-octokit-' + SecureRandom.alphanumeric(6)
-    client = Octokit::Client.new(access_token: ENV['GITHUB_PERSONAL_ACCESS_TOKEN'])
+    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_PERSONAL_ACCESS_TOKEN'))
     master = client.commit('richardTowers/re-example-repo', 'master')
     client.create_ref 'richardTowers/re-example-repo', 'heads/' + new_branch_name, master.sha
 

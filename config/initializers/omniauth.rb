@@ -1,3 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], hd: 'digital.cabinet-office.gov.uk'
+  provider :google_oauth2,
+           ENV.fetch('GOOGLE_CLIENT_ID'),
+           ENV.fetch('GOOGLE_CLIENT_SECRET'),
+           hd: 'digital.cabinet-office.gov.uk'
 end

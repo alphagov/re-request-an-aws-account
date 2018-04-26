@@ -1,11 +1,9 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <a href="<%= account_details_path %>" class="link-back">Back</a>
-    <h1 class="heading-large">Request an AWS account</h1>
+    <h1 class="heading-large"><%= t('programme_label') %></h1>
     <%= form_for @form, url: programme_path, html: { novalidate: true } do |f| %>
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:programme) %>">
-          <legend><p><%= t('programme_label') %></p></legend>
-
           <div class="multiple-choice">
             <%= f.radio_button :programme, 'GOV.UK', checked: @form.programme == 'GOV.UK', id: 'programme_govuk', required: true %>
             <%= f.label :programme, 'GOV.UK', for: 'programme_govuk'  %>
@@ -39,7 +37,7 @@
           <% end %>
         </fieldset>
         <div>
-          <%= f.submit t('submit_button_text'), class: 'button' %>
+          <%= f.submit t('next_button_text'), class: 'button' %>
         </div>
     <% end %>
   </div>

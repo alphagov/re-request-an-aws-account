@@ -2,7 +2,7 @@
   <div class="column-two-thirds">
     <a href="<%= index_path %>" class="link-back">Back</a>
 
-    <h1 class="heading-large">Request an AWS account</h1>
+    <h1 class="heading-large">Account details</h1>
     <%= form_for @form, url: account_details_path, html: { novalidate: true } do |f| %>
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:account_name) %>">
           <%= f.label :account_name, t('account_name_label'), class: 'form-label' %>
@@ -27,7 +27,7 @@
           <% end %>
         </fieldset>
         <div>
-          <%= f.submit t('submit_button_text'), class: 'button' %>
+          <%= f.submit t('next_button_text'), class: 'button' %>
         </div>
     <% end %>
   </div>

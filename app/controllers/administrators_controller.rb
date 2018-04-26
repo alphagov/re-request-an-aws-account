@@ -28,7 +28,7 @@ class AdministratorsController < ApplicationController
     card_id = Trello::Card.create(
       list_id: '5ade08f50b5895b033065f71',
       name: "#{@form.account_name} (#{@form.programme})",
-      desc: "New AWS account requested\n\nA pull request has been generated for you: #{pr_url}"
+      desc: "New AWS account requested by #{session['email']}\n\nA pull request has been generated for you: #{pr_url}"
     ).short_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
 
     session['card_id'] = card_id

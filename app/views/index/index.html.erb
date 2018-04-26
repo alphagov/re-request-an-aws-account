@@ -1,6 +1,18 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <h1 class="heading-large">Request an AWS account</h1>
+    <p class="notice">
+      <i class="icon icon-important">
+        <span class="visually-hidden">Warning</span>
+      </i>
+      <strong class="bold-small">
+        This service is for requesting an entirely new AWS account (for example for a new service).
+        Follow
+        <%# TODO: Update this URL %>
+        <a href="https://reliability-engineering-aws-accounts-preview.cloudapps.digital/manuals/access-aws-accounts.html">the documentation</a>
+        to manage users in the existing accounts.
+      </strong>
+    </p>
     <% if @email %>
       <p>You are logged in as <%= @email %></p>
       <a href="<%= account_details_path %>" class="button button-start">Start now</a>

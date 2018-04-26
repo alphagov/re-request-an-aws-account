@@ -5,8 +5,8 @@
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:account_name) %>">
           <%= f.label :account_name, t('account_name_label'), class: 'form-label' %>
           <%= f.text_field :account_name, required: true, class: 'form-control' %>
-          <% if @form.errors.include?(:account_name) %>
-              <span class="error-message"><%= t('account_name_label') + ' ' + @form.errors[:account_name].first %></span>
+          <% @form.errors[:account_name].each do |err| %>
+              <span class="error-message"><%= t('account_name_label') + ' ' + err %></span>
           <% end %>
         </fieldset>
         <fieldset class="inline form-group <%= 'form-group-error' if @form.errors.include?(:is_production) %>">

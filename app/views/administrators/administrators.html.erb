@@ -5,8 +5,8 @@
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:admin_users) %>">
           <%= f.label :admin_users, t('admin_users_label'), class: 'form-label' %>
           <%= f.text_area :admin_users, required: true, rows: 6, class: 'form-control' %>
-          <% if @form.errors.include?(:admin_users) %>
-              <span class="error-message"><%= 'Field ' + @form.errors[:admin_users].first %></span>
+          <% @form.errors[:admin_users].each do |err| %>
+              <span class="error-message"><%= "#{t('admin_users_label')} #{err}" %></span>
           <% end %>
         </fieldset>
         <div>

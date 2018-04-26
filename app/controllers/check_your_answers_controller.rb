@@ -14,11 +14,12 @@ class CheckYourAnswersController < ApplicationController
 
   def post
     all_params = session['form']
-    pull_request_url = create_pull_request(JSON.pretty_generate(all_params))
 
     account_name = all_params['account_name']
     programme = all_params['programme']
     email = session['email']
+
+    pull_request_url = create_pull_request(JSON.pretty_generate(all_params), account_name, programme, email)
 
     trello_url = Trello::Card.create(
       list_id: '5ade08f50b5895b033065f71',
@@ -64,8 +65,8 @@ class CheckYourAnswersController < ApplicationController
     )
   end
 
-  def create_pull_request(new_value)
-    new_branch_name = 'bau-test-octokit-' + SecureRandom.alphanumeric(6)
+  def create_pull_request(new_value, account_name, programme, email)
+    new_branch_name = 'new-aws-account-' + account_name
     client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_PERSONAL_ACCESS_TOKEN'))
     master = client.commit('richardTowers/re-example-repo', 'master')
     client.create_ref 'richardTowers/re-example-repo', 'heads/' + new_branch_name, master.sha
@@ -74,7 +75,9 @@ class CheckYourAnswersController < ApplicationController
     client.update_contents(
       'richardTowers/re-example-repo',
       'terraform/example/scratch.json',
-      'Updating content with octokit',
+      "Add new AWS account for #{programme}: #{account_name}
+
+Co-authored-by: #{email}",
       contents.sha,
       new_value,
       branch: new_branch_name
@@ -83,8 +86,8 @@ class CheckYourAnswersController < ApplicationController
       'richardTowers/re-example-repo',
       'master',
       new_branch_name,
-      'Test a PR from octokit',
-      'Pair: @richardTowers'
+      "Add new AWS account for #{programme}: #{account_name}",
+      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}"
     ).html_url
   end
 end

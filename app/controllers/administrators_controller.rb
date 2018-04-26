@@ -25,11 +25,13 @@ class AdministratorsController < ApplicationController
     # This is the last controller, so we should do the side effects now.
     # Initially let's just stick a card in trello
     pr_url = create_pull_request(JSON.pretty_generate(all_params))
-    Trello::Card.create(
+    card_id = Trello::Card.create(
       list_id: '5ade08f50b5895b033065f71',
       name: "#{@form.account_name} (#{@form.programme})",
       desc: "New AWS account requested\n\nA pull request has been generated for you: #{pr_url}"
-    )
+    ).short_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
+
+    session['card_id'] = card_id
 
     redirect_to confirmation_path
   end

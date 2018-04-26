@@ -1,4 +1,6 @@
 class GoogleAuthController < ApplicationController
+  skip_before_action :authenticate
+
   def callback
     email = request.env['omniauth.auth']['info']['email']
     if email.end_with? '@digital.cabinet-office.gov.uk'

@@ -7,6 +7,7 @@ class ProgrammeForm
   end
 
   def initialize(hash)
-    @programme = hash[:programme]
+    params = hash.with_indifferent_access
+    @programme = params[:programme]
   end
 end

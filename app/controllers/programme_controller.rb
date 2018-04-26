@@ -1,11 +1,11 @@
 class ProgrammeController < ApplicationController
   def programme
-    @form = ProgrammeForm.new({})
+    @form = ProgrammeForm.new(session.fetch('form', {}))
   end
 
   def post
     form_params = params.fetch('programme_form', {}).permit(:programme).to_h
-    @form = ProgrammeForm.new(form_params.with_indifferent_access)
+    @form = ProgrammeForm.new(form_params)
     return render :programme if @form.invalid?
 
     session['form'] = session.fetch('form', {}).merge form_params

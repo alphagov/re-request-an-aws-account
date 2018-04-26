@@ -10,6 +10,7 @@ class AdministratorsForm
   end
 
   def initialize(hash)
-    @admin_users = hash[:admin_users]
+    params = hash.with_indifferent_access
+    @admin_users = params[:admin_users]
   end
 end

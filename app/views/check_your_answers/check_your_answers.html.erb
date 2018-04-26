@@ -1,0 +1,80 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <a href="<%= administrators_path %>" class="link-back">Back</a>
+
+    <h1 class="heading-large">
+      Check your answers
+    </h1>
+
+    <dl class="govuk-check-your-answers cya-questions-short">
+      <div>
+        <dt class="cya-question">
+          Account Name
+        </dt>
+        <dd class="cya-answer">
+          <%= @answers[:account_name] %>
+        </dd>
+        <dd class="cya-change">
+          <a href="<%= account_details_path %>">
+            Change<span class="visually-hidden"> account name</span>
+          </a>
+        </dd>
+      </div>
+
+      <div>
+        <dt class="cya-question">
+          Is Production?
+        </dt>
+        <dd class="cya-answer">
+          <%= @answers[:is_production] %>
+        </dd>
+        <dd class="cya-change">
+          <a href="<%= account_details_path %>">
+            Change<span class="visually-hidden"> production state</span>
+          </a>
+        </dd>
+      </div>
+
+      <div>
+        <dt class="cya-question">
+          Programme
+        </dt>
+        <dd class="cya-answer">
+          <%= @answers[:programme] %>
+        </dd>
+        <dd class="cya-change">
+          <a href="<%= programme_path %>">
+            Change<span class="visually-hidden"> programme</span>
+          </a>
+        </dd>
+      </div>
+
+      <div>
+        <dt class="cya-question">
+          Admin users
+        </dt>
+        <dd class="cya-answer">
+          <pre><%= @answers[:admin_users] %></pre>
+        </dd>
+        <dd class="cya-change">
+          <a href="<%= administrators_path %>">
+            Change<span class="visually-hidden"> admin users</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+
+
+    <h2 class="heading-medium">Request your AWS account</h2>
+
+    <p class="text">
+      Please make sure the details above are correct before you submit your application.
+    </p>
+
+    <form action="<%= check_your_answers_path %>" method="post" class="form-group">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <input type="submit" class="button" value="Accept and send application">
+    </form>
+
+  </div>
+</div>

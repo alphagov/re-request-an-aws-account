@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/administrators', to: 'administrators#administrators', as: :administrators
   post '/administrators', to: 'administrators#post'
 
+  get '/check-your-answers', to: 'check_your_answers#check_your_answers', as: :check_your_answers
+  post '/check-your-answers', to: 'check_your_answers#post'
+
   get '/confirmation', to: 'confirmation#confirmation', as: :confirmation
   post '/confirmation', to: 'confirmation#post'
 

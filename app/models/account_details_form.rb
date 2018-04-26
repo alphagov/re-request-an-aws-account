@@ -11,6 +11,6 @@ class AccountDetailsForm
   def initialize(hash)
     params = hash.with_indifferent_access
     @account_name = params[:account_name]
-    @is_production = params[:is_production] == 'true'
+    @is_production = { 'true' => true, 'false' => false }[params[:is_production]]
   end
 end

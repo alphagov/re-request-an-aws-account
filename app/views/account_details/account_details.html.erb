@@ -15,11 +15,11 @@
           <legend><p><%= t('is_production_label') %></p></legend>
 
           <div class="multiple-choice">
-            <%= f.radio_button :is_production, true, checked: !!@form.is_production, id: 'is_production_yes', required: true %>
+            <%= f.radio_button :is_production, true, checked: @form.is_production, id: 'is_production_yes', required: true %>
             <%= f.label :is_production,  t('is_production_yes_label'), for: 'is_production_yes' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :is_production, false, checked: !@form.is_production, id: 'is_production_no', required: true %>
+            <%= f.radio_button :is_production, false, checked: @form.is_production == false, id: 'is_production_no', required: true %>
             <%= f.label :is_production, t('is_production_no_label'), for: 'is_production_no'  %>
           </div>
           <% if @form.errors.include?(:is_production) %>

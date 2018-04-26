@@ -13,8 +13,10 @@ class AdministratorsController < ApplicationController
 
   def post
     form_params = params.fetch('administrators_form', {}).permit(:admin_users).to_h
-    all_params = session.fetch('form', {}).merge form_params
     @form = AdministratorsForm.new(form_params.with_indifferent_access)
+    return render :administrators if @form.invalid?
+
+    all_params = session.fetch('form', {}).merge form_params
     session['form'] = all_params
 
     # This is the last controller, so we should do the side effects now.

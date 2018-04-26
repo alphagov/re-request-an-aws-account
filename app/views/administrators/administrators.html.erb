@@ -2,9 +2,12 @@
   <div class="column-two-thirds">
     <h1 class="heading-large">Request an AWS account</h1>
     <%= form_for @form, url: administrators_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group">
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:admin_users) %>">
           <%= f.label :admin_users, t('admin_users_label'), class: 'form-label' %>
           <%= f.text_area :admin_users, required: true, rows: 6, class: 'form-control' %>
+          <% if @form.errors.include?(:admin_users) %>
+              <span class="error-message"><%= 'Field ' + @form.errors[:admin_users].first %></span>
+          <% end %>
         </fieldset>
         <div>
           <%= f.submit t('submit_button_text'), class: 'button' %>

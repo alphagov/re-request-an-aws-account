@@ -2,7 +2,7 @@
   <div class="column-two-thirds">
     <h1 class="heading-large">Request an AWS account</h1>
     <%= form_for @form, url: programme_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group">
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:programme) %>">
           <legend><p><%= t('programme_label') %></p></legend>
 
           <div class="multiple-choice">
@@ -33,6 +33,9 @@
             <%= f.radio_button :programme, 'Data Science', id: 'programme_data', required: true %>
             <%= f.label :programme,  'Data Science', for: 'programme_data' %>
           </div>
+          <% if @form.errors.include?(:programme) %>
+              <span class="error-message"><%= 'Field ' + @form.errors[:programme].first %></span>
+          <% end %>
         </fieldset>
         <div>
           <%= f.submit t('submit_button_text'), class: 'button' %>

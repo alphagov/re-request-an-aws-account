@@ -19,6 +19,9 @@ class UserController < ApplicationController
     card_id = trello_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
     session['card_id'] = card_id
 
+    NotifyService.new_user_email_support(email, requester_email, pull_request_url, trello_url)
+    NotifyService.new_user_email_user(email, requester_email, card_id)
+
     redirect_to confirmation_path
   end
 end

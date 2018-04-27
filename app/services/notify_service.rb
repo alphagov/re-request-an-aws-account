@@ -21,4 +21,30 @@ class NotifyService
       }
     )
   end
+
+  def self.new_user_email_support(email, requester_email, pull_request_url, trello_card_url)
+    client = Notifications::Client.new(ENV.fetch 'NOTIFY_API_KEY')
+    client.send_email(
+      email_address: 'richard.towers@digital.cabinet-office.gov.uk',
+      template_id: '3aa6c219-a978-46a4-880f-68f908fb502c',
+      personalisation: {
+        trello_card_url: trello_card_url,
+        email: email,
+        requester_email: requester_email,
+        pull_request_url: pull_request_url
+      }
+    )
+  end
+
+  def self.new_user_email_user(email, requester_email, card_id)
+    client = Notifications::Client.new(ENV.fetch 'NOTIFY_API_KEY')
+    client.send_email(
+      email_address: requester_email,
+      template_id: '6d8fa62d-e3f2-4783-aed7-e1412ed031cc',
+      personalisation: {
+        email: email,
+        card_id: card_id
+      }
+    )
+  end
 end

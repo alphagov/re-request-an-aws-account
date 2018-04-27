@@ -10,7 +10,10 @@ class UserController < ApplicationController
     @form = UserForm.new(form_params)
     return render :user if @form.invalid?
 
-    session['card_id'] = 'TODO'
+    trello_url = TrelloService.create_new_user_card(@form.email, session.fetch('email'), 'https://todo.pr.url')
+    card_id = trello_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
+    session['card_id'] = card_id
+
     redirect_to confirmation_path
   end
 end

@@ -15,8 +15,12 @@ class TrelloService
     card.short_url
   end
 
-  def create_new_user_card()
-    # Other board list_id: 5ae31f8d9d85f8857b86b5c2
-
+  def self.create_new_user_card(email, requested_by_email, pull_request_url)
+    card = Trello::Card.create(
+      list_id: '5ae31f8d9d85f8857b86b5c2',
+      name: "New user: #{email}",
+      desc: "Requested by #{requested_by_email}\nA pull request has been generated for you: #{pull_request_url}"
+    )
+    card.short_url
   end
 end

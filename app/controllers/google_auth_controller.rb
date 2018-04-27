@@ -5,7 +5,7 @@ class GoogleAuthController < ApplicationController
     email = request.env['omniauth.auth']['info']['email']
     if email.end_with? '@digital.cabinet-office.gov.uk'
       session['email'] = email
-      redirect_to account_details_path
+      redirect_to index_path
     else
       redirect_to error_bad_email_path
     end

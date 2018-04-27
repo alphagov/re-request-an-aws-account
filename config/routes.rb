@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get '/', to: 'index#index', as: :index
   post '/', to: 'index#post'
 
+  get '/user', to: 'user#user', as: :user
+  post '/user', to: 'user#post'
+
   get '/account-details', to: 'account_details#account_details', as: :account_details
   post '/account-details', to: 'account_details#post'
 

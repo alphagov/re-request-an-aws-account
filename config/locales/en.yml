@@ -6,3 +6,5 @@ en:
   is_production_label: "Will host production services"
   is_production_yes_label: "Yes"
   is_production_no_label: "No"
+  user_label: "Grant a user access to AWS"
+  email_label: "GDS email address"

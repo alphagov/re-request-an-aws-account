@@ -1,0 +1,23 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <a href="<%= index_path %>" class="link-back">Back</a>
+    <h1 class="heading-large"><%= t('user_label') %></h1>
+    <p>To access GDS' AWS accounts users must be added to the <code>gds-users</code> base account.</p>
+    <p>Having access to the base account does not give a user access to anything until target accounts allow that user to assume roles.</p>
+    <p>All you need to do to add a user to the base account is tell us their email address.</p>
+
+    <%= form_for @form, url: user_path, html: { novalidate: true } do |f| %>
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:email) %>">
+          <%= f.label :email, t('email_label'), class: 'form-label' %>
+          <%= f.text_field :email, value: @form.email, required: true, class: 'form-control' %>
+          <% @form.errors[:email].each do |err| %>
+              <span class="error-message"><%= t('email_label') + ' ' + err %></span>
+          <% end %>
+        </fieldset>
+        <div>
+          <%= f.submit 'Submit', class: 'button' %>
+        </div>
+    <% end %>
+  </div>
+</div>
+

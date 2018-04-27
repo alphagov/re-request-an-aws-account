@@ -1,11 +1,5 @@
-require 'trello'
 require 'octokit'
 require 'notifications/client'
-
-Trello.configure do |config|
-  config.developer_public_key = ENV.fetch 'TRELLO_DEVELOPER_PUBLIC_KEY'
-  config.member_token = ENV.fetch 'TRELLO_MEMBER_TOKEN'
-end
 
 class CheckYourAnswersController < ApplicationController
   def check_your_answers
@@ -21,12 +15,7 @@ class CheckYourAnswersController < ApplicationController
 
     pull_request_url = create_pull_request(JSON.pretty_generate(all_params), account_name, programme, email)
 
-    trello_url = Trello::Card.create(
-      list_id: '5ade08f50b5895b033065f71',
-      name: "#{account_name} (#{programme})",
-      desc: "New AWS account requested by #{email}\n\nA pull request has been generated for you: #{pull_request_url}"
-    ).short_url
-
+    trello_url = TrelloService.create_new_aws_account_card(email, account_name, programme, pull_request_url)
     card_id = trello_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
 
     session['card_id'] = card_id

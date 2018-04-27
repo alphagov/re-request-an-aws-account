@@ -20,7 +20,7 @@ Co-authored-by: #{name} <#{email}>",
       new_value,
       branch: new_branch_name
     )
-    client.create_new_account_pull_request(
+    client.create_pull_request(
       'richardTowers/re-example-repo',
       'master',
       new_branch_name,

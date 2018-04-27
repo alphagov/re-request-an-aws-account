@@ -72,12 +72,14 @@ class CheckYourAnswersController < ApplicationController
     client.create_ref 'richardTowers/re-example-repo', 'heads/' + new_branch_name, master.sha
 
     contents = client.contents 'richardTowers/re-example-repo', path: 'terraform/example/scratch.json'
+
+    name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     client.update_contents(
       'richardTowers/re-example-repo',
       'terraform/example/scratch.json',
       "Add new AWS account for #{programme}: #{account_name}
 
-Co-authored-by: #{email}",
+Co-authored-by: #{name} <#{email}>",
       contents.sha,
       new_value,
       branch: new_branch_name

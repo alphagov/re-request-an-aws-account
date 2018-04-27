@@ -10,7 +10,7 @@ class CheckYourAnswersController < ApplicationController
     programme = all_params['programme']
     email = session['email']
 
-    pull_request_url = GithubService.create_pull_request(JSON.pretty_generate(all_params), account_name, programme, email)
+    pull_request_url = GithubService.create_new_account_pull_request(JSON.pretty_generate(all_params), account_name, programme, email)
 
     trello_url = TrelloService.create_new_aws_account_card(email, account_name, programme, pull_request_url)
     card_id = trello_url.split('/').last # Hack - ruby-trello doesn't expose shortLink

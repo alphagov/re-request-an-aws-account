@@ -1,5 +1,12 @@
 language: ruby
-cache: bundler
-env:
-  - GOOGLE_CLIENT_ID=REDACTED GOOGLE_CLIENT_SECRET=REDACTED TRELLO_DEVELOPER_PUBLIC_KEY=REDACTED TRELLO_MEMBER_TOKEN=REDACTED GITHUB_PERSONAL_ACCESS_TOKEN=REDACTED NOTIFY_API_KEY=REDACTED
-
+deploy:
+  provider: cloudfoundry
+  api: https://api.cloud.service.gov.uk
+  username: richard.towers+re-aws-account-deployer@digital.cabinet-office.gov.uk
+  password:
+    secure: TuvWbK8Pl1fw735gE/zAeyb158gXO8PW4DsNwFjD85iBjiZFkLtoCSGFEaK7Ri2USCzzAYKASLbIvKoCMyXEo93RhD+qRjIPHdcA8qMGtt4CEjIuNKkFm8xr1HRdB5CYoNgo7kltUg2vezNAsMxlQlufJOzQMewpBHAZiqbdx20+nYWx1cvlk9W68EG1Y2P9PdLpvIMX9BtK4O/RnUhORztYX/2tacyAN5oVzBQz5HEyH3kVL7JdBOgQQcqEDoXZAnNmv88uNCeqalP5XK6LxVTjuHhTqHVsS6TNQdURRp/KgkIK4V75wEY5Hx9tW0I4FHDh6JHF2t0K+Ejrxj9zvnLVfctzmu8TCLoGalMvTpsC/8cq/zny8wtrbLJvHAoRqRXtJNcEtx0tTikl4p7qyUSXNZ3H9VS59cnnCD3dEwfJk35IZUtFeb+CDp5GEm4c1nuryTaIAPlJNqQU52xRCpqGPyp1lcO6Vm9bJ0CI0rSSIS5qqBnv/3mHrJietOQu56GmfFEscMrDDdaTfofIlDxPE7uSh7fjqQJXBFA/YJ0hCnyZt3pgLulTfNiV/JvcU6715EG3EUReKSC4qRcmKglGDJscOLe0RdE8FtxSJt1sty0TK/MgDQgFLdcOb9z9l8WcuuFjSG1nfLK9U3AcD582lXc9KLRGN31UZseU3KE=
+  organization: gds-tech-ops
+  space: re-aws-account-management
+  on:
+    repo: alphagov/re-request-an-aws-account
+    branch: master

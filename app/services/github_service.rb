@@ -31,27 +31,40 @@ Co-authored-by: #{name} <#{email}>",
 
   def self.create_new_user_pull_request(email, requester_email)
     github_repo = 'alphagov/aws-user-management-account-users'
-    file_path = 'terraform/gds_users.tf'
+    users_path = 'terraform/gds_users.tf'
+    groups_path = 'terraform/iam_crossaccountaccess_members.tf'
+
+    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_PERSONAL_ACCESS_TOKEN'))
+
+    users_contents = client.contents github_repo, path: users_path
+    groups_contents = client.contents github_repo, path: groups_path
+
+    terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
+    new_users_contents = terraform_users_service.add_user(email)
+    new_groups_contents = terraform_users_service.add_user_to_group(email)
+
 
     new_branch_name = 'new-aws-user-' + email.split('@').first.split('.').join('-')
-    client = Octokit::Client.new(access_token: ENV.fetch('GITHUB_PERSONAL_ACCESS_TOKEN'))
-    master = client.commit(github_repo, 'master')
-    create_branch github_repo, client, new_branch_name, master.sha
-
-    contents = client.contents github_repo, path: file_path
-
-    terraform_users_service = TerraformUsersService.new Base64.decode64(contents.content)
-    new_contents = terraform_users_service.add_user(email)
-
+    create_branch github_repo, client, new_branch_name, client.commit(github_repo, 'master').sha
     name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     client.update_contents(
       github_repo,
-      file_path,
+      users_path,
       "Add new AWS user #{email}
 
 Co-authored-by: #{name} <#{requester_email}>",
-      contents.sha,
-      new_contents,
+      users_contents.sha,
+      new_users_contents,
+      branch: new_branch_name
+    )
+    client.update_contents(
+      github_repo,
+      groups_path,
+      "Add user #{email} to crossaccountaccess group
+
+Co-authored-by: #{name} <#{requester_email}>",
+      groups_contents.sha,
+      new_groups_contents,
       branch: new_branch_name
     )
     client.create_pull_request(

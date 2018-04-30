@@ -13,14 +13,15 @@ class UserController < ApplicationController
     requester_email = session.fetch('email')
     email = @form.email
 
-    pull_request_url = GithubService.create_new_user_pull_request(email, requester_email)
+    pull_request_url = GithubService.new.create_new_user_pull_request(email, requester_email)
 
     trello_url = TrelloService.create_new_user_card(email, requester_email, pull_request_url)
-    card_id = trello_url.split('/').last # Hack - ruby-trello doesn't expose shortLink
+    card_id = trello_url ? trello_url.split('/').last : nil # Hack - ruby-trello doesn't expose shortLink
     session['card_id'] = card_id
 
-    NotifyService.new_user_email_support(email, requester_email, pull_request_url, trello_url)
-    NotifyService.new_user_email_user(email, requester_email, card_id)
+    notify_service = NotifyService.new
+    notify_service.new_user_email_support(email, requester_email, pull_request_url, trello_url)
+    notify_service.new_user_email_user(email, requester_email, card_id)
 
     redirect_to confirmation_path
   end

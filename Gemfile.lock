@@ -123,6 +123,9 @@ GEM
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
+    rack_session_access (0.2.0)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (5.2.0)
       actioncable (= 5.2.0)
       actionmailer (= 5.2.0)
@@ -198,6 +201,7 @@ DEPENDENCIES
   notifications-ruby-client (~> 2.6)
   octokit (~> 4.8)
   omniauth-google-oauth2 (~> 0.5.3)
+  rack_session_access (~> 0.2.0)
   rails (~> 5.2.0)
   ruby-trello (~> 2.0)
 

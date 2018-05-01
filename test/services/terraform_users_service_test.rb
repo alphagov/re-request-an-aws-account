@@ -52,23 +52,36 @@ EOTERRAFORM
 class TerraformUsersServiceTest < ActiveSupport::TestCase
   test 'Adds a user' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
-    result = terraform_users_service.add_user 'test.aws-user@example.com'
+    result = terraform_users_service.add_users 'test.aws-user@example.com'
 
     assert_match /"test_aws-user"/, result
     assert_match /"test.aws-user@example.com"/, result
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
   end
 
+  test 'Adds multiple users' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    result = terraform_users_service.add_users "test.aws-user-one@example.com\ntest.aws-user-two@example.com,test.aws-user-three@example.com"
+
+    assert_match /"test_aws-user-one"/, result
+    assert_match /"test_aws-user-two"/, result
+    assert_match /"test_aws-user-three"/, result
+    assert_match /"test.aws-user-one@example.com"/, result
+    assert_match /"test.aws-user-two@example.com"/, result
+    assert_match /"test.aws-user-three@example.com"/, result
+    assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
+  end
+
   test 'Raises if the same user is added twice' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     assert_raises {
-      terraform_users_service.add_user 'bungo@digital.cabinet-office.gov.uk'
+      terraform_users_service.add_users 'bungo@digital.cabinet-office.gov.uk'
     }
   end
 
   test 'User resources are sorted' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
-    result = terraform_users_service.add_user 'test.aws-user@example.com'
+    result = terraform_users_service.add_users 'test.aws-user@example.com'
     users = JSON.parse(result)
     resource_names = users.fetch('resource').map {|u| u['aws_iam_user'].keys }.flatten
 
@@ -77,22 +90,32 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
 
   test 'Adds a user to a group' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
-    result = terraform_users_service.add_user_to_group 'test.aws-user@example.com'
+    result = terraform_users_service.add_users_to_group 'test.aws-user@example.com'
 
     assert_match /"\$\{aws_iam_user.test_aws-user.name}"/, result
+    assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
+  end
+
+  test 'Adds multiple users to a group' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    result = terraform_users_service.add_users_to_group "test.aws-user-one@example.com\ntest.aws-user-two@example.com,test.aws-user-three@example.com"
+
+    assert_match /"\$\{aws_iam_user.test_aws-user-one.name}"/, result
+    assert_match /"\$\{aws_iam_user.test_aws-user-two.name}"/, result
+    assert_match /"\$\{aws_iam_user.test_aws-user-three.name}"/, result
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
   end
 
   test 'Raises if the user is already in the group' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     assert_raises {
-      terraform_users_service.add_user_to_group 'bungo@digital.cabinet-office.gov.uk'
+      terraform_users_service.add_users_to_group 'bungo@digital.cabinet-office.gov.uk'
     }
   end
 
   test 'Group members are sorted' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
-    result = terraform_users_service.add_user_to_group 'test.aws-user@example.com'
+    result = terraform_users_service.add_users_to_group 'test.aws-user@example.com'
     terraform = JSON.parse(result)
     members = terraform['resource']['aws_iam_group_membership']['crossaccountaccess-members']['users']
 

@@ -4,13 +4,13 @@
     <h1 class="heading-large"><%= t('user_label') %></h1>
     <p>To access GDS' AWS accounts users must be added to the <code>gds-users</code> base account.</p>
     <p>Having access to the base account does not give a user access to anything until target accounts allow that user to assume roles.</p>
-    <p>All you need to do to add a user to the base account is tell us their email address.</p>
+    <p>All you need to do to add users to the base account is tell us their email addresses.</p>
 
     <%= form_for @form, url: user_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:email) %>">
-          <%= f.label :email, t('email_label'), class: 'form-label' %>
-          <%= f.text_field :email, value: @form.email, required: true, class: 'form-control' %>
-          <% @form.errors[:email].each do |err| %>
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:email_list) %>">
+          <%= f.label :email_list, t('email_label'), class: 'form-label' %>
+          <%= f.text_area :email_list, value: @form.email_list, rows: 6, required: true, class: 'form-control full-width' %>
+          <% @form.errors[:email_list].each do |err| %>
               <span class="error-message"><%= t('email_label') + ' ' + err %></span>
           <% end %>
         </fieldset>

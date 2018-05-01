@@ -39,7 +39,7 @@ Co-authored-by: #{name} <#{email}>",
     ).html_url
   end
 
-  def create_new_user_pull_request(email, requester_email)
+  def create_new_user_pull_request(email_list, requester_email)
     unless @client
       Rails.logger.warn 'Warning: No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -53,17 +53,19 @@ Co-authored-by: #{name} <#{email}>",
     groups_contents = @client.contents github_repo, path: groups_path
 
     terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
-    new_users_contents = terraform_users_service.add_user(email)
-    new_groups_contents = terraform_users_service.add_user_to_group(email)
+    new_users_contents = terraform_users_service.add_users(email_list)
+    new_groups_contents = terraform_users_service.add_users_to_group(email_list)
 
 
-    new_branch_name = 'new-aws-user-' + email.split('@').first.split('.').join('-')
+    new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-')
     create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
     name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     @client.update_contents(
       github_repo,
       users_path,
-      "Add new AWS user #{email}
+      "Add new AWS users
+
+#{email_list}
 
 Co-authored-by: #{name} <#{requester_email}>",
       users_contents.sha,
@@ -73,7 +75,9 @@ Co-authored-by: #{name} <#{requester_email}>",
     @client.update_contents(
       github_repo,
       groups_path,
-      "Add user #{email} to crossaccountaccess group
+      "Add users to crossaccountaccess group
+
+#{email_list}
 
 Co-authored-by: #{name} <#{requester_email}>",
       groups_contents.sha,
@@ -84,8 +88,10 @@ Co-authored-by: #{name} <#{requester_email}>",
       github_repo,
       'master',
       new_branch_name,
-      "Add new user to AWS #{email}",
-      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}"
+      "Add new users to AWS",
+      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+
+#{email_list}"
     ).html_url
   end
 

@@ -9,13 +9,13 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should validate form' do
-    post user_url, params: { user_form: { email: 'test.user@example.com' } }
+    post user_url, params: { user_form: { email_list: 'test.user@example.com' } }
     assert_response :success
-    assert_select '.error-message', 'GDS email address should be a GDS email'
+    assert_select '.error-message', 'GDS email addresses should be a list of GDS emails'
   end
 
   test 'should redirect on valid form' do
-    post user_url, params: { user_form: { email: 'test.user@digital.cabinet-office.gov.uk' } }
+    post user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } }
     assert_redirected_to confirmation_user_url
   end
 end

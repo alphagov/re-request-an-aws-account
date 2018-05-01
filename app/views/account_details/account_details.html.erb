@@ -15,7 +15,7 @@
         <fieldset class="inline form-group <%= 'form-group-error' if @form.errors.include?(:account_description) %>">
           <legend><p><%= t('account_description_label') %></p></legend>
 
-          <%= f.text_area :account_description, value: @form.account_description, required: true, rows: 6, class: 'form-control admin-users' %>
+          <%= f.text_area :account_description, value: @form.account_description, required: true, rows: 6, class: 'form-control full-width' %>
           <% if @form.errors.include?(:account_description) %>
               <span class="error-message"><%= t('account_description_label') + ' ' + @form.errors[:account_description].first %></span>
           <% end %>

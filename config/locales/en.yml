@@ -3,6 +3,6 @@ en:
   account_name_label: "Account name"
   programme_label: "Programme owning the account"
   admin_users_label: "Admin users"
-  user_label: "Grant a user access to AWS"
-  email_label: "GDS email address"
+  user_label: "Grant users access to AWS"
+  email_label: "GDS email addresses"
   account_description_label: "Please describe your new account (e.g. what will it be used for? will it host production services?)"

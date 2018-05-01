@@ -23,14 +23,14 @@
 
       <div>
         <dt class="cya-question">
-          Is Production?
+          Description
         </dt>
         <dd class="cya-answer">
-          <%= @answers[:is_production] %>
+          <%= @answers[:account_description] %>
         </dd>
         <dd class="cya-change">
           <a href="<%= account_details_path %>">
-            Change<span class="visually-hidden"> production state</span>
+            Change<span class="visually-hidden"> description</span>
           </a>
         </dd>
       </div>
@@ -65,7 +65,7 @@
     </dl>
 
 
-    <% if [@answers[:account_name], @answers[:is_production], @answers[:programme], @answers[:admin_users]].all? &:present? %>
+    <% if [@answers[:account_name], @answers[:account_description], @answers[:programme], @answers[:admin_users]].all? &:present? %>
       <h2 class="heading-medium">Request your AWS account</h2>
 
       <p class="text">

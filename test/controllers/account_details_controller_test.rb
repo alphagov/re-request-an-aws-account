@@ -9,13 +9,13 @@ class AccountDetailsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should validate form' do
-    post account_details_url, params: { account_details_form: { account_name: 'BAD ACCOUNT NAME' } }
+    post account_details_url, params: { account_details_form: { account_name: 'BAD ACCOUNT NAME', account_description: 'some description' } }
     assert_response :success
-    assert_select '.error-message', 'Account name should be kebab-cased'
+    assert_select '.error-message', 'Account name should be lower-case-separated-by-dashes'
   end
 
   test 'should redirect on valid form' do
-    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', is_production: false } }
+    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'some description' } }
     assert_redirected_to programme_url
   end
 end

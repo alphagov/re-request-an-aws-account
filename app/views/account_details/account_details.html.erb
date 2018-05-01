@@ -11,19 +11,13 @@
               <span class="error-message"><%= t('account_name_label') + ' ' + err %></span>
           <% end %>
         </fieldset>
-        <fieldset class="inline form-group <%= 'form-group-error' if @form.errors.include?(:is_production) %>">
-          <legend><p><%= t('is_production_label') %></p></legend>
+        <p></p>
+        <fieldset class="inline form-group <%= 'form-group-error' if @form.errors.include?(:account_description) %>">
+          <legend><p><%= t('account_description_label') %></p></legend>
 
-          <div class="multiple-choice">
-            <%= f.radio_button :is_production, true, checked: @form.is_production, id: 'is_production_yes', required: true %>
-            <%= f.label :is_production,  t('is_production_yes_label'), for: 'is_production_yes' %>
-          </div>
-          <div class="multiple-choice">
-            <%= f.radio_button :is_production, false, checked: @form.is_production == false, id: 'is_production_no', required: true %>
-            <%= f.label :is_production, t('is_production_no_label'), for: 'is_production_no'  %>
-          </div>
-          <% if @form.errors.include?(:is_production) %>
-              <span class="error-message"><%= 'Field ' + @form.errors[:is_production].first %></span>
+          <%= f.text_area :account_description, value: @form.account_description, required: true, rows: 6, class: 'form-control admin-users' %>
+          <% if @form.errors.include?(:account_description) %>
+              <span class="error-message"><%= t('account_description_label') + ' ' + @form.errors[:account_description].first %></span>
           <% end %>
         </fieldset>
         <div>

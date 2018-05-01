@@ -6,7 +6,7 @@ class AccountDetailsController < ApplicationController
   def post
     form_params = params
       .fetch('account_details_form', {})
-      .permit(:account_name, :is_production).to_h
+      .permit(:account_name, :account_description).to_h
     @form = AccountDetailsForm.new(form_params)
     return render :account_details if @form.invalid?
 

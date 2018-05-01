@@ -57,7 +57,7 @@ Co-authored-by: #{name} <#{email}>",
     new_groups_contents = terraform_users_service.add_users_to_group(email_list)
 
 
-    new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-')
+    new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
     create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
     name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     @client.update_contents(

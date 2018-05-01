@@ -1,6 +1,6 @@
 class ConfirmationController < ApplicationController
   def confirmation
-    @card_id = session.fetch('card_id')
+    @pull_request_url = session.fetch('pull_request_url')
     session['form'] = nil
   end
 end

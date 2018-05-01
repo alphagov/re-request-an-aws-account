@@ -10,7 +10,6 @@ gem 'govuk_template', '~> 0.23'
 gem 'govuk_frontend_toolkit', '~> 7.4'
 gem 'govuk_elements_rails', '~> 3.1'
 gem 'omniauth-google-oauth2', '~> 0.5.3'
-gem 'ruby-trello', '~> 2.0'
 gem 'octokit', '~> 4.8'
 gem 'notifications-ruby-client', '~> 2.6'
 

@@ -72,7 +72,7 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
   end
 
-  test 'Raises if the same user is added twice' do
+  test 'Raises if the no change to users in terraform' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     assert_raises {
       terraform_users_service.add_users 'bungo@digital.cabinet-office.gov.uk'
@@ -106,7 +106,7 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
   end
 
-  test 'Raises if the user is already in the group' do
+  test 'Raises if there are no changes to groups in terraform' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     assert_raises {
       terraform_users_service.add_users_to_group 'bungo@digital.cabinet-office.gov.uk'

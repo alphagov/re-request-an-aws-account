@@ -16,6 +16,6 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect on valid form' do
     post user_url, params: { user_form: { email: 'test.user@digital.cabinet-office.gov.uk' } }
-    assert_redirected_to confirmation_url
+    assert_redirected_to confirmation_user_url
   end
 end

@@ -10,7 +10,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect on valid session' do
     post check_your_answers_url
-    assert_redirected_to confirmation_url
+    assert_redirected_to confirmation_account_url
   end
 
 end

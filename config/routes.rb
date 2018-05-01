@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   get '/check-your-answers', to: 'check_your_answers#check_your_answers', as: :check_your_answers
   post '/check-your-answers', to: 'check_your_answers#post'
 
-  get '/confirmation', to: 'confirmation#confirmation', as: :confirmation
-  post '/confirmation', to: 'confirmation#post'
+  get '/confirmation/user', to: 'confirmation#user', as: :confirmation_user
+  get '/confirmation/account', to: 'confirmation#account', as: :confirmation_account
 
   get '/auth/google_oauth2/callback', to: 'google_auth#callback'
   get '/auth/google_oauth2/error/bad-email', to: 'google_auth#error_bad_email', as: :error_bad_email

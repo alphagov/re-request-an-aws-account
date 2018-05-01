@@ -18,6 +18,6 @@ class CheckYourAnswersController < ApplicationController
     notify_service.new_account_email_support(account_name: account_name, programme: programme, email: email, pull_request_url: pull_request_url)
     notify_service.new_account_email_user email, account_name, pull_request_url
 
-    redirect_to confirmation_path
+    redirect_to confirmation_account_path
   end
 end

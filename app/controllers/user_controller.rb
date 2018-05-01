@@ -21,6 +21,6 @@ class UserController < ApplicationController
     notify_service.new_user_email_support(email, requester_email, pull_request_url)
     notify_service.new_user_email_user(email, requester_email, pull_request_url)
 
-    redirect_to confirmation_path
+    redirect_to confirmation_user_path
   end
 end

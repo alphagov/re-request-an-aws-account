@@ -1,7 +1,7 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <a href="<%= account_details_path %>" class="link-back">Back</a>
-    <h1 class="heading-large"><%= t('programme_label') %></h1>
+    <h1 class="heading-large">Programme owning the account</h1>
     <%= form_for @form, url: programme_path, html: { novalidate: true } do |f| %>
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:programme) %>">
           <div class="multiple-choice">
@@ -37,7 +37,7 @@
           <% end %>
         </fieldset>
         <div>
-          <%= f.submit t('next_button_text'), class: 'button' %>
+          <%= f.submit 'Next', class: 'button' %>
         </div>
     <% end %>
   </div>

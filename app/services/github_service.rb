@@ -14,14 +14,15 @@ class GithubService
     end
 
     new_branch_name = 'new-aws-account-' + account_name
-    master = @client.commit('richardTowers/re-example-repo', 'master')
-    create_branch 'richardTowers/re-example-repo', new_branch_name, master.sha
+    github_repo = 'alphagov/re-example-repo'
+    master = @client.commit(github_repo, 'master')
+    create_branch github_repo, new_branch_name, master.sha
 
-    contents = @client.contents 'richardTowers/re-example-repo', path: 'terraform/example/scratch.json'
+    contents = @client.contents github_repo, path: 'terraform/example/scratch.json'
 
     name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     @client.update_contents(
-      'richardTowers/re-example-repo',
+      github_repo,
       'terraform/example/scratch.json',
       "Add new AWS account for #{programme}: #{account_name}
 
@@ -31,7 +32,7 @@ Co-authored-by: #{name} <#{email}>",
       branch: new_branch_name
     )
     @client.create_pull_request(
-      'richardTowers/re-example-repo',
+      github_repo,
       'master',
       new_branch_name,
       "Add new AWS account for #{programme}: #{account_name}",

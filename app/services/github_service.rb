@@ -7,28 +7,31 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(new_value, account_name, programme, email)
+  def create_new_account_pull_request(account_name, programme, email)
     unless @client
       Rails.logger.warn 'Warning: no GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
     new_branch_name = 'new-aws-account-' + account_name
-    github_repo = 'alphagov/re-example-repo'
+    github_repo = 'alphagov/aws-billing-account'
     master = @client.commit(github_repo, 'master')
     create_branch github_repo, new_branch_name, master.sha
 
-    contents = @client.contents github_repo, path: 'terraform/example/scratch.json'
+    accounts_path = 'terraform/accounts.tf'
+    accounts_contents = @client.contents github_repo, path: accounts_path
 
     name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+    terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
+    new_account_terraform = terraform_accounts_service.add_account(account_name)
     @client.update_contents(
       github_repo,
-      'terraform/example/scratch.json',
+      accounts_path,
       "Add new AWS account for #{programme}: #{account_name}
 
 Co-authored-by: #{name} <#{email}>",
-      contents.sha,
-      new_value,
+      accounts_contents.sha,
+      new_account_terraform,
       branch: new_branch_name
     )
     @client.create_pull_request(

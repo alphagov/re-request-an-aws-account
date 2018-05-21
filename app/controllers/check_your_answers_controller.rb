@@ -10,7 +10,7 @@ class CheckYourAnswersController < ApplicationController
     programme = all_params['programme']
     email = session['email']
 
-    pull_request_url = GithubService.new.create_new_account_pull_request(JSON.pretty_generate(all_params), account_name, programme, email)
+    pull_request_url = GithubService.new.create_new_account_pull_request(account_name, programme, email)
 
     session['pull_request_url'] = pull_request_url
 

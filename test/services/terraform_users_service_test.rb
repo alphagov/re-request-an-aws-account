@@ -59,6 +59,18 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
   end
 
+  test 'Strips rogue carriage returns' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    result = terraform_users_service.add_users "test.aws-user@example.com\r\n"
+
+    assert_match /"test_aws-user"/, result
+    assert_no_match /\\r/, result
+    assert_no_match /\\n/, result
+    assert_match /"test.aws-user@example.com"/, result
+
+    assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
+  end
+
   test 'Adds multiple users' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     result = terraform_users_service.add_users "test.aws-user-one@example.com\ntest.aws-user-two@example.com,test.aws-user-three@example.com"

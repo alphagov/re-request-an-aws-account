@@ -35,7 +35,7 @@ class TerraformUsersService
 private
 
   def split_email_list(email_list_string)
-    email_list_string.split("\n").flat_map { |x| x.split(',') }
+    email_list_string.split.flat_map { |x| x.split(',') }
   end
 
   def add_user terraform, email

@@ -17,7 +17,7 @@
         </fieldset>
         <p></p>
         <fieldset class="inline form-group <%= 'form-group-error' if @form.errors.include?(:account_description) %>">
-          <legend><p>Please describe your new account (e.g. what will it be used for? will it host production services?)</p></legend>
+          <legend>Please describe your new account (e.g. what will it be used for? will it host production services?)</legend>
 
           <%= f.text_area :account_description, value: @form.account_description, required: true, rows: 6, class: 'form-control full-width' %>
           <% if @form.errors.include?(:account_description) %>

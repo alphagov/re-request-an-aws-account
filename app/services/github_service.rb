@@ -7,7 +7,7 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(account_name, programme, email)
+  def create_new_account_pull_request(account_name, account_description, programme, email)
     unless @client
       Rails.logger.warn 'Warning: no GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -24,10 +24,14 @@ class GithubService
     name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
     new_account_terraform = terraform_accounts_service.add_account(account_name)
+    account_description_quote = account_description.split.map {|desc| "> #{desc}"}.join("\n")
     @client.update_contents(
       github_repo,
       accounts_path,
       "Add new AWS account for #{programme}: #{account_name}
+
+Description:
+#{account_description_quote}
 
 Co-authored-by: #{name} <#{email}>",
       accounts_contents.sha,
@@ -39,7 +43,10 @@ Co-authored-by: #{name} <#{email}>",
       'master',
       new_branch_name,
       "Add new AWS account for #{programme}: #{account_name}",
-      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}"
+      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
+
+Description:
+#{account_description_quote}"
     ).html_url
   end
 

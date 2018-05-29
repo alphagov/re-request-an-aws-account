@@ -3,12 +3,16 @@
     <h1 class="heading-large">Request an AWS account</h1>
     <% if @email %>
       <p>You are logged in as <em><%= @email %></em>.</p>
-      <h2 class="heading-medium">Request a new account</h2>
-      <p>(e.g. for a new service or environment)</p>
-      <a href="<%= account_details_path %>" class="button button-start">Start now</a>
+      <h2 class="heading-medium">Request a new AWS account</h2>
+      <p>Teams can use multiple AWS accounts to provide isolation between workloads. For example having separate production and test environments.</p>
+      <p>See <a href="https://reliability-engineering.cloudapps.digital/manuals/create-aws-accounts.html">how to create AWS accounts</a> in the reliability engineering docs.</p>
+      <a href="<%= account_details_path %>" class="button button-start">Request an account</a>
       <h2 class="heading-medium">Grant users access to AWS</h2>
-      <p>(e.g. for new joiners)</p>
-      <a href="<%= user_path %>" class="button button-start">Start now</a>
+      <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by reliability engineering with a base GDS account: <em>gds-users</em>.</p>
+      <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
+      <p> See <a href="https://reliability-engineering.cloudapps.digital/manuals/access-aws-accounts.html">accessing AWS accounts</a> in the reliability engineering docs.</p>
+      <p>Anyone at GDS can request user access to AWS for one or more people.</p>
+      <a href="<%= user_path %>" class="button button-start">Request user access</a>
     <% else %>
       <p>You can use this service to:</p>
       <ul class="list list-bullet">

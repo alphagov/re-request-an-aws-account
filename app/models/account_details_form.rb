@@ -3,6 +3,7 @@ class AccountDetailsForm
 
   attr_reader :account_name, :account_description
   validates_format_of :account_name, with: /\A([a-z]+-)*[a-z]+\z/, message: 'should be lower-case-separated-by-dashes'
+  validates_format_of :account_name, with: /\A([a-z]+-){0,4}[a-z]+\z/, message: 'should not have more-than-five-groups-separated-by-dashes'
   validates_each :account_name, :account_description do |record, attr, value|
     record.errors.add attr, 'is required' if value.nil? || value == ''
   end

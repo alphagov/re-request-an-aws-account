@@ -6,6 +6,10 @@
     <%= form_for @form, url: account_details_path, html: { novalidate: true } do |f| %>
         <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:account_name) %>">
           <%= f.label :account_name, 'Account name', class: 'form-label' %>
+          <span class="form-hint">
+            Account names should be descriptive and lower-case-separated-by-dashes.
+            For example <nobr><code>gds-verify-production-a</code></nobr> or <nobr><code>govuk-integration</code></nobr>.
+          </span>
           <%= f.text_field :account_name, value: @form.account_name, required: true, class: 'form-control' %>
           <% @form.errors[:account_name].each do |err| %>
               <span class="error-message"><%= 'Account name ' + err %></span>

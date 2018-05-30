@@ -12,6 +12,8 @@ gem 'govuk_elements_rails', '~> 3.1'
 gem 'omniauth-google-oauth2', '~> 0.5.3'
 gem 'octokit', '~> 4.8'
 gem 'notifications-ruby-client', '~> 2.6'
+gem 'lograge', '~> 0.10.0'
+gem 'logstash-event', '~> 1.2.02'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

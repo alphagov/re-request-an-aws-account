@@ -9,9 +9,16 @@ class CheckYourAnswersController < ApplicationController
     account_name = all_params['account_name']
     account_description = all_params['account_description']
     programme = all_params['programme']
+    admin_users = all_params['admin_users']
     email = session['email']
 
-    pull_request_url = GithubService.new.create_new_account_pull_request(account_name, account_description, programme, email)
+    pull_request_url = GithubService.new.create_new_account_pull_request(
+      account_name,
+      account_description,
+      programme,
+      email,
+      admin_users
+    )
 
     session['pull_request_url'] = pull_request_url
 

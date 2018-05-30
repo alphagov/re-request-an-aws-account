@@ -7,7 +7,7 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(account_name, account_description, programme, email)
+  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users)
     unless @client
       Rails.logger.warn 'Warning: no GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -46,7 +46,13 @@ Co-authored-by: #{name} <#{email}>",
       "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
 
 Description:
-#{account_description_quote}"
+#{account_description_quote}
+
+Once the account is created, the following users should be granted access to the admin role:
+
+```
+#{admin_users}
+```"
     ).html_url
   end
 

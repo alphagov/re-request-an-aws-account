@@ -23,7 +23,14 @@ class CheckYourAnswersController < ApplicationController
     session['pull_request_url'] = pull_request_url
 
     notify_service = NotifyService.new
-    notify_service.new_account_email_support(account_name: account_name, programme: programme, email: email, pull_request_url: pull_request_url)
+    notify_service.new_account_email_support(
+      account_name: account_name,
+      account_description: account_description,
+      programme: programme,
+      email: email,
+      pull_request_url: pull_request_url,
+      admin_users: admin_users
+    )
     notify_service.new_account_email_user email, account_name, pull_request_url
 
     redirect_to confirmation_account_path

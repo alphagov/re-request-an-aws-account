@@ -9,7 +9,7 @@ module Rails
   class Server < ::Rack::Server
     alias_method :orig_initialize, :initialize
     def initialize(options)
-      orig_initialize(options.merge(log_stdout: false, AccessLog: []))
+      orig_initialize(options.merge(AccessLog: []))
     end
   end
 end

@@ -3,3 +3,6 @@ applications:
 - name: gds-request-an-aws-account
   memory: 256M
   buildpack: ruby_buildpack
+  services:
+    - logit-ssl-drain
+    - gds-request-an-aws-account-prometheus

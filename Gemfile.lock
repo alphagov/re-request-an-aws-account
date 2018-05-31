@@ -56,6 +56,8 @@ GEM
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
+    gds_metrics (0.1.0)
+      prometheus-client-mmap (= 0.9.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     govuk_elements_rails (3.1.2)
@@ -115,6 +117,7 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
+    prometheus-client-mmap (0.9.1)
     public_suffix (3.0.2)
     rack (2.0.5)
     rack-test (1.0.0)
@@ -180,6 +183,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv-rails
+  gds_metrics
   govuk_elements_rails (~> 3.1)
   govuk_frontend_toolkit (~> 7.4)
   govuk_template (~> 0.23)

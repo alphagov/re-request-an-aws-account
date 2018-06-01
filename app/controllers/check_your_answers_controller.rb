@@ -18,7 +18,7 @@ class CheckYourAnswersController < ApplicationController
       programme,
       email,
       admin_users
-    )
+    ) || 'error-creating-pull-request'
 
     session['pull_request_url'] = pull_request_url
 

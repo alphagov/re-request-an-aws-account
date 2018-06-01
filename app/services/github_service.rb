@@ -9,26 +9,27 @@ class GithubService
 
   def create_new_account_pull_request(account_name, account_description, programme, email, admin_users)
     unless @client
-      Rails.logger.warn 'Warning: no GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
-    new_branch_name = 'new-aws-account-' + account_name
-    github_repo = 'alphagov/aws-billing-account'
-    master = @client.commit(github_repo, 'master')
-    create_branch github_repo, new_branch_name, master.sha
+    begin
+      new_branch_name = 'new-aws-account-' + account_name
+      github_repo = 'alphagov/aws-billing-account'
+      master = @client.commit(github_repo, 'master')
+      create_branch github_repo, new_branch_name, master.sha
 
-    accounts_path = 'terraform/accounts.tf'
-    accounts_contents = @client.contents github_repo, path: accounts_path
+      accounts_path = 'terraform/accounts.tf'
+      accounts_contents = @client.contents github_repo, path: accounts_path
 
-    name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
-    terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
-    new_account_terraform = terraform_accounts_service.add_account(account_name)
-    account_description_quote = account_description.split(/\r?\n/).map {|desc| "> #{desc}"}.join("\n")
-    @client.update_contents(
-      github_repo,
-      accounts_path,
-      "Add new AWS account for #{programme}: #{account_name}
+      name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+      terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
+      new_account_terraform = terraform_accounts_service.add_account(account_name)
+      account_description_quote = account_description.split(/\r?\n/).map {|desc| "> #{desc}"}.join("\n")
+      @client.update_contents(
+        github_repo,
+        accounts_path,
+        "Add new AWS account for #{programme}: #{account_name}
 
 Description:
 #{account_description_quote}
@@ -53,34 +54,38 @@ Once the account is created, the following users should be granted access to the
 ```
 #{admin_users}
 ```"
-    ).html_url
+      ).html_url
+    rescue StandardError => e
+      log_error 'Failed to raise new account PR', e
+    end
   end
 
   def create_new_user_pull_request(email_list, requester_email)
     unless @client
-      Rails.logger.warn 'Warning: No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
-    github_repo = 'alphagov/aws-user-management-account-users'
-    users_path = 'terraform/gds_users.tf'
-    groups_path = 'terraform/iam_crossaccountaccess_members.tf'
+    begin
+      github_repo = 'alphagov/aws-user-management-account-users'
+      users_path = 'terraform/gds_users.tf'
+      groups_path = 'terraform/iam_crossaccountaccess_members.tf'
 
-    users_contents = @client.contents github_repo, path: users_path
-    groups_contents = @client.contents github_repo, path: groups_path
+      users_contents = @client.contents github_repo, path: users_path
+      groups_contents = @client.contents github_repo, path: groups_path
 
-    terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
-    new_users_contents = terraform_users_service.add_users(email_list)
-    new_groups_contents = terraform_users_service.add_users_to_group(email_list)
+      terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
+      new_users_contents = terraform_users_service.add_users(email_list)
+      new_groups_contents = terraform_users_service.add_users_to_group(email_list)
 
 
-    new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
-    create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
-    name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
-    @client.update_contents(
-      github_repo,
-      users_path,
-      "Add new AWS users
+      new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
+      create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
+      name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+      @client.update_contents(
+        github_repo,
+        users_path,
+        "Add new AWS users
 
 #{email_list}
 
@@ -109,7 +114,10 @@ Co-authored-by: #{name} <#{requester_email}>",
       "Account requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
 
 #{email_list}"
-    ).html_url
+      ).html_url
+    rescue StandardError => e
+      log_error 'Failed to raise new user PR', e
+    end
   end
 
 private
@@ -117,8 +125,18 @@ private
   def create_branch(repo, branch_name, sha)
     begin
       @client.create_ref repo, 'heads/' + branch_name, sha
-    rescue Octokit::UnprocessableEntity
-      puts "Failed to create branch #{branch_name}. Perhaps there's already a branch with that name?"
+    rescue Octokit::UnprocessableEntity => e
+      log_error "Failed to create branch #{branch_name}. Perhaps there's already a branch with that name?", e
     end
+  end
+
+  def log_error(description, error = nil)
+    Rails.logger.error({
+      '@timestamp': Time.now.iso8601,
+      description: description,
+      message: error ? error.message : nil,
+      backtrace: error ? error.backtrace.join("\n") : nil
+    }.to_json)
+    nil
   end
 end

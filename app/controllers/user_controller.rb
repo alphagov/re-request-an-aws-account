@@ -13,7 +13,7 @@ class UserController < ApplicationController
     requester_email = session.fetch('email')
     email_list = @form.email_list
 
-    pull_request_url = GithubService.new.create_new_user_pull_request(email_list, requester_email)
+    pull_request_url = GithubService.new.create_new_user_pull_request(email_list, requester_email) || 'error-creating-pull-request'
 
     session['pull_request_url'] = pull_request_url
 

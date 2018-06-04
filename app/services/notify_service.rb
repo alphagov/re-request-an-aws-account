@@ -36,7 +36,7 @@ class NotifyService
     )
   end
 
-  def new_user_email_support(email, requester_email, pull_request_url)
+  def new_user_email_support(email_list, requester_email, pull_request_url)
     unless @notify_api_key
       Rails.logger.warn 'Warning: no NOTIFY_API_KEY set. Skipping emails.'
       return nil
@@ -47,7 +47,8 @@ class NotifyService
       email_address: 'gds-aws-account-management@digital.cabinet-office.gov.uk',
       template_id: '3aa6c219-a978-46a4-880f-68f908fb502c',
       personalisation: {
-        email_list: email,
+        subject_slug: email_list.split('@').first + (email_list.split('@').size > 1 ? ' and friends' : ''),
+        email_list: email_list,
         requester_email: requester_email,
         pull_request_url: pull_request_url
       }

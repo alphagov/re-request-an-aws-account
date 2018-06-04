@@ -47,7 +47,7 @@ class NotifyService
       email_address: 'gds-aws-account-management@digital.cabinet-office.gov.uk',
       template_id: '3aa6c219-a978-46a4-880f-68f908fb502c',
       personalisation: {
-        subject_slug: email_list.split('@').first + (email_list.split('@').size > 1 ? ' and friends' : ''),
+        subject_slug: email_list.split('@').first + (email_list.split('@').size > 2 ? ' and friends' : ''),
         email_list: email_list,
         requester_email: requester_email,
         pull_request_url: pull_request_url

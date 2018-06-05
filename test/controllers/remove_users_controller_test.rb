@@ -16,6 +16,6 @@ class RemoveUserControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect on valid form' do
     post remove_user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } }
-    assert_redirected_to confirmation_user_url
+    assert_redirected_to confirmation_remove_user_url
   end
 end

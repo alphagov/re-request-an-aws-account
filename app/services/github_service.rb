@@ -110,8 +110,8 @@ Co-authored-by: #{name} <#{requester_email}>",
       github_repo,
       'master',
       new_branch_name,
-      "Add new users to AWS",
-      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+      'Add new users to AWS',
+      "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
 
 #{email_list}"
       ).html_url
@@ -120,7 +120,67 @@ Co-authored-by: #{name} <#{requester_email}>",
     end
   end
 
-private
+  def create_remove_user_pull_request(email_list, requester_email)
+    unless @client
+      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      return nil
+    end
+
+    begin
+      github_repo = 'alphagov/aws-user-management-account-users'
+      users_path = 'terraform/gds_users.tf'
+      groups_path = 'terraform/iam_crossaccountaccess_members.tf'
+
+      users_contents = @client.contents github_repo, path: users_path
+      groups_contents = @client.contents github_repo, path: groups_path
+
+      terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
+      new_users_contents = terraform_users_service.remove_users(email_list)
+      new_groups_contents = terraform_users_service.remove_users_from_group(email_list)
+
+
+      new_branch_name = 'remove-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
+      create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
+      name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+      @client.update_contents(
+        github_repo,
+        users_path,
+        "Remove AWS users
+
+#{email_list}
+
+Co-authored-by: #{name} <#{requester_email}>",
+        users_contents.sha,
+        new_users_contents,
+        branch: new_branch_name
+      )
+      @client.update_contents(
+        github_repo,
+        groups_path,
+        "Remove users from crossaccountaccess group
+
+#{email_list}
+
+Co-authored-by: #{name} <#{requester_email}>",
+        groups_contents.sha,
+        new_groups_contents,
+        branch: new_branch_name
+      )
+      @client.create_pull_request(
+        github_repo,
+        'master',
+        new_branch_name,
+        'Remove users from AWS',
+        "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+
+        #{email_list}"
+      ).html_url
+    rescue StandardError => e
+      log_error 'Failed to raise new user PR', e
+    end
+  end
+
+  private
 
   def create_branch(repo, branch_name, sha)
     begin

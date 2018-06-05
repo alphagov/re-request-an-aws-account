@@ -8,7 +8,16 @@
       <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
       <p> See <a href="https://reliability-engineering.cloudapps.digital/manuals/access-aws-accounts.html">accessing AWS accounts</a> in the reliability engineering docs.</p>
       <p>Anyone at GDS can request user access to AWS for one or more people.</p>
-      <a href="<%= user_path %>" class="button button-start">Request user access</a>
+      <p>
+        <a href="<%= user_path %>" class="button button-start">Request user access</a>
+      </p>
+      <p>
+        You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process.
+        Users should only be removed when they leave GDS or no longer need access to any AWS resources.
+      </p>
+      <p>
+        <a href="<%= remove_user_path %>" class="button button-destructive">Request user removal</a>
+      </p>
       <h2 class="heading-medium">Request a new AWS account</h2>
       <p>Teams can use multiple AWS accounts to provide isolation between workloads. For example having separate production and test environments.</p>
       <p>See <a href="https://reliability-engineering.cloudapps.digital/manuals/create-aws-accounts.html">how to create AWS accounts</a> in the reliability engineering docs.</p>

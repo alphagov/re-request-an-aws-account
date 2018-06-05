@@ -133,4 +133,24 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
 
     assert_equal members, members.sort
   end
+
+  test 'Removes a user' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    result = terraform_users_service.remove_users 'uncle.bulgaria@digital.cabinet-office.gov.uk'
+
+    assert_match /"tobermory"/, result
+    assert_match /"bungo"/, result
+    assert_no_match /"uncle_bulgaria"/, result
+    assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
+  end
+
+  test 'Removes a user from a group' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    result = terraform_users_service.remove_users_from_group 'uncle.bulgaria@digital.cabinet-office.gov.uk'
+
+    assert_match /"\$\{aws_iam_user.tobermory.name}"/, result
+    assert_match /"\$\{aws_iam_user.bungo.name}"/, result
+    assert_no_match /"\$\{aws_iam_user.uncle_bulgaria.name}"/, result
+    assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
+  end
 end

@@ -1,0 +1,22 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <a href="<%= index_path %>" class="link-back">Back</a>
+    <h1 class="heading-large">Revoke users access to AWS</h1>
+    <p>When a user no longer requires any access to AWS (e.g. because they've left GDS) they should be removed from the <code>gds-users</code> base account.</p>
+    <p>Please make sure the users do not require access to AWS on another team within GDS before requesting their removal.</p>
+
+    <%= form_for @form, url: remove_user_path, html: { novalidate: true } do |f| %>
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:email_list) %>">
+          <%= f.label :email_list, 'GDS email addresses', class: 'form-label' %>
+          <%= f.text_area :email_list, value: @form.email_list, rows: 6, required: true, class: 'form-control full-width' %>
+          <% @form.errors[:email_list].each do |err| %>
+              <span class="error-message"><%= 'GDS email addresses ' + err %></span>
+          <% end %>
+        </fieldset>
+        <div>
+          <%= f.submit 'Submit', class: 'button' %>
+        </div>
+    <% end %>
+  </div>
+</div>
+

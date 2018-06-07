@@ -8,14 +8,30 @@ class ProgrammeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should validate form' do
+  test 'should validate empty form' do
     post programme_url, params: { programme_form: { programme: nil } }
     assert_response :success
-    assert_select '.error-message', 'Field is required'
+    assert_select '.error-message', 'Programme is required'
   end
 
-  test 'should redirect on valid form' do
+  test 'should validate form with programme and other set' do
+    post programme_url, params: { programme_form: { programme: 'GOV.UK', programme_other: 'Brexit' } }
+    assert_response :success
+    assert_select '.error-message', 'Only one of Programme and Other should be set'
+  end
+
+  test 'should redirect on valid form with programme' do
     post programme_url, params: { programme_form: { programme: 'GOV.UK' } }
+    assert_redirected_to administrators_url
+  end
+
+  test 'should redirect on valid form with other programme' do
+    post programme_url, params: { programme_form: { programme: 'Other', programme_other: 'Brexit' } }
+    assert_redirected_to administrators_url
+  end
+
+  test 'should redirect on valid form with nil programme but other set' do
+    post programme_url, params: { programme_form: { programme: nil, programme_other: 'Brexit' } }
     assert_redirected_to administrators_url
   end
 end

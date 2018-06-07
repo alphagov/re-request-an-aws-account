@@ -3,40 +3,50 @@
     <a href="<%= account_details_path %>" class="link-back">Back</a>
     <h1 class="heading-large">Programme owning the account</h1>
     <%= form_for @form, url: programme_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:programme) %>">
+        <fieldset class="form-group <%= 'form-group-error' if @form.errors.any? %>">
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'GOV.UK', checked: @form.programme == 'GOV.UK', id: 'programme_govuk', required: true %>
+            <%= f.radio_button :programme, 'GOV.UK', checked: @form.programme == 'GOV.UK', id: 'programme_govuk' %>
             <%= f.label :programme, 'GOV.UK', for: 'programme_govuk'  %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'GOV.UK Verify', checked: @form.programme == 'GOV.UK Verify', id: 'programme_verify', required: true %>
+            <%= f.radio_button :programme, 'GOV.UK Verify', checked: @form.programme == 'GOV.UK Verify', id: 'programme_verify' %>
             <%= f.label :programme,  'GOV.UK Verify', for: 'programme_verify' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'Government as a Platform', checked: @form.programme == 'Government as a Platform', id: 'programme_gaap', required: true %>
+            <%= f.radio_button :programme, 'Government as a Platform', checked: @form.programme == 'Government as a Platform', id: 'programme_gaap' %>
             <%= f.label :programme,  'Government as a Platform', for: 'programme_gaap' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'Digital Marketplace', checked: @form.programme == 'Digital Marketplace', id: 'programme_digital_marketplace', required: true %>
+            <%= f.radio_button :programme, 'Digital Marketplace', checked: @form.programme == 'Digital Marketplace', id: 'programme_digital_marketplace' %>
             <%= f.label :programme,  'Digital Marketplace', for: 'programme_digital_marketplace' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'Technology and Operations', checked: @form.programme == 'Technology and Operations', id: 'programme_tech_ops', required: true %>
+            <%= f.radio_button :programme, 'Technology and Operations', checked: @form.programme == 'Technology and Operations', id: 'programme_tech_ops' %>
             <%= f.label :programme,  'Technology and Operations', for: 'programme_tech_ops' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'Common Technology Services', checked: @form.programme == 'Common Technology Services', id: 'programme_cts', required: true %>
+            <%= f.radio_button :programme, 'Common Technology Services', checked: @form.programme == 'Common Technology Services', id: 'programme_cts' %>
             <%= f.label :programme,  'Common Technology Services', for: 'programme_cts' %>
           </div>
           <div class="multiple-choice">
-            <%= f.radio_button :programme, 'Data Science', checked: @form.programme == 'Data Science', id: 'programme_data', required: true %>
+            <%= f.radio_button :programme, 'Data Science', checked: @form.programme == 'Data Science', id: 'programme_data' %>
             <%= f.label :programme,  'Data Science', for: 'programme_data' %>
           </div>
-          <% @form.errors[:programme].each do |err| %>
-              <span class="error-message"><%= 'Field ' + err %></span>
-          <% end %>
+          <div class="multiple-choice">
+            <%= f.radio_button :programme, 'Other', checked: @form.programme == 'Other', id: 'programme_other' %>
+            <%= f.label :programme,  'Other', for: 'programme_other' %>
+          </div>
         </fieldset>
-        <div>
+        <div class="form-group <%= 'form-group-error' if @form.errors.any? %>">
+          <%= f.label :programme_other, 'Other (please specify)', class: 'form-label' %>
+          <%= f.text_field :programme_other, value: @form.programme_other, required: false, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <% @form.errors[:programme_or_other_specified].each do |err| %>
+            <span class="error-message"><%= err %></span>
+          <% end %>
+        </div>
+        <div class="form-group">
           <%= f.submit 'Next', class: 'button' %>
         </div>
     <% end %>

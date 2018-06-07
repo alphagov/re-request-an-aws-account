@@ -40,7 +40,7 @@
           Programme
         </dt>
         <dd class="cya-answer">
-          <%= @answers[:programme] %>
+          <%= @answers[:programme_or_other] %>
         </dd>
         <dd class="cya-change">
           <a href="<%= programme_path %>">
@@ -65,7 +65,7 @@
     </dl>
 
 
-    <% if [@answers[:account_name], @answers[:account_description], @answers[:programme], @answers[:admin_users]].all? &:present? %>
+    <% if [@answers[:account_name], @answers[:account_description], @answers[:programme_or_other], @answers[:admin_users]].all? &:present? %>
       <h2 class="heading-medium">Request your AWS account</h2>
 
       <p class="text">

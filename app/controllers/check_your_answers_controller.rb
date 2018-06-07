@@ -8,14 +8,14 @@ class CheckYourAnswersController < ApplicationController
 
     account_name = all_params['account_name']
     account_description = all_params['account_description']
-    programme = all_params['programme']
+    programme_or_other = all_params['programme_or_other']
     admin_users = all_params['admin_users']
     email = session['email']
 
     pull_request_url = GithubService.new.create_new_account_pull_request(
       account_name,
       account_description,
-      programme,
+      programme_or_other,
       email,
       admin_users
     ) || 'error-creating-pull-request'
@@ -26,7 +26,7 @@ class CheckYourAnswersController < ApplicationController
     notify_service.new_account_email_support(
       account_name: account_name,
       account_description: account_description,
-      programme: programme,
+      programme: programme_or_other,
       email: email,
       pull_request_url: pull_request_url,
       admin_users: admin_users

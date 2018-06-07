@@ -4,11 +4,14 @@ class ProgrammeController < ApplicationController
   end
 
   def post
-    form_params = params.fetch('programme_form', {}).permit(:programme).to_h
+    form_params = params.fetch('programme_form', {}).permit(:programme, :programme_other).to_h
     @form = ProgrammeForm.new(form_params)
     return render :programme if @form.invalid?
 
-    session['form'] = session.fetch('form', {}).merge form_params
+    session_form = session.fetch('form', {})
+    session_form.merge! form_params
+    session_form[:programme_or_other] = @form.programme_or_other
+    session['form'] = session_form
 
     redirect_to administrators_path
   end

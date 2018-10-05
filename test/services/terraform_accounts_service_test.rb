@@ -9,7 +9,7 @@ INITIAL_ACCOUNTS_TERRAFORM = <<EOTERRAFORM
           "name": "wombles-of-wimbledon-common-prod",
           "email": "aws-root-accounts+wom-of-wim-pro@digital.cabinet-office.gov.uk",
           "role_name": "bootstrap",
-          "iam_user_access_to_billing": "DENY"
+          "iam_user_access_to_billing": "ALLOW"
         }
       }
     },
@@ -19,7 +19,7 @@ INITIAL_ACCOUNTS_TERRAFORM = <<EOTERRAFORM
           "name": "wombles-of-wimbledon-common-staging",
           "email": "aws-root-accounts+wom-of-wim-sta@digital.cabinet-office.gov.uk",
           "role_name": "bootstrap",
-          "iam_user_access_to_billing": "DENY"
+          "iam_user_access_to_billing": "ALLOW"
         }
       }
     }

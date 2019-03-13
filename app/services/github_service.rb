@@ -78,14 +78,21 @@ Once the account is created, the following users should be granted access to the
       new_users_contents = terraform_users_service.add_users(email_list)
       new_groups_contents = terraform_users_service.add_users_to_group(email_list)
 
+      first_part_of_new_email_address = email_list.split('@').first
 
-      new_branch_name = 'new-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
+      if multiple_users?(email_list)
+        commit_message_title = "Remove AWS user #{first_part_of_new_email_address} and friends"
+      else
+        commit_message_title = "Remove AWS user #{first_part_of_new_email_address}"
+      end
+
+      new_branch_name = 'new-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
       create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
       name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
       @client.update_contents(
         github_repo,
         users_path,
-        "Add new AWS users
+        "#{commit_message_title}
 
 #{email_list}
 
@@ -110,7 +117,7 @@ Co-authored-by: #{name} <#{requester_email}>",
       github_repo,
       'master',
       new_branch_name,
-      'Add new users to AWS',
+      commit_message_title,
       "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
 
 #{email_list}"
@@ -138,14 +145,22 @@ Co-authored-by: #{name} <#{requester_email}>",
       new_users_contents = terraform_users_service.remove_users(email_list)
       new_groups_contents = terraform_users_service.remove_users_from_group(email_list)
 
+      first_part_of_new_email_address = email_list.split('@').first
 
-      new_branch_name = 'remove-aws-user-' + email_list.split('@').first.split('.').join('-') + ('-and-friends' if email_list.split('@').size > 2).to_s
+      new_branch_name = 'remove-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
       create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
-      name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+      name = first_part_of_new_email_address.split('.').map { |name| name.capitalize }.join(' ')
+
+      if multiple_users?(email_list)
+        commit_message_title = "Remove AWS user #{first_part_of_new_email_address} and friends"
+      else
+        commit_message_title = "Remove AWS user #{first_part_of_new_email_address}"
+      end
+
       @client.update_contents(
         github_repo,
         users_path,
-        "Remove AWS users
+        "#{commit_message_title}
 
 #{email_list}
 
@@ -170,7 +185,7 @@ Co-authored-by: #{name} <#{requester_email}>",
         github_repo,
         'master',
         new_branch_name,
-        'Remove users from AWS',
+        commit_message_title,
         "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
 
         #{email_list}"
@@ -198,5 +213,9 @@ Co-authored-by: #{name} <#{requester_email}>",
       backtrace: error ? error.backtrace.join("\n") : nil
     }.to_json)
     nil
+  end
+
+  def multiple_users?(email_list)
+    email_list.split('@').size > 2
   end
 end

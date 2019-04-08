@@ -81,9 +81,9 @@ Once the account is created, the following users should be granted access to the
       first_part_of_new_email_address = email_list.split('@').first
 
       if multiple_users?(email_list)
-        commit_message_title = "Remove AWS user #{first_part_of_new_email_address} and friends"
+        commit_message_title = "Add AWS user #{first_part_of_new_email_address} and friends"
       else
-        commit_message_title = "Remove AWS user #{first_part_of_new_email_address}"
+        commit_message_title = "Add AWS user #{first_part_of_new_email_address}"
       end
 
       new_branch_name = 'new-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s

@@ -1,8 +1,6 @@
 Reliability Engineering: Request an AWS Account
 ===============================================
 
-[![Build Status](https://travis-ci.org/alphagov/re-request-an-aws-account.svg?branch=master)](https://travis-ci.org/alphagov/re-request-an-aws-account)
-
 User interface to manage AWS Accounts (e.g. for new services or environments) and users within the base AWS account.
 
 Running locally
@@ -33,9 +31,8 @@ bundle exec rails test
 Deploying to PaaS
 -----------------
 
-There's a Travis job (see [.travis.yml](.travis.yml)) which continuously
-deploys to [https://gds-request-an-aws-account.cloudapps.digital](https://gds-request-an-aws-account.cloudapps.digital).
-Simply get your changes into master and make sure the build is green.
+This is continuously deployed from master by the [multi-tenant Concourse](https://cd.gds-reliabilty.engineering) via the [internal-apps pipeline in the tech-ops repo](https://github.com/alphagov/tech-ops/blob/master/reliability-engineering/pipelines/internal-apps.yml).
+
 
 To deploy to a separate route (e.g. for testing / previewing changes) you can push to PaaS manually:
 

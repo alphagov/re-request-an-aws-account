@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get '/confirmation/user', to: 'confirmation#user', as: :confirmation_user
   get '/confirmation/remove-user', to: 'confirmation#remove_user', as: :confirmation_remove_user
+  get '/confirmation/reset-password', to: 'confirmation#reset_password', as: :confirmation_reset_password
   get '/confirmation/account', to: 'confirmation#account', as: :confirmation_account
 
   get '/auth/google_oauth2/callback', to: 'google_auth#callback'

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get '/remove-user', to: 'remove_user#remove_user', as: :remove_user
   post '/remove-user', to: 'remove_user#post'
 
+  get '/reset-password', to: 'reset_password#reset_password', as: :reset_password
+  post '/reset-password', to: 'reset_password#post'
+
   get '/account-details', to: 'account_details#account_details', as: :account_details
   post '/account-details', to: 'account_details#post'
 

@@ -107,4 +107,38 @@ class NotifyService
       }
     )
   end
+
+  def reset_password_email_user(requester_name, requester_email, pull_request_url)
+    unless @notify_api_key
+      Rails.logger.warn 'Warning: no NOTIFY_API_KEY set. Skipping emails.'
+      return nil
+    end
+
+    client = Notifications::Client.new(@notify_api_key)
+    client.send_email(
+      email_address: requester_email,
+      template_id: 'afff4178-f7bc-4152-9200-d8bf614d7073',
+      personalisation: {
+        pull_request_url: pull_request_url
+      }
+    )
+  end
+
+  def reset_password_email_support(requester_name, requester_email, pull_request_url)
+    unless @notify_api_key
+      Rails.logger.warn 'Warning: no NOTIFY_API_KEY set. Skipping emails.'
+      return nil
+    end
+
+    client = Notifications::Client.new(@notify_api_key)
+    client.send_email(
+      email_address: 'gds-aws-account-management@digital.cabinet-office.gov.uk',
+      template_id: 'a4bdbc15-d899-47d9-867e-4e240c1687f9',
+      personalisation: {
+        requester_name: requester_name,
+        requester_email: requester_email,
+        pull_request_url: pull_request_url
+      }
+    )
+  end
 end

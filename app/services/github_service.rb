@@ -195,6 +195,51 @@ Co-authored-by: #{name} <#{requester_email}>",
     end
   end
 
+  def create_reset_user_email_pull_request(requester_name, requester_email)
+    unless @client
+      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      return nil
+    end
+
+    begin
+      github_repo = 'alphagov/aws-user-management-account-users'
+      password_reset_path = 'mgmt/password-reset-emails.txt'
+
+      password_reset_contents = @client.contents github_repo, path: password_reset_path
+
+      new_password_reset_contents = "#{requester_email}\n"
+
+      first_part_of_requester_email_address = requester_email.split('@').first
+
+      new_branch_name = 'reset-aws-user-password-' + first_part_of_requester_email_address.split('.').join('-')
+      create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
+
+      commit_message_title = "Reset password of AWS user #{first_part_of_new_email_address}"
+
+      @client.update_contents(
+        github_repo,
+        password_reset_path,
+        "#{commit_message_title}
+
+Co-authored-by: #{requester_name} <#{requester_email}>",
+        password_reset_contents.sha,
+        new_password_reset_contents,
+        branch: new_branch_name
+      )
+      @client.create_pull_request(
+        github_repo,
+        'master',
+        new_branch_name,
+        commit_message_title,
+        "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+
+        #{email_list}"
+      ).html_url
+    rescue StandardError => e
+      log_error 'Failed to raise new user PR', e
+    end
+  end
+
   private
 
   def create_branch(repo, branch_name, sha)

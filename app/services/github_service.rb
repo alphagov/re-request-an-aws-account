@@ -231,9 +231,7 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
         'master',
         new_branch_name,
         commit_message_title,
-        "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
-
-        #{email_list}"
+        "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_name}"
       ).html_url
     rescue StandardError => e
       log_error 'Failed to raise new user PR', e

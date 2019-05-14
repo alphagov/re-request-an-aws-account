@@ -214,7 +214,7 @@ Co-authored-by: #{name} <#{requester_email}>",
       new_branch_name = 'reset-aws-user-password-' + first_part_of_requester_email_address.split('.').join('-')
       create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
 
-      commit_message_title = "Reset password of AWS user #{first_part_of_new_email_address}"
+      commit_message_title = "Reset password of AWS user #{requester_name}"
 
       @client.update_contents(
         github_repo,

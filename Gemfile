@@ -15,6 +15,7 @@ gem 'notifications-ruby-client', '~> 3.1'
 gem 'lograge', '~> 0.10.0'
 gem 'logstash-event', '~> 1.2.02'
 gem 'gds_metrics', groups: [:production]
+gem 'webmock', '~> 3.5'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

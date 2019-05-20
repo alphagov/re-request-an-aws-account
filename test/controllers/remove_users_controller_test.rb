@@ -43,12 +43,12 @@ class RemoveUserControllerTest < ActionDispatch::IntegrationTest
 
     post remove_user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } }
 
-    users_terraform_after = assert_content_updated("/terraform/gds_users.tf")
+    users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf")
     assert_equal(
       [],
       users_terraform_after.dig('resource'))
 
-    cross_account_terraform_after = assert_content_updated("/terraform/iam_crossaccountaccess_members.tf")
+    cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf")
     assert_equal(
       [],
       cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
@@ -79,18 +79,5 @@ class RemoveUserControllerTest < ActionDispatch::IntegrationTest
 
     stub_request(:post, "#{USER_MANAGEMENT_GITHUB_API}/pulls").
       to_return(status: 200, body: '{"html_url": "' + resulting_pull_request_url + '"}', headers: {'Content-Type' => 'application/json'})
-  end
-
-  def assert_content_updated(path)
-    body = nil
-    assert_requested(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents#{path}") do |req|
-      body = req.body
-      true
-    end
-    assert_not_nil body
-    body_json = assert_nothing_raised { JSON.parse(body) }
-    assert_not_nil body_json["content"]
-    content_decoded = assert_nothing_raised { Base64.decode64(body_json["content"]) }
-    return assert_nothing_raised { JSON.parse(content_decoded) }
   end
 end

@@ -28,6 +28,19 @@ class ActiveSupport::TestCase
     session[key]
   end
 
+  def assert_content_updated(repository_api, path)
+    body = nil
+    assert_requested(:put, "#{repository_api}/contents#{path}") do |req|
+      body = req.body
+      true
+    end
+    assert_not_nil body
+    body_json = assert_nothing_raised { JSON.parse(body) }
+    assert_not_nil body_json["content"]
+    content_decoded = assert_nothing_raised { Base64.decode64(body_json["content"]) }
+    return assert_nothing_raised { JSON.parse(content_decoded) }
+  end
+
   def build_content_request(input)
     JSON.dump(content: Base64.encode64(JSON.dump(input)))
   end

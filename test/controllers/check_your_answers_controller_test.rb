@@ -27,8 +27,9 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should raise a PR for a new account and redirect with the PR url in session' do
+  test 'should raise a PR for a new account, email the users and redirect with the PR url in session' do
     accounts_terraform_before = build_content_request({ resource: [] })
+    stub_notify_emails
     stub_create_account_github_api(
       accounts_terraform_before,
       "https://some-new-account-pull-request-url")
@@ -45,6 +46,13 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
         }
       },
       accounts_terraform_after['resource'][0]['aws_organizations_account']
+    )
+
+    emails = assert_notify_emails_sent
+    assert_equal(2, emails.length)
+    assert_equal(
+      %w(gds-aws-account-management@digital.cabinet-office.gov.uk test@example.com).to_set,
+      emails.map{|e|e['email_address']}.to_set
     )
 
     assert_redirected_to confirmation_account_url

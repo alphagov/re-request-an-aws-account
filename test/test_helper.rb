@@ -27,4 +27,8 @@ class ActiveSupport::TestCase
     session = RackSessionAccess.decode(html_document.css("pre").inner_html)
     session[key]
   end
+
+  def build_content_request(input)
+    JSON.dump(content: Base64.encode64(JSON.dump(input)))
+  end
 end

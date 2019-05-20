@@ -13,6 +13,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   }
 
   teardown {
+    WebMock.reset!
     WebMock.disable!
     reset_env_vars
   }
@@ -28,7 +29,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     assert_select '.error-message', 'GDS email addresses should be a list of GDS emails'
   end
 
-  test 'should create pull request and redirect with pull_request_url in session' do
+  test 'should create pull request to add user and redirect with pull_request_url in session' do
     users_terraform_before = build_content_request(resource:[])
     cross_account_terraform_before = build_content_request(
       resource: { aws_iam_group_membership: { "crossaccountaccess-members" => { users: [] } } }
@@ -36,7 +37,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     stub_create_user_github_api(
       users_terraform_before,
       cross_account_terraform_before,
-      "https://some-pull-request-url",
+      "https://some-add-user-pull-request-url",
     )
 
     post(user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } })
@@ -48,12 +49,12 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 
     cross_account_terraform_after = assert_content_updated("/terraform/iam_crossaccountaccess_members.tf")
     assert_equal(
-      {"users"=>["${aws_iam_user.test_user.name}"]},
-      cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members')
+      ["${aws_iam_user.test_user.name}"],
+      cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
     )
 
     assert_redirected_to confirmation_user_url
-    assert_equal "https://some-pull-request-url", read_from_session("pull_request_url")
+    assert_equal "https://some-add-user-pull-request-url", read_from_session("pull_request_url")
   end
 
 private
@@ -92,9 +93,5 @@ private
     assert_not_nil body_json["content"]
     content_decoded = assert_nothing_raised { Base64.decode64(body_json["content"]) }
     return assert_nothing_raised { JSON.parse(content_decoded) }
-  end
-
-  def build_content_request(input)
-    JSON.dump(content: Base64.encode64(JSON.dump(input)))
   end
 end

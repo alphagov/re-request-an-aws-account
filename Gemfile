@@ -12,7 +12,7 @@ gem 'govuk_elements_rails', '~> 3.1'
 gem 'omniauth-google-oauth2', '~> 0.6.1'
 gem 'octokit', '~> 4.8'
 gem 'notifications-ruby-client', '~> 3.1'
-gem 'lograge', '~> 0.10.0'
+gem 'lograge', '~> 0.11.1'
 gem 'logstash-event', '~> 1.2.02'
 gem 'gds_metrics', groups: [:production]
 gem 'webmock', '~> 3.5'

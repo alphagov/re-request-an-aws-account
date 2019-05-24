@@ -57,7 +57,7 @@ GEM
     erubi (1.8.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    ffi (1.11.0)
+    ffi (1.11.1)
     gds_metrics (0.1.0)
       prometheus-client-mmap (= 0.9.1)
     globalid (0.4.2)

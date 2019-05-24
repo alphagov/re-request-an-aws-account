@@ -7,7 +7,7 @@ gem 'dotenv-rails', groups: [:development]
 
 gem 'rails', '5.2.2.1'
 gem 'govuk_template', '~> 0.26'
-gem 'govuk_frontend_toolkit', '~> 8.1'
+gem 'govuk_frontend_toolkit', '~> 8.2'
 gem 'govuk_elements_rails', '~> 3.1'
 gem 'omniauth-google-oauth2', '~> 0.6.1'
 gem 'octokit', '~> 4.8'

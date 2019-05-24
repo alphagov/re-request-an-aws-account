@@ -13,6 +13,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   }
 
   teardown {
+    WebMock.reset!
     WebMock.disable!
     reset_env_vars
   }
@@ -28,7 +29,8 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     assert_select '.error-message', 'GDS email addresses should be a list of GDS emails'
   end
 
-  test 'should create pull request and redirect with pull_request_url in session' do
+  test 'should create pull request to add user, email the users and redirect with pull_request_url in session' do
+    stub_notify_emails
     users_terraform_before = build_content_request(resource:[])
     cross_account_terraform_before = build_content_request(
       resource: { aws_iam_group_membership: { "crossaccountaccess-members" => { users: [] } } }
@@ -36,24 +38,31 @@ class UserControllerTest < ActionDispatch::IntegrationTest
     stub_create_user_github_api(
       users_terraform_before,
       cross_account_terraform_before,
-      "https://some-pull-request-url",
+      "https://some-add-user-pull-request-url",
     )
 
     post(user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } })
 
-    users_terraform_after = assert_content_updated("/terraform/gds_users.tf")
+    users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf")
     assert_equal(
       [ {"aws_iam_user"=>{"test_user"=>{"name"=>"test.user@digital.cabinet-office.gov.uk", "force_destroy"=>true}}}],
       users_terraform_after.dig('resource'))
 
-    cross_account_terraform_after = assert_content_updated("/terraform/iam_crossaccountaccess_members.tf")
+    cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf")
     assert_equal(
-      {"users"=>["${aws_iam_user.test_user.name}"]},
-      cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members')
+      ["${aws_iam_user.test_user.name}"],
+      cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
+    )
+
+    emails = assert_notify_emails_sent
+    assert_equal 2, emails.length
+    assert_equal(
+      %w(gds-aws-account-management@digital.cabinet-office.gov.uk test@example.com).to_set,
+      emails.map{|e|e['email_address']}.to_set
     )
 
     assert_redirected_to confirmation_user_url
-    assert_equal "https://some-pull-request-url", read_from_session("pull_request_url")
+    assert_equal "https://some-add-user-pull-request-url", read_from_session("pull_request_url")
   end
 
 private
@@ -79,22 +88,5 @@ private
 
     stub_request(:post, "#{USER_MANAGEMENT_GITHUB_API}/pulls").
       to_return(status: 200, body: '{"html_url": "' + resulting_pull_request_url + '"}', headers: {'Content-Type' => 'application/json'})
-  end
-
-  def assert_content_updated(path)
-    body = nil
-    assert_requested(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents#{path}") do |req|
-      body = req.body
-      true
-    end
-    assert_not_nil body
-    body_json = assert_nothing_raised { JSON.parse(body) }
-    assert_not_nil body_json["content"]
-    content_decoded = assert_nothing_raised { Base64.decode64(body_json["content"]) }
-    return assert_nothing_raised { JSON.parse(content_decoded) }
-  end
-
-  def build_content_request(input)
-    JSON.dump(content: Base64.encode64(JSON.dump(input)))
   end
 end

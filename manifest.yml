@@ -5,4 +5,3 @@ applications:
   buildpack: ruby_buildpack
   services:
     - logit-ssl-drain
-    - gds-request-an-aws-account-prometheus

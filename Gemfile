@@ -14,7 +14,7 @@ gem 'octokit', '~> 4.14'
 gem 'notifications-ruby-client', '~> 3.1'
 gem 'lograge', '~> 0.11.1'
 gem 'logstash-event', '~> 1.2.02'
-gem 'webmock', '~> 3.5'
+gem 'webmock', '~> 3.6'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

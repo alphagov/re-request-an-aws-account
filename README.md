@@ -28,6 +28,8 @@ Run the tests with:
 bundle exec rails test
 ```
 
+To sign in as a development user, visit <http://localhost:3000/dev-login>.
+
 Deploying to PaaS
 -----------------
 

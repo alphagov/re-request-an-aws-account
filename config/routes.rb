@@ -30,4 +30,8 @@ Rails.application.routes.draw do
 
   get '/auth/google_oauth2/callback', to: 'google_auth#callback'
   get '/auth/google_oauth2/error/bad-email', to: 'google_auth#error_bad_email', as: :error_bad_email
+
+  if Rails.env.development?
+    get '/dev-login' => 'development#dev_login'
+  end
 end

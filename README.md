@@ -28,7 +28,7 @@ Run the tests with:
 bundle exec rails test
 ```
 
-To sign in as a development user, visit <http://localhost:3000/dev-login>.
+To sign in as a development user, visit <http://localhost:3000/dev-login>. If you want to test with real Google SSO, you can [create an application in the Google Cloud Console](https://console.developers.google.com/apis/credentials).
 
 Deploying to PaaS
 -----------------

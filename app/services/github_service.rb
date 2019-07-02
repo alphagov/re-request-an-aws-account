@@ -26,6 +26,7 @@ class GithubService
       terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
       new_account_terraform = terraform_accounts_service.add_account(account_name)
       account_description_quote = account_description.split(/\r?\n/).map {|desc| "> #{desc}"}.join("\n")
+
       @client.update_contents(
         github_repo,
         accounts_path,
@@ -35,16 +36,17 @@ Description:
 #{account_description_quote}
 
 Co-authored-by: #{name} <#{email}>",
-      accounts_contents.sha,
-      new_account_terraform,
-      branch: new_branch_name
-    )
-    @client.create_pull_request(
-      github_repo,
-      'master',
-      new_branch_name,
-      "Add new AWS account for #{programme}: #{account_name}",
-      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
+        accounts_contents.sha,
+        new_account_terraform,
+        branch: new_branch_name
+      )
+
+      admin_users_arns = []
+      admin_users.each do |email|
+        admin_users_arns.append "arn:aws:iam::622626885786:user/#{email}"
+      end
+        pr_text = <<-PR_TEXT
+        "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
 
 Description:
 #{account_description_quote}
@@ -53,8 +55,39 @@ Once the account is created, the following users should be granted access to the
 
 ```
 #{admin_users}
-```"
+```
+
+The trust relationship should look like this:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": #{admin_users_arns.to_json}
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "Bool": {
+          "aws:MultiFactorAuthPresent": "true"
+        }
+      }
+    }
+  ]
+}
+```
+      PR_TEXT
+
+      @client.create_pull_request(
+        github_repo,
+        'master',
+        new_branch_name,
+        "Add new AWS account for #{programme}: #{account_name}",
+        pr_text
       ).html_url
+
     rescue StandardError => e
       log_error 'Failed to raise new account PR', e
     end

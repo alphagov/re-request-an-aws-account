@@ -42,11 +42,14 @@ Co-authored-by: #{name} <#{email}>",
       )
 
       admin_users_arns = []
-      admin_users.each do |email|
-        admin_users_arns.append "arn:aws:iam::622626885786:user/#{email}"
+      if ! admin_users.nil?
+        admin_users.each do |email|
+          admin_users_arns.append "arn:aws:iam::622626885786:user/#{email}"
+        end
       end
-        pr_text = <<-PR_TEXT
-        "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
+
+      pr_text = <<-PR_TEXT
+      Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
 
 Description:
 #{account_description_quote}

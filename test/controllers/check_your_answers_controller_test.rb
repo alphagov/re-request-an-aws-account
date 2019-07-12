@@ -42,7 +42,8 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
           "name" => "some-name",
           "email" => "aws-root-accounts+some-name@digital.cabinet-office.gov.uk",
           "role_name" => "bootstrap",
-          "iam_user_access_to_billing" => "ALLOW"
+          "iam_user_access_to_billing" => "ALLOW",
+          "lifecycle" => { "ignore_changes" => ["tags"]}
         }
       },
       accounts_terraform_after['resource'][0]['aws_organizations_account']

@@ -5,7 +5,7 @@ ruby '2.6.3'
 
 gem 'dotenv-rails', groups: [:development]
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.2'
 gem 'govuk_template', '~> 0.26'
 gem 'govuk_frontend_toolkit', '~> 8.2'
 gem 'govuk_elements_rails', '~> 3.1'

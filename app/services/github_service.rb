@@ -150,6 +150,7 @@ Co-authored-by: #{name} <#{requester_email}>",
       new_branch_name = 'remove-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
       create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
       name = first_part_of_new_email_address.split('.').map { |name| name.capitalize }.join(' ')
+      requester_name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
 
       if multiple_users?(email_list)
         commit_message_title = "Remove AWS user #{first_part_of_new_email_address} and friends"
@@ -164,7 +165,7 @@ Co-authored-by: #{name} <#{requester_email}>",
 
 #{email_list}
 
-Co-authored-by: #{name} <#{requester_email}>",
+Co-authored-by: #{requester_name} <#{requester_email}>",
         users_contents.sha,
         new_users_contents,
         branch: new_branch_name
@@ -176,7 +177,7 @@ Co-authored-by: #{name} <#{requester_email}>",
 
 #{email_list}
 
-Co-authored-by: #{name} <#{requester_email}>",
+Co-authored-by: #{requester_name} <#{requester_email}>",
         groups_contents.sha,
         new_groups_contents,
         branch: new_branch_name

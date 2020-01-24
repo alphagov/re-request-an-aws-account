@@ -164,7 +164,7 @@ Co-authored-by: #{name} <#{requester_email}>",
 
 #{email_list}
 
-Co-authored-by: #{name} <#{requester_email}>",
+Co-authored-by: #{requester_name} <#{requester_email}>",
         users_contents.sha,
         new_users_contents,
         branch: new_branch_name

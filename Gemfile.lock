@@ -69,7 +69,7 @@ GEM
       sass (>= 3.2.0)
     govuk_template (0.26.0)
       rails (>= 3.1)
-    hashdiff (0.4.0)
+    hashdiff (1.0.0)
     hashie (3.6.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -118,7 +118,7 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    public_suffix (3.1.0)
+    public_suffix (3.1.1)
     rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -175,7 +175,7 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    webmock (3.6.0)
+    webmock (3.8.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -198,7 +198,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.7.0)
   rack_session_access (~> 0.2.0)
   rails (= 5.2.3)
-  webmock (~> 3.6)
+  webmock (~> 3.8)
 
 RUBY VERSION
    ruby 2.6.4p104

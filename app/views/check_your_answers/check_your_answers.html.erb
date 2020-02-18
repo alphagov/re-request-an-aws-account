@@ -1,8 +1,8 @@
-<div class="grid-row">
-  <div class="column-two-thirds">
-    <a href="<%= administrators_path %>" class="link-back">Back</a>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= administrators_path %>" class="govuk-back-link">Back</a>
 
-    <h1 class="heading-large">
+    <h1 class="govuk-heading-l">
       Check your answers
     </h1>
 
@@ -66,18 +66,18 @@
 
 
     <% if [@answers[:account_name], @answers[:account_description], @answers[:programme_or_other], @answers[:admin_users]].all? &:present? %>
-      <h2 class="heading-medium">Request your AWS account</h2>
+      <h2 class="govuk-heading-m">Request your AWS account</h2>
 
       <p class="text">
         Please make sure the details above are correct before you submit your application.
       </p>
 
-      <form action="<%= check_your_answers_path %>" method="post" class="form-group">
+      <form action="<%= check_your_answers_path %>" method="post" class="govuk-form-group">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-        <input type="submit" class="button" value="Accept and send application">
+        <input type="submit" class="govuk-button" data-module="govuk-button" value="Accept and send application">
       </form>
     <% else %>
-      <h2 class="heading-medium">Details required</h2>
+      <h2 class="govuk-heading-m">Details required</h2>
       <p>
         Please fill in the sections above to continue, or
         <a href="<%= account_details_path %>">go back to the start</a>.

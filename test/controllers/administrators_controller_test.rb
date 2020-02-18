@@ -11,7 +11,7 @@ class AdministratorsControllerTest < ActionDispatch::IntegrationTest
   test 'should validate form' do
     post administrators_url, params: { administrators_form: { } }
     assert_response :success
-    assert_select '.error-message', 'Admin users should be a list of GDS emails'
+    assert_select '.govuk-error-message', 'Admin users should be a list of GDS emails'
   end
 
   [

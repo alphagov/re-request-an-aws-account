@@ -2,76 +2,43 @@
   <div class="govuk-grid-column-two-thirds">
     <a href="<%= administrators_path %>" class="govuk-back-link">Back</a>
 
-    <h1 class="govuk-heading-l">
-      Check your answers
-    </h1>
+    <h1 class="govuk-heading-l">Check your answers</h1>
 
-    <dl class="govuk-check-your-answers cya-questions-short">
-      <div>
-        <dt class="cya-question">
-          Account Name
-        </dt>
-        <dd class="cya-answer">
-          <%= @answers[:account_name] %>
-        </dd>
-        <dd class="cya-change">
-          <a href="<%= account_details_path %>">
-            Change<span class="visually-hidden"> account name</span>
-          </a>
-        </dd>
-      </div>
-
-      <div>
-        <dt class="cya-question">
-          Description
-        </dt>
-        <dd class="cya-answer">
-          <%= @answers[:account_description] %>
-        </dd>
-        <dd class="cya-change">
-          <a href="<%= account_details_path %>">
-            Change<span class="visually-hidden"> description</span>
-          </a>
-        </dd>
-      </div>
-
-      <div>
-        <dt class="cya-question">
-          Programme
-        </dt>
-        <dd class="cya-answer">
-          <%= @answers[:programme_or_other] %>
-        </dd>
-        <dd class="cya-change">
-          <a href="<%= programme_path %>">
-            Change<span class="visually-hidden"> programme</span>
-          </a>
-        </dd>
-      </div>
-
-      <div>
-        <dt class="cya-question">
-          Admin users
-        </dt>
-        <dd class="cya-answer">
-          <pre><%= @answers[:admin_users] %></pre>
-        </dd>
-        <dd class="cya-change">
-          <a href="<%= administrators_path %>">
-            Change<span class="visually-hidden"> admin users</span>
-          </a>
-        </dd>
-      </div>
-    </dl>
-
+    <table class="govuk-table">  
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">account name</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">description</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">programme</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Account name</td>
+          <td class="govuk-table__cell"> <%= @answers[:account_name] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Description</td>
+          <td class="govuk-table__cell"><%= @answers[:account_description] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Programme</td>
+          <td class="govuk-table__cell"><%= @answers[:programme_or_other] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', programme_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Admin users</td>
+          <td class="govuk-table__cell"><%= @answers[:admin_users] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', administrators_path, class: 'govuk-link' %></td>
+        </tr>
+      </tbody>
+    </table>
 
     <% if [@answers[:account_name], @answers[:account_description], @answers[:programme_or_other], @answers[:admin_users]].all? &:present? %>
       <h2 class="govuk-heading-m">Request your AWS account</h2>
-
-      <p class="text">
-        Please make sure the details above are correct before you submit your application.
-      </p>
-
+      <p>Please make sure the details above are correct before you submit your application.</p>
       <form action="<%= check_your_answers_path %>" method="post" class="govuk-form-group">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
         <input type="submit" class="govuk-button" data-module="govuk-button" value="Accept and send application">

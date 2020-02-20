@@ -188,7 +188,7 @@ DEPENDENCIES
   rack_session_access (~> 0.2.0)
   rails (= 5.2.3)
   sassc-rails
-  webmock (~> 3.6)
+  webmock (~> 3.8)
 
 RUBY VERSION
    ruby 2.7.1p83

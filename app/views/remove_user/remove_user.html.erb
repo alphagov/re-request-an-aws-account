@@ -2,6 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <a href="<%= index_path %>" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Revoke users access to AWS</h1>
+    <%= error_summary_for(@form&.errors, :user_form) %>
     <p>When a user no longer requires any access to AWS (e.g. because they've left GDS) they should be removed from the <code>gds-users</code> base account.</p>
     <p>Please make sure the users do not require access to AWS on another team within GDS before requesting their removal.</p>
 
@@ -9,10 +10,8 @@
       <fieldset class="govuk-fieldset">
         <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:email_list) %>">
           <%= f.label :email_list, 'GDS email addresses', class: 'govuk-label' %>
-          <%= f.text_area :email_list, value: @form.email_list, required: true, class: 'govuk-textarea', rows: '6' %>
-          <% @form.errors[:email_list].each do |err| %>
-              <span class="govuk-error-message"><%= 'GDS email addresses ' + err %></span>
-          <% end %>
+          <%= error_message_on(f.object.errors, :email_list) %>
+          <%= f.text_area :email_list, value: @form.email_list, required: true, class: "govuk-textarea #{@form.errors&.any? ? 'govuk-textarea--error' : ''}", rows: '6' %>
         </div>
       </fieldset>
       <%= f.submit 'Submit', class: 'govuk-button', data: { module: "govuk-button" } %>

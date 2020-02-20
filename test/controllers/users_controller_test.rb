@@ -26,7 +26,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
   test 'should validate form' do
     post user_url, params: { user_form: { email_list: 'test.user@example.com' } }
     assert_response :success
-    assert_select '.govuk-error-message', 'GDS email addresses should be a list of GDS emails'
+    assert_select '.govuk-error-message', 'Error:Email list should be a list of GDS emails'
   end
 
   [

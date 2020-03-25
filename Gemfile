@@ -8,7 +8,7 @@ gem 'dotenv-rails', groups: [:development]
 gem 'rails', '5.2.3'
 gem 'sassc-rails'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
-gem 'octokit', '~> 4.14'
+gem 'octokit', '~> 4.18'
 gem 'notifications-ruby-client', '~> 3.1'
 gem 'lograge', '~> 0.11.2'
 gem 'logstash-event', '~> 1.2.02'

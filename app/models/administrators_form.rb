@@ -3,7 +3,7 @@ class AdministratorsForm
 
   attr_reader :admin_users
   validates_format_of :admin_users,
-                      with: /\A([a-z.\-]+@digital.cabinet-office.gov.uk,?\s*)+\z/,
+                      with: EmailValidator.allowed_emails_regexp,
                       message: 'should be a list of GDS emails'
   validates_each :admin_users do |record, attr, value|
     record.errors.add attr, 'is required' if value.nil? || value.empty?

@@ -7,8 +7,8 @@ module EmailValidator
 
   def self.allowed_emails_regexp
     Regexp.union(
-      /\A([a-z.\-]+@digital.cabinet-office.gov.uk,?\s*)+\z/,
-      /\A([a-z.\-]+@cabinetoffice.gov.uk,?\s*)+\z/,
+      /\A([a-z.\-]+@digital\.cabinet-office\.gov\.uk,?\s*)+\z/,
+      /\A([a-z.\-]+@cabinetoffice\.gov\.uk,?\s*)+\z/,
     )
   end
 

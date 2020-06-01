@@ -3,7 +3,8 @@ class GoogleAuthController < ApplicationController
 
   def callback
     email = request.env['omniauth.auth']['info']['email']
-    if email.end_with? '@digital.cabinet-office.gov.uk'
+
+    if EmailValidator.email_is_allowed?(email)
       session['email'] = email
       session['name'] = request.env['omniauth.auth']['info']['name']
 

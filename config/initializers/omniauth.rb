@@ -6,7 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     provider :google_oauth2,
              google_client_id,
              google_client_secret,
-             hd: 'digital.cabinet-office.gov.uk',
+             hd: '*',
              prompt: :consent
   end
 end

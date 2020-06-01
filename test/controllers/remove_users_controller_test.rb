@@ -29,40 +29,45 @@ class RemoveUserControllerTest < ActionDispatch::IntegrationTest
     assert_select '.error-message', 'GDS email addresses should be a list of GDS emails'
   end
 
-  test 'should create pull request to remove user, email the users and redirect with pull_request_url in session' do
-    stub_notify_emails
-    users_terraform_before = build_content_request(resource: [
-      {"aws_iam_user"=>{"test_user"=>{"name"=>"test.user@digital.cabinet-office.gov.uk", "force_destroy"=>true}}}
-    ])
-    cross_account_terraform_before = build_content_request(
-      resource: { aws_iam_group_membership: { "crossaccountaccess-members" => { users: ["${aws_iam_user.test_user.name}"] } } }
-    )
-    stub_create_user_github_api(
-      users_terraform_before,
-      cross_account_terraform_before,
-      "https://some-remove-user-pull-request-url")
+  [
+    %w[GDS digital.cabinet-office.gov.uk],
+    %w[CabinetOffice cabinetoffice.gov.uk],
+  ].each do |org, email_suffix|
+    test "should create pull request to remove user, email the #{org} users and redirect with pull_request_url in session" do
+      stub_notify_emails
+      users_terraform_before = build_content_request(resource: [
+        {"aws_iam_user"=>{"test_user"=>{"name"=>"test.user@#{email_suffix}", "force_destroy"=>true}}}
+      ])
+      cross_account_terraform_before = build_content_request(
+        resource: { aws_iam_group_membership: { "crossaccountaccess-members" => { users: ["${aws_iam_user.test_user.name}"] } } }
+      )
+      stub_create_user_github_api(
+        users_terraform_before,
+        cross_account_terraform_before,
+        "https://some-remove-user-pull-request-url")
 
-    post remove_user_url, params: { user_form: { email_list: 'test.user@digital.cabinet-office.gov.uk' } }
+      post remove_user_url, params: { user_form: { email_list: "test.user@#{email_suffix}" } }
 
-    users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf")
-    assert_equal(
-      [],
-      users_terraform_after.dig('resource'))
+      users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf")
+      assert_equal(
+        [],
+        users_terraform_after.dig('resource'))
 
-    cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf")
-    assert_equal(
-      [],
-      cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
-    )
-    emails = assert_notify_emails_sent
-    assert_equal 2, emails.length
-    assert_equal(
-      %w(gds-aws-account-management@digital.cabinet-office.gov.uk test@example.com).to_set,
-      emails.map{|e|e['email_address']}.to_set
-    )
+      cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf")
+      assert_equal(
+        [],
+        cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
+      )
+      emails = assert_notify_emails_sent
+      assert_equal 2, emails.length
+      assert_equal(
+        %w(gds-aws-account-management@digital.cabinet-office.gov.uk test@example.com).to_set,
+        emails.map{|e|e['email_address']}.to_set
+      )
 
-    assert_redirected_to confirmation_remove_user_url
-    assert_equal "https://some-remove-user-pull-request-url", read_from_session("pull_request_url")
+      assert_redirected_to confirmation_remove_user_url
+      assert_equal "https://some-remove-user-pull-request-url", read_from_session("pull_request_url")
+    end
   end
 
   def stub_create_user_github_api(users_terraform, cross_account_terraform, resulting_pull_request_url)

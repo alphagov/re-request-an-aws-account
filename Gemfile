@@ -17,3 +17,5 @@ gem 'webmock', '~> 3.8'
 group :test do
   gem 'rack_session_access', '~> 0.2.0'
 end
+
+gem "listen", "~> 3.2", :group => :development

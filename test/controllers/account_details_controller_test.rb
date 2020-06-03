@@ -11,7 +11,7 @@ class AccountDetailsControllerTest < ActionDispatch::IntegrationTest
   test 'should validate form' do
     post account_details_url, params: { account_details_form: { account_name: 'BAD ACCOUNT NAME', account_description: 'some description' } }
     assert_response :success
-    assert_select '.error-message', 'Account name should be lower-case-separated-by-dashes'
+    assert_select '.govuk-error-message', 'Error:Account name should be lower-case-separated-by-dashes'
   end
 
   test 'should redirect on valid form' do

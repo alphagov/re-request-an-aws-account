@@ -1,22 +1,21 @@
-<div class="grid-row">
-  <div class="column-two-thirds">
-    <a href="<%= index_path %>" class="link-back">Back</a>
-    <h1 class="heading-large">Grant users access to AWS</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Grant users access to AWS</h1>
+    <%= error_summary_for(@form&.errors, :user_form) %>
     <p>To access GDS' AWS accounts users must be added to the <code>gds-users</code> base account.</p>
     <p>Having access to the base account does not give a user access to anything until target accounts allow that user to assume roles.</p>
     <p>All you need to do to add users to the base account is tell us their email addresses.</p>
 
     <%= form_for @form, url: user_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:email_list) %>">
-          <%= f.label :email_list, 'GDS email addresses', class: 'form-label' %>
-          <%= f.text_area :email_list, value: @form.email_list, rows: 6, required: true, class: 'form-control full-width' %>
-          <% @form.errors[:email_list].each do |err| %>
-              <span class="error-message"><%= 'GDS email addresses ' + err %></span>
-          <% end %>
-        </fieldset>
-        <div>
-          <%= f.submit 'Submit', class: 'button' %>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:email_list) %>">
+          <%= f.label :email_list, 'GDS email addresses', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :email_list) %>
+          <%= f.text_area :email_list, value: @form.email_list, required: true, class: "govuk-textarea #{@form.errors&.any? ? 'govuk-textarea--error' : ''}", rows: '6' %>
         </div>
+      </fieldset>
+      <%= f.submit 'Submit', class: 'govuk-button', data: { module: "govuk-button" } %>
     <% end %>
   </div>
 </div>

@@ -1,9 +1,11 @@
-<div class="grid-row">
-  <div class="column-two-thirds">
-    <a href="<%= programme_path %>" class="link-back">Back</a>
-    <h1 class="heading-large">Admin users</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= programme_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Admin users</h1>
+    <%= error_summary_for(@form&.errors, :administrators_form) %>
     <%= form_for @form, url: administrators_path, html: { novalidate: true } do |f| %>
-        <fieldset class="form-group <%= 'form-group-error' if @form.errors.include?(:admin_users) %>">
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:admin_users) %>">
           <legend>
             <p>
               Your account will be created with an administrative role so it can be bootstrapped.
@@ -13,14 +15,11 @@
               Separate entries by new lines.
             </p>
           </legend>
-          <%= f.text_area :admin_users, value: @form.admin_users, required: true, rows: 6, class: 'form-control full-width' %>
-          <% @form.errors[:admin_users].each do |err| %>
-              <span class="error-message"><%= "Admin users #{err}" %></span>
-          <% end %>
-        </fieldset>
-        <div>
-          <%= f.submit 'Next', class: 'button' %>
+          <%= error_message_on(f.object.errors, :admin_users) %>
+          <%= f.text_area :admin_users, value: @form.admin_users, required: true, rows: 6, class: "govuk-textarea #{@form.errors&.any? ? 'govuk-textarea--error' : ''}" %>
         </div>
+      </fieldset>
+      <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
     <% end %>
   </div>
 </div>

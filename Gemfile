@@ -6,9 +6,7 @@ ruby '2.7.1'
 gem 'dotenv-rails', groups: [:development]
 
 gem 'rails', '5.2.3'
-gem 'govuk_template', '~> 0.26'
-gem 'govuk_frontend_toolkit', '~> 8.2'
-gem 'govuk_elements_rails', '~> 3.1'
+gem 'sassc-rails'
 gem 'omniauth-google-oauth2', '~> 0.7.0'
 gem 'octokit', '~> 4.14'
 gem 'notifications-ruby-client', '~> 3.1'

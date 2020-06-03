@@ -15,5 +15,9 @@ module ReRequestAnAwsAccount
     config.load_defaults 5.2
     config.generators.system_tests = nil
     config.action_view.field_error_proc = Proc.new { |html_tag| html_tag }
+
+    # Set a css_compressor so sassc-rails does not overwrite the compressor when running 
+    # workaround until https://github.com/sass/libsass/milestone/35 is shipped
+    config.assets.css_compressor = nil
   end
 end

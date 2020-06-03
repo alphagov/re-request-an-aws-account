@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 gem 'dotenv-rails', groups: [:development]
 
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.3.1'
 gem 'sassc-rails'
 gem 'omniauth-google-oauth2', '~> 0.7.0'
 gem 'octokit', '~> 4.14'

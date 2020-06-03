@@ -10,7 +10,7 @@ gem 'logstash-event', '~> 1.2.02'
 gem 'notifications-ruby-client', '~> 3.1'
 gem 'octokit', '~> 4.18'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
-gem 'rails', '5.2.3'
+gem 'rails', '~> 6'
 gem 'sassc-rails'
 gem 'webmock', '~> 3.8'
 

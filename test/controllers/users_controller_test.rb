@@ -1,8 +1,6 @@
 require 'test_helper'
 require 'webmock'
 
-USER_MANAGEMENT_GITHUB_API = "https://api.github.com/repos/alphagov/aws-user-management-account-users"
-
 class UserControllerTest < ActionDispatch::IntegrationTest
   include WebMock::API
 

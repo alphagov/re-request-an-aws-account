@@ -3,17 +3,33 @@
     <h1 class="govuk-heading-l">Request an AWS account</h1>
     <% if @email %>
       <p>You are logged in as <em><%= @email %></em>.</p>
-      <h2 class="govuk-heading-m">Grant users access to AWS</h2>
+
+      <p>You can use this service to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a class="govuk-link" href="#manage-users">
+            Manage user access to Amazon Web Services (AWS)
+          </a>
+        </li>
+        <li>
+          <a class="govuk-link" href="#request-cloud">
+            Request access to cloud computing resources
+          </a>
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-m" id="manage-users">Manage user access to Amazon Web Services (AWS)</h2>
+
+      <h3 class="govuk-heading-s">Grant AWS access to a user</h3>
       <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by reliability engineering with a base GDS account: <em>gds-users</em>.</p>
       <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
       <p> See <a href="https://reliability-engineering.cloudapps.digital/iaas.html#access-aws-accounts">accessing AWS accounts</a> in the reliability engineering docs.</p>
-      <p>Anyone at GDS can request user access to AWS for one or more people.</p>
-      <a href="<%= user_path %>" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+      <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
+      <a href="<%= user_path %>" class="govuk-button" data-module="govuk-button">
         Request user access
-        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
-          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-        </svg>
       </a>
+
+      <h3 class="govuk-heading-s">Remove AWS access from a user</h3>
       <p>
         You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process.
         Users should only be removed when they leave GDS or no longer need access to any AWS resources.
@@ -21,33 +37,57 @@
       <p>
         <a href="<%= remove_user_path %>" class="govuk-button govuk-button--warning" data-module="govuk-button">Request user removal</a>
       </p>
+
+      <h3 class="govuk-heading-s">Reset your AWS user password</h3>
       <p>If you need to reset your AWS password, you can do that here as well.</p>
       <p>
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
-      <h2 class="govuk-heading-m">Request a new AWS account</h2>
-      <p>Teams can use multiple AWS accounts to provide isolation between workloads. For example having separate production and test environments.</p>
-      <p>See <a href="https://reliability-engineering.cloudapps.digital/iaas.html#create-aws-accounts">how to create AWS accounts</a> in the reliability engineering docs.</p>
-      <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+
+      <h2 class="govuk-heading-m" id="request-cloud">
+        Request access to cloud computing resources
+      </h2>
+      <h3 class="govuk-heading-s">Request access to GOV.UK Platform-as-a-Service (PaaS)</h3>
+      <p>
+        If you need to host an web application or service in the cloud,
+        for example a blog, web form, or campaign site,
+        you should use <a class="govuk-link" href="https://www.cloud.service.gov.uk">GOV.UK PaaS</a>.
+      </p>
+      <p>GOV.UK PaaS is designed to meet the needs of government teams:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>UK hosted</li>
+        <li>It’s possible to test an application in the trial period free of charge</li>
+        <li>It offers 24-hour platform-level support</li>
+        <li>It meets the NCSC Cloud Security Principles</li>
+      </ul>
+      <a href="https://www.cloud.service.gov.uk" class="govuk-button" data-module="govuk-button">
+        Go to GOV.UK PaaS
+      </a>
+
+      <h3 class="govuk-heading-s">Request a new AWS account (Infrastructure-as-a-Service)</h3>
+      <p>If your application or service cannot run on GOV.UK PaaS, you can request a new AWS account.</p>
+      <p>You can provision infrastructure directly from Amazon Web Services, you may need specialist capabilities to maintain this infrastructure.</p>
+      <p>You may need multiple accounts, one for each environment, for example development, staging, and production.</p>
+      <p>When requesting non-GDS AWS accounts, you should provide the relevant Cabinet Office cost centre.</p>
+      <p>
+        More information is available on the
+        <a href="https://reliability-engineering.cloudapps.digital/iaas.html#create-aws-accounts">how to create AWS accounts</a> page
+        in the reliability engineering docs.
+      </p>
+      <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         Request an account
-        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
-          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-        </svg>
       </a>
     <% else %>
       <p>You can use this service to:</p>
       <ul class="govuk-list govuk-list--bullet">
+        <li>Grant AWS access to a user (e.g. for new joiners)</li>
+        <li>Remove AWS access from a user (e.g. for leavers)</li>
+        <li>Reset your AWS user password</li>
         <li>Request a new AWS account (e.g. for a new service or environment)</li>
-        <li>Grant users access to AWS (e.g. for new joiners)</li>
-        <li>Reset your AWS IAM password (for yourself)</li>
-        <li>Remove users from AWS (e.g. for leavers)</li>
       </ul>
       <p>First you need to sign in with your GDS Google account so we know who you are.</p>
-      <a href="/auth/google_oauth2" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+      <a href="/auth/google_oauth2" role="button" class="govuk-button" data-module="govuk-button">
         Sign in
-        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
-          <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-        </svg>
       </a>
     <% end %>
   </div>

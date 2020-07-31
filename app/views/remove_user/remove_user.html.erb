@@ -9,7 +9,7 @@
     <%= form_for @form, url: remove_user_path, html: { novalidate: true } do |f| %>
       <fieldset class="govuk-fieldset">
         <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:email_list) %>">
-          <%= f.label :email_list, 'GDS email addresses', class: 'govuk-label' %>
+          <%= f.label :email_list, 'Email addresses', class: 'govuk-label' %>
           <%= error_message_on(f.object.errors, :email_list) %>
           <%= f.text_area :email_list, value: @form.email_list, required: true, class: "govuk-textarea #{@form.errors&.any? ? 'govuk-textarea--error' : ''}", rows: '6' %>
         </div>

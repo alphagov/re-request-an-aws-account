@@ -10,6 +10,7 @@ This is a rails app, with dependencies managed by bundler. To run the app locall
 
 ```
 bundle install
+npm install
 bundle exec rails server
 ```
 

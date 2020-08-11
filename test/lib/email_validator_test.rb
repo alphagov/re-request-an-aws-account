@@ -36,6 +36,14 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert_match EmailValidator.allowed_emails_regexp, email
   end
 
+  test 'Mixed list of valid emails are matched by the allowed emails regexp' do
+    emails = [
+      'test.user@digital.cabinet-office.gov.uk',
+      'test.user@cabinetoffice.gov.uk',
+    ].join(",\n")
+    assert_match EmailValidator.allowed_emails_regexp, emails
+  end
+
   test 'Other email addresses should not match emails regexp' do
     email = 'fname.lname@example.com'
     assert_no_match EmailValidator.allowed_emails_regexp, email

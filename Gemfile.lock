@@ -126,7 +126,7 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -189,7 +189,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    webmock (3.8.3)
+    webmock (3.9.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -212,7 +212,7 @@ DEPENDENCIES
   rack_session_access (~> 0.2.0)
   rails (~> 6)
   sassc-rails
-  webmock (~> 3.8)
+  webmock (~> 3.9)
 
 RUBY VERSION
    ruby 2.7.1p83

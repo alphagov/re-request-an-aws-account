@@ -1,0 +1,25 @@
+name: Ruby and Node
+
+on:
+  pull_request: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+    - name: Build and test
+      run: |
+        apt-get update
+        apt-get install -y yarnpkg
+        bundle install --without development
+        yarnpkg install
+        bundle exec rake

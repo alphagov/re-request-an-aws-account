@@ -13,6 +13,7 @@ module EmailValidator
       /([a-z.\-\']+@digital\.cabinet-office\.gov\.uk,?\s*)/,
       /([a-z.\-\']+@cabinetoffice\.gov\.uk,?\s*)/,
       /([a-z.\-\']+@softwire\.com,?\s*)/,
+      /([a-z.\-\']+@fidusinfosec\.com,?\s*)/,
     )})+\z/
   end
 

@@ -16,6 +16,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert ! EmailValidator.email_is_allowed?(email)
   end
 
+  test 'Fidusinfosec email addresses are not allowed to sign in' do
+    email = 'fname.lname@fidusinfosec.com'
+    assert ! EmailValidator.email_is_allowed?(email)
+  end
+
   test 'Other email addresses are not allowed to sign in' do
     email = 'fname.lname@example.com'
     assert ! EmailValidator.email_is_allowed?(email)
@@ -33,6 +38,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
 
   test 'Softwire emails are matched by the allowed emails regexp' do
     email = 'fname.lname@softwire.com'
+    assert_match EmailValidator.allowed_emails_regexp, email
+  end
+
+  test 'Fidusinfosec emails are matched by the allowed emails regexp' do
+    email = 'fname.lname@fidusinfosec.com'
     assert_match EmailValidator.allowed_emails_regexp, email
   end
 

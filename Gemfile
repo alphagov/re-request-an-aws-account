@@ -12,7 +12,7 @@ gem 'octokit', '~> 4.18'
 gem 'omniauth-google-oauth2', '~> 0.8.1'
 gem 'rails', '~> 6'
 gem 'sassc-rails'
-gem 'webmock', '~> 3.8'
+gem 'webmock', '~> 3.11'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

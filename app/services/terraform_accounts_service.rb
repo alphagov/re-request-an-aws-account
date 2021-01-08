@@ -11,7 +11,7 @@ class TerraformAccountsService
     resource_names = accounts.map {|u| u['aws_organizations_account'].keys }.flatten
 
     if resource_names.include? account_name
-      raise StandardError.new "Account #{account_name} is already present in the terraform."
+      raise AccountAlreadyExistsError.new account_name
     end
 
     accounts.push('aws_organizations_account' => {

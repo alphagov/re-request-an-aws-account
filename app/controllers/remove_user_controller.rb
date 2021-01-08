@@ -13,14 +13,24 @@ class RemoveUserController < ApplicationController
     requester_email = session.fetch('email')
     email_list = @form.email_list
 
-    pull_request_url = GithubService.new.create_remove_user_pull_request(email_list, requester_email) || 'error-creating-pull-request'
+    begin
+      pull_request_url = GithubService.new.create_remove_user_pull_request(email_list, requester_email)
 
-    session['pull_request_url'] = pull_request_url
+      session['pull_request_url'] = pull_request_url
 
-    notify_service = NotifyService.new
-    notify_service.remove_user_email_support(email_list, requester_email, pull_request_url)
-    notify_service.remove_user_email_user(email_list, requester_email, pull_request_url)
+      notify_service = NotifyService.new
+      notify_service.remove_user_email_support(email_list, requester_email, pull_request_url)
+      notify_service.remove_user_email_user(email_list, requester_email, pull_request_url)
 
-    redirect_to confirmation_remove_user_path
+      redirect_to confirmation_remove_user_path
+    rescue UserDoesntExistError => e
+      @form.errors.add 'email_list', "user #{e.message} does not exist"
+      log_error 'User did not exist', e
+      return render :remove_user
+    rescue StandardError => e
+      @form.errors.add 'email_list', 'unknown error when opening pull request or sending email'
+      log_error 'Failed to raise user removal PR or send email', e
+      return render :remove_user
+    end
   end
 end

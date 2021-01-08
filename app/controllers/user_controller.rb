@@ -27,10 +27,14 @@ class UserController < ApplicationController
       @form.errors.add 'email_list', 'contains email address over 64 characters in length - see if you can get the user an alias'
       log_error 'Email provided was too long', e
       return render :user
+    rescue UserAlreadyExistsError => e
+      @form.errors.add 'email_list', "user #{e.message} already exists"
+      log_error 'User already existed', e
+      return render :user
     rescue StandardError => e
-      session['pull_request_url'] = 'error-creating-pull-request'
-      log_error 'Failed to raise new user PR', e
-      redirect_to confirmation_user_path
+      @form.errors.add 'email_list', 'unknown error when opening pull request or sending email'
+      log_error 'Failed to raise new user PR or send email', e
+      return render :user
     end
   end
 end

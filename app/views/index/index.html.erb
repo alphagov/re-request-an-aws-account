@@ -86,9 +86,11 @@
         <li>Request a new AWS account (e.g. for a new service or environment)</li>
       </ul>
       <p>First you need to sign in with your GDS Google account so we know who you are.</p>
-      <a href="/auth/google_oauth2" role="button" class="govuk-button" data-module="govuk-button">
-        Sign in
-      </a>
+      <form action="/auth/google_oauth2" method="POST">
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Sign in
+        </button>
+      </form>
     <% end %>
   </div>
 </div>

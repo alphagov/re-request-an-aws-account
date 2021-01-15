@@ -86,11 +86,11 @@
         <li>Request a new AWS account (e.g. for a new service or environment)</li>
       </ul>
       <p>First you need to sign in with your GDS Google account so we know who you are.</p>
-      <form action="/auth/google_oauth2" method="POST">
+      <%= form_tag('/auth/google_oauth2', method: 'post') do %>
         <button type="submit" class="govuk-button" data-module="govuk-button">
           Sign in
         </button>
-      </form>
+      <% end %>
     <% end %>
   </div>
 </div>

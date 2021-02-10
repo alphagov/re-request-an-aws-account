@@ -45,12 +45,12 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 
       post(user_url, params: { user_form: { email_list: "test.user@#{email_suffix}" } })
 
-      users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf")
+      users_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/gds_users.tf.json")
       assert_equal(
         [ {"aws_iam_user"=>{"test_user"=>{"name"=>"test.user@#{email_suffix}", "force_destroy"=>true}}}],
         users_terraform_after.dig('resource'))
 
-      cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf")
+      cross_account_terraform_after = assert_content_updated(USER_MANAGEMENT_GITHUB_API, "/terraform/iam_crossaccountaccess_members.tf.json")
       assert_equal(
         ["${aws_iam_user.test_user.name}"],
         cross_account_terraform_after.dig('resource', 'aws_iam_group_membership', 'crossaccountaccess-members', 'users')
@@ -71,10 +71,10 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 private
 
   def stub_create_user_github_api(users_terraform, cross_account_terraform, resulting_pull_request_url)
-    stub_request(:get, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/gds_users.tf").
+    stub_request(:get, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/gds_users.tf.json").
       to_return(status: 200, body: users_terraform, headers: {'Content-Type' => 'application/json'})
 
-    stub_request(:get, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/iam_crossaccountaccess_members.tf").
+    stub_request(:get, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/iam_crossaccountaccess_members.tf.json").
       to_return(status: 200, body: cross_account_terraform, headers: {'Content-Type' => 'application/json'})
 
     stub_request(:get, "#{USER_MANAGEMENT_GITHUB_API}/commits/master").
@@ -83,10 +83,10 @@ private
     stub_request(:post, "#{USER_MANAGEMENT_GITHUB_API}/git/refs").
       to_return(status: 200, body: '{}', headers: {'Content-Type' => 'application/json'})
 
-    stub_request(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/gds_users.tf").
+    stub_request(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/gds_users.tf.json").
       to_return(status: 200, body: '{}', headers: {'Content-Type' => 'application/json'})
 
-    stub_request(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/iam_crossaccountaccess_members.tf").
+    stub_request(:put, "#{USER_MANAGEMENT_GITHUB_API}/contents/terraform/iam_crossaccountaccess_members.tf.json").
       to_return(status: 200, body: '{}', headers: {'Content-Type' => 'application/json'})
 
     stub_request(:post, "#{USER_MANAGEMENT_GITHUB_API}/pulls").

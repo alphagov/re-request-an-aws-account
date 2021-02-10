@@ -68,8 +68,8 @@ Once the account is created, the following users should be granted access to the
 
     begin
       github_repo = 'alphagov/aws-user-management-account-users'
-      users_path = 'terraform/gds_users.tf'
-      groups_path = 'terraform/iam_crossaccountaccess_members.tf'
+      users_path = 'terraform/gds_users.tf.json'
+      groups_path = 'terraform/iam_crossaccountaccess_members.tf.json'
 
       users_contents = @client.contents github_repo, path: users_path
       groups_contents = @client.contents github_repo, path: groups_path
@@ -135,8 +135,8 @@ Co-authored-by: #{name} <#{requester_email}>",
 
     begin
       github_repo = 'alphagov/aws-user-management-account-users'
-      users_path = 'terraform/gds_users.tf'
-      groups_path = 'terraform/iam_crossaccountaccess_members.tf'
+      users_path = 'terraform/gds_users.tf.json'
+      groups_path = 'terraform/iam_crossaccountaccess_members.tf.json'
 
       users_contents = @client.contents github_repo, path: users_path
       groups_contents = @client.contents github_repo, path: groups_path

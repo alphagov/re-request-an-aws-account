@@ -9,6 +9,9 @@ class TerraformUsersService
   def add_users email_list_string
     terraform = @users_terraform
     split_email_list(email_list_string).each do |email|
+      if email.length > 64 then
+        raise EmailTooLongError.new
+      end
       terraform = add_user terraform, email
     end
 

@@ -66,33 +66,32 @@ Once the account is created, the following users should be granted access to the
       return nil
     end
 
-    begin
-      github_repo = 'alphagov/aws-user-management-account-users'
-      users_path = 'terraform/gds_users.tf.json'
-      groups_path = 'terraform/iam_crossaccountaccess_members.tf.json'
+    github_repo = 'alphagov/aws-user-management-account-users'
+    users_path = 'terraform/gds_users.tf.json'
+    groups_path = 'terraform/iam_crossaccountaccess_members.tf.json'
 
-      users_contents = @client.contents github_repo, path: users_path
-      groups_contents = @client.contents github_repo, path: groups_path
+    users_contents = @client.contents github_repo, path: users_path
+    groups_contents = @client.contents github_repo, path: groups_path
 
-      terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
-      new_users_contents = terraform_users_service.add_users(email_list)
-      new_groups_contents = terraform_users_service.add_users_to_group(email_list)
+    terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
+    new_users_contents = terraform_users_service.add_users(email_list)
+    new_groups_contents = terraform_users_service.add_users_to_group(email_list)
 
-      first_part_of_new_email_address = email_list.split('@').first
+    first_part_of_new_email_address = email_list.split('@').first
 
-      if multiple_users?(email_list)
-        commit_message_title = "Add AWS user #{first_part_of_new_email_address} and friends"
-      else
-        commit_message_title = "Add AWS user #{first_part_of_new_email_address}"
-      end
+    if multiple_users?(email_list)
+      commit_message_title = "Add AWS user #{first_part_of_new_email_address} and friends"
+    else
+      commit_message_title = "Add AWS user #{first_part_of_new_email_address}"
+    end
 
-      new_branch_name = 'new-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
-      create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
-      name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
-      @client.update_contents(
-        github_repo,
-        users_path,
-        "#{commit_message_title}
+    new_branch_name = 'new-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
+    create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
+    name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+    @client.update_contents(
+      github_repo,
+      users_path,
+      "#{commit_message_title}
 
 #{email_list}
 
@@ -120,11 +119,8 @@ Co-authored-by: #{name} <#{requester_email}>",
       commit_message_title,
       "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
 
-#{email_list}"
+  #{email_list}"
       ).html_url
-    rescue StandardError => e
-      log_error 'Failed to raise new user PR', e
-    end
   end
 
   def create_remove_user_pull_request(email_list, requester_email)

@@ -91,6 +91,13 @@ class TerraformUsersServiceTest < ActiveSupport::TestCase
     }
   end
 
+  test 'Raises if an email is too long' do
+    terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
+    assert_raises {
+      terraform_users_service.add_users 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab@digital.cabinet-office.gov.uk'
+    }
+  end
+
   test 'User resources are sorted' do
     terraform_users_service = TerraformUsersService.new(INITIAL_USERS_TERRAFORM, INITIAL_GROUPS_TERRAFORM)
     result = terraform_users_service.add_users 'test.aws-user@example.com'

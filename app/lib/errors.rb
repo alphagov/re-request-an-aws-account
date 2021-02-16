@@ -1,0 +1,2 @@
+class EmailTooLongError < StandardError
+end

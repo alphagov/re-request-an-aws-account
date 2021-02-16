@@ -8,10 +8,15 @@ class UserController < ApplicationController
                     .fetch('user_form', {})
                     .permit(:email_list).to_h
     @form = UserForm.new(form_params)
-    return render :user if @form.invalid?
 
     requester_email = session.fetch('email')
     email_list = @form.email_list
+    emails = email_list.split.flat_map { |x| x.split(',') }
+    if emails.any? { |email| email.length > 64 } then
+      @form.errors.add 'email_list', 'contains email address over 64 characters in length - see if you can get the user an alias'
+    end
+
+    return render :user if @form.invalid?
 
     pull_request_url = GithubService.new.create_new_user_pull_request(email_list, requester_email) || 'error-creating-pull-request'
 

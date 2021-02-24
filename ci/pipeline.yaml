@@ -1,0 +1,59 @@
+resources:
+  - name: re-request-an-aws-account-git
+    type: git
+    source:
+      uri: https://github.com/alphagov/re-request-an-aws-account.git
+      branch: master
+
+  - name: deploy-to-paas-aws-account-management-space
+    type: cf
+    source:
+      api: https://api.cloud.service.gov.uk
+      username: ((cf_user))
+      password: ((cf_password))
+      organization: gds-tech-ops
+      space: re-aws-account-management
+jobs:
+  - name: self-update
+    serial: true
+    plan:
+    - get: re-request-an-aws-account-git
+      trigger: true
+    - set_pipeline: request-an-aws-account
+      file: re-request-an-aws-account-git/ci/pipeline.yaml
+  - name: build-re-request-an-aws-account
+    public: true
+    serial: true
+    plan:
+      - get: re-request-an-aws-account-git
+        trigger: true
+      - task: bundle-re-request-an-aws-account
+        timeout: 15m
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: ruby
+              tag: 2.7.1
+          inputs:
+            - name: re-request-an-aws-account-git
+              path: repo
+          outputs:
+            - name: bundled
+          run:
+            path: sh
+            dir: repo
+            args:
+            - -c
+            - |
+              apt-get update
+              apt-get install -y nodejs yarnpkg
+              bundle install --without development
+              yarnpkg install
+              cp -r . ../bundled/
+      - put: deploy-to-paas-aws-account-management-space
+        params:
+          manifest: re-request-an-aws-account-git/manifest.yml
+          show_app_log: true
+          path: bundled

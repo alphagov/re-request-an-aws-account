@@ -3,6 +3,7 @@
     <a href="<%= administrators_path %>" class="govuk-back-link">Back</a>
 
     <h1 class="govuk-heading-l">Check your answers</h1>
+    <%= error_summary_for(@details_form&.errors, :account_form) %>
 
     <table class="govuk-table">  
       <thead class="govuk-table__head">
@@ -15,7 +16,7 @@
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
           <td class="govuk-table__header">Account name</td>
-          <td class="govuk-table__cell"> <%= @answers[:account_name] %></td>
+          <td class="govuk-table__cell"><%= error_message_on(@details_form&.errors, :account_name) %> <%= @answers[:account_name] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">
@@ -39,10 +40,13 @@
     <% if [@answers[:account_name], @answers[:account_description], @answers[:programme_or_other], @answers[:admin_users]].all? &:present? %>
       <h2 class="govuk-heading-m">Request your AWS account</h2>
       <p>Please make sure the details above are correct before you submit your application.</p>
-      <form action="<%= check_your_answers_path %>" method="post" class="govuk-form-group">
-        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-        <input type="submit" class="govuk-button" data-module="govuk-button" value="Accept and send application">
-      </form>
+      <%= form_for @form, url: check_your_answers_path, html: { novalidate: true } do |f| %>
+        <div>
+          <%= error_message_on(f.object.errors, :commit) %>
+          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          <%= f.submit 'Accept and send application', class: 'govuk-button govuk-button--warning', data: { module: "govuk-button" } %>
+        </div>
+      <% end %>
     <% else %>
       <h2 class="govuk-heading-m">Details required</h2>
       <p>

@@ -60,6 +60,16 @@ class TerraformUsersService
     JSON.pretty_generate(terraform) + "\n"
   end
 
+  def assert_user_exists email
+    resource_name = get_resource_name email
+    users = @users_terraform.fetch 'resource'
+    resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
+
+    unless resource_names.include? resource_name
+      raise UserDoesntExistError.new email
+    end
+  end
+
   private
 
   def split_email_list(email_list_string)
@@ -72,8 +82,7 @@ class TerraformUsersService
     resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
 
     if resource_names.include? resource_name
-      Rails.logger.warn "User #{resource_name} is already present in the terraform, skipping"
-      return terraform
+      raise UserAlreadyExistsError.new email
     end
 
     users.push('aws_iam_user' => {
@@ -93,8 +102,7 @@ class TerraformUsersService
     resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
 
     unless resource_names.include? resource_name
-      Rails.logger.warn "User #{resource_name} is already not present in the terraform, skipping"
-      return terraform
+      raise UserDoesntExistError.new email
     end
 
     users.select! { |user| !user['aws_iam_user'].has_key? resource_name }

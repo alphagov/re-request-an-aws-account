@@ -1,6 +1,15 @@
 class EmailTooLongError < StandardError
 end
 
+class UserAlreadyExistsError < StandardError
+end
+
+class UserDoesntExistError < StandardError
+end
+
+class AccountAlreadyExistsError < StandardError
+end
+
 def log_error(description, error = nil)
   Rails.logger.error({
     '@timestamp': Time.now.iso8601,

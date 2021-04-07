@@ -1,12 +1,14 @@
+class PasswordResetForm
+  include ActiveModel::Model
+end
+
 class ResetPasswordController < ApplicationController
   def reset_password
-    @form = UserForm.new({})
+    @form = PasswordResetForm.new({})
   end
 
   def post
-    form_params = params
-                    .fetch('reset_form', {})
-    @form = UserForm.new(form_params)
+    @form = PasswordResetForm.new({})
 
     requester_name = session.fetch('name')
     requester_email = session.fetch('email')

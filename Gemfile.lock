@@ -179,7 +179,7 @@ GEM
       ffi (~> 1.0)
     request_store (1.5.0)
       rack (>= 1.4)
-    rexml (3.2.4)
+    rexml (3.2.5)
     ruby2_keywords (0.0.4)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -204,7 +204,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    webmock (3.11.1)
+    webmock (3.13.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -228,7 +228,7 @@ DEPENDENCIES
   rack_session_access (~> 0.2.0)
   rails (~> 6)
   sassc-rails
-  webmock (~> 3.11)
+  webmock (~> 3.13)
 
 RUBY VERSION
    ruby 2.7.1p83

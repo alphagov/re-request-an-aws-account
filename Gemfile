@@ -13,7 +13,7 @@ gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'rails', '~> 6'
 gem 'sassc-rails'
-gem 'webmock', '~> 3.11'
+gem 'webmock', '~> 3.13'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

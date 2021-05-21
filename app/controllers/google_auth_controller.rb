@@ -4,7 +4,7 @@ class GoogleAuthController < ApplicationController
   def callback
     email = request.env['omniauth.auth']['info']['email']
 
-    if EmailValidator.email_is_allowed?(email)
+    if EmailValidator.email_is_allowed_basic?(email)
       session['email'] = email
       session['name'] = request.env['omniauth.auth']['info']['name']
 

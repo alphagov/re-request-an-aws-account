@@ -5,7 +5,7 @@
     </h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-        <% @form.errors.keys.each do |key| %>
+        <% @form.errors.attribute_names.each do |key| %>
           <% @form.errors.full_messages_for(key).each do |error| %>
             <li data-turbolinks="false">
               <%= link_to error, "##{name}_#{key}" %>

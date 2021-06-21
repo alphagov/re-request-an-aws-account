@@ -6,6 +6,7 @@
 
       <p>You can use this service to:</p>
       <ul class="govuk-list govuk-list--bullet">
+        <% if EmailValidator.email_is_allowed_advanced?(@email) %>
         <li>
           <a class="govuk-link" href="#manage-users">
             Manage user access to Amazon Web Services (AWS)
@@ -16,10 +17,18 @@
             Request access to cloud computing resources
           </a>
         </li>
+        <% else %>
+        <li>
+          <a class="govuk-link" href="#manage-users">
+            Reset your AWS user password
+          </a>
+        </li>
+        <% end %>
       </ul>
 
       <h2 class="govuk-heading-m" id="manage-users">Manage user access to Amazon Web Services (AWS)</h2>
 
+      <% if EmailValidator.email_is_allowed_advanced?(@email) %>
       <h3 class="govuk-heading-s">Grant AWS access to a user</h3>
       <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by reliability engineering with a base GDS account: <em>gds-users</em>.</p>
       <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
@@ -37,6 +46,7 @@
       <p>
         <a href="<%= remove_user_path %>" class="govuk-button govuk-button--warning" data-module="govuk-button">Request user removal</a>
       </p>
+      <% end %>
 
       <h3 class="govuk-heading-s">Reset your AWS user password</h3>
       <p>If you need to reset your AWS password, you can do that here as well.</p>
@@ -44,6 +54,7 @@
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
 
+      <% if EmailValidator.email_is_allowed_advanced?(@email) %>
       <h2 class="govuk-heading-m" id="request-cloud">
         Request access to cloud computing resources
       </h2>
@@ -77,13 +88,14 @@
       <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         Request an account
       </a>
+      <% end %>
     <% else %>
-      <p>You can use this service to:</p>
+      <p>Depending on your email domain, you can use this service to:</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>Grant AWS access to a user (e.g. for new joiners)</li>
-        <li>Remove AWS access from a user (e.g. for leavers)</li>
-        <li>Reset your AWS user password</li>
-        <li>Request a new AWS account (e.g. for a new service or environment)</li>
+        <li>Reset your AWS user password (for all users)</li>
+        <li>Grant AWS access to a user (e.g. for new joiners - Cabinet Office staff only)</li>
+        <li>Remove AWS access from a user (e.g. for leavers - Cabinet Office staff only)</li>
+        <li>Request a new AWS account (e.g. for a new service or environment - Cabinet Office staff only)</li>
       </ul>
       <p>First you need to sign in with your GDS or CO Google account so we know who you are.</p>
       <%= form_tag('/auth/google_oauth2', method: 'post') do %>

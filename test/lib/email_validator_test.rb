@@ -3,27 +3,52 @@ require 'test_helper'
 class EmailValidatorTest < ActiveSupport::TestCase
   test 'GDS email addresses are allowed to sign in' do
     email = 'fname.lname@digital.cabinet-office.gov.uk'
-    assert EmailValidator.email_is_allowed?(email)
+    assert EmailValidator.email_is_allowed_basic?(email)
   end
 
   test 'Cabinet Office email addresses are allowed to sign in' do
     email = 'fname.lname@cabinetoffice.gov.uk'
-    assert EmailValidator.email_is_allowed?(email)
+    assert EmailValidator.email_is_allowed_basic?(email)
   end
 
-  test 'Softwire email addresses are not allowed to sign in' do
+  test 'Softwire email addresses are allowed to sign in' do
     email = 'fname.lname@softwire.com'
-    assert ! EmailValidator.email_is_allowed?(email)
+    assert EmailValidator.email_is_allowed_basic?(email)
   end
 
-  test 'Fidusinfosec email addresses are not allowed to sign in' do
+  test 'Fidusinfosec email addresses are allowed to sign in' do
     email = 'fname.lname@fidusinfosec.com'
-    assert ! EmailValidator.email_is_allowed?(email)
+    assert EmailValidator.email_is_allowed_basic?(email)
   end
 
   test 'Other email addresses are not allowed to sign in' do
     email = 'fname.lname@example.com'
-    assert ! EmailValidator.email_is_allowed?(email)
+    assert ! EmailValidator.email_is_allowed_basic?(email)
+  end
+
+  test 'GDS email addresses are allowed to manage users' do
+    email = 'fname.lname@digital.cabinet-office.gov.uk'
+    assert EmailValidator.email_is_allowed_advanced?(email)
+  end
+
+  test 'Cabinet Office email addresses are allowed to manage users' do
+    email = 'fname.lname@cabinetoffice.gov.uk'
+    assert EmailValidator.email_is_allowed_advanced?(email)
+  end
+
+  test 'Softwire email addresses are not allowed to manage users' do
+    email = 'fname.lname@softwire.com'
+    assert ! EmailValidator.email_is_allowed_advanced?(email)
+  end
+
+  test 'Fidusinfosec email addresses are not allowed to manage users' do
+    email = 'fname.lname@fidusinfosec.com'
+    assert ! EmailValidator.email_is_allowed_advanced?(email)
+  end
+
+  test 'Other email addresses are not allowed to manage users' do
+    email = 'fname.lname@example.com'
+    assert ! EmailValidator.email_is_allowed_advanced?(email)
   end
 
   test 'GDS emails are matched by the allowed emails regexp' do

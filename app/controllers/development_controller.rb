@@ -3,7 +3,7 @@ class DevelopmentController < ApplicationController
 
   def dev_login
     session['name'] = 'Example Developer'
-    session['email'] = 'example-developer@digital.cabinet-office.gov.uk'
+    session['email'] = params.fetch('email', 'example-developer@digital.cabinet-office.gov.uk')
     redirect_to index_path
   end
 end

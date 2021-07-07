@@ -3,7 +3,7 @@
     <a href="<%= administrators_path %>" class="govuk-back-link">Back</a>
 
     <h1 class="govuk-heading-l">Check your answers</h1>
-    <%= error_summary_for(@details_form&.errors, :account_form) %>
+    <%= error_summary_for(@form&.errors, :account_form) %>
 
     <table class="govuk-table">  
       <thead class="govuk-table__head">
@@ -16,7 +16,7 @@
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
           <td class="govuk-table__header">Account name</td>
-          <td class="govuk-table__cell"><%= error_message_on(@details_form&.errors, :account_name) %> <%= @answers[:account_name] %></td>
+          <td class="govuk-table__cell"><%= error_message_on(@form&.errors, :account_name) %> <%= @answers[:account_name] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">

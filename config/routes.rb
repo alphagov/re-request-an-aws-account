@@ -17,6 +17,18 @@ Rails.application.routes.draw do
   get '/programme', to: 'programme#programme', as: :programme
   post '/programme', to: 'programme#post'
 
+  get '/team', to: 'team#team', as: :team
+  post '/team', to: 'team#post'
+
+  get '/service', to: 'service#service', as: :service
+  post '/service', to: 'service#post'
+
+  get '/out-of-hours-support', to: 'out_of_hours_support#out_of_hours_support', as: :out_of_hours_support
+  post '/out-of-hours-support', to: 'out_of_hours_support#post'
+
+  get '/security', to: 'security#security', as: :security
+  post '/security', to: 'security#post'
+
   get '/administrators', to: 'administrators#administrators', as: :administrators
   post '/administrators', to: 'administrators#post'
 

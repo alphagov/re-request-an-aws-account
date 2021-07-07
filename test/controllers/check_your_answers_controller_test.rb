@@ -13,6 +13,25 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
       'account_name' => 'some-name',
       'programme' => 'GOV.UK',
       'account_description' => 'some account description',
+
+      'team_name' => 'Platform Health',
+      'team_email_address' => 'foo@example.com',
+      'team_lead_name' => 'Team Lead',
+      'team_lead_phone_number' => '00000000000',
+      'team_lead_role' => 'Developer',
+
+      'service_name' => 'GOV.UK',
+      'service_is_out_of_hours_support_provided' => 'true',
+
+      'out_of_hours_support_contact_name' => 'Support Contact',
+      'out_of_hours_support_phone_number' => '000000000000',
+      'out_of_hours_support_pagerduty_link' => 'https://pagerduty.example.com',
+      'out_of_hours_support_email_address' => 'outofhours@example.com',
+
+      'security_requested_alert_priority_level' => 'P1',
+      'security_critical_resources_description' => 'User data stored in blah S3 bucket',
+      'security_does_account_hold_personally_identifiable_information' => 'true',
+      'security_does_account_hold_pci_data' => 'false'
     )
   }
 
@@ -43,6 +62,24 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
           "email" => "aws-root-accounts+some-name@digital.cabinet-office.gov.uk",
           "role_name" => "bootstrap",
           "iam_user_access_to_billing" => "ALLOW",
+          "tags" => {
+            "description" => "some account description",
+            "team-name" => "Platform Health",
+            "team-email-address" => "foo@example.com",
+            "team-lead-name" => "Team Lead",
+            "team-lead-phone-number" => "00000000000",
+            "team-lead-role" => "Developer",
+            "service-name" => "GOV.UK",
+            "service-is-out-of-hours-support-provided" => "true",
+            "security-requested-alert-priority-level" => "P1",
+            "security-critical-resources-description" => "User data stored in blah S3 bucket",
+            "security-does-account-hold-pii" => "true",
+            "security-does-account-hold-pci-data" => "false",
+            "out-of-hours-support-contact-name" => "Support Contact",
+            "out-of-hours-support-phone-number" => "000000000000",
+            "out-of-hours-support-pagerduty-link" => "https://pagerduty.example.com",
+            "out-of-hours-support-email-address" => "outofhours@example.com"
+          },
           "lifecycle" => { "ignore_changes" => ["tags"]}
         }
       },

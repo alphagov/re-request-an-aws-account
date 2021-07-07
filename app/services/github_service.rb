@@ -7,7 +7,7 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users)
+  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users, tags)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -23,7 +23,7 @@ class GithubService
 
     name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))
-    new_account_terraform = terraform_accounts_service.add_account(account_name)
+    new_account_terraform = terraform_accounts_service.add_account(account_name, tags)
     account_description_quote = account_description.split(/\r?\n/).map {|desc| "> #{desc}"}.join("\n")
     @client.update_contents(
       github_repo,

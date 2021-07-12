@@ -5,7 +5,8 @@ class CheckYourAnswersController < ApplicationController
   end
 
   def post
-    @details_form = AccountDetailsForm.new(session.fetch('form', {}))
+    @form = AccountDetailsForm.new(session.fetch('form', {}))
+    @answers = session.fetch('form', {}).with_indifferent_access
 
     all_params = session['form']
 
@@ -38,13 +39,13 @@ class CheckYourAnswersController < ApplicationController
       notify_service.new_account_email_user email, account_name, pull_request_url
 
       redirect_to confirmation_account_path
-    rescue AccountAlreadyExistsError => e
+    rescue Errors::AccountAlreadyExistsError => e
       @form.errors.add 'account_name', "account #{e.message} already exists"
-      log_error 'Account already existed', e
+      Errors::log_error 'Account already existed', e
       return render :check_your_answers
     rescue StandardError => e
       @form.errors.add 'commit', 'unknown error when opening pull request or sending email'
-      log_error 'Failed to raise account creation PR or send email', e
+      Errors::log_error 'Failed to raise account creation PR or send email', e
       return render :check_your_answers
     end
   end

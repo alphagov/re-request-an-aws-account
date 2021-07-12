@@ -10,7 +10,7 @@ class TerraformUsersService
     terraform = @users_terraform
     split_email_list(email_list_string).each do |email|
       if email.length > 64 then
-        raise EmailTooLongError.new
+        raise Errors::EmailTooLongError.new
       end
       terraform = add_user terraform, email
     end
@@ -66,7 +66,7 @@ class TerraformUsersService
     resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
 
     unless resource_names.include? resource_name
-      raise UserDoesntExistError.new email
+      raise Errors::UserDoesntExistError.new email
     end
   end
 
@@ -82,7 +82,7 @@ class TerraformUsersService
     resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
 
     if resource_names.include? resource_name
-      raise UserAlreadyExistsError.new email
+      raise Errors::UserAlreadyExistsError.new email
     end
 
     users.push('aws_iam_user' => {
@@ -102,7 +102,7 @@ class TerraformUsersService
     resource_names = users.map {|u| u['aws_iam_user'].keys }.flatten
 
     unless resource_names.include? resource_name
-      raise UserDoesntExistError.new email
+      raise Errors::UserDoesntExistError.new email
     end
 
     users.select! { |user| !user['aws_iam_user'].has_key? resource_name }

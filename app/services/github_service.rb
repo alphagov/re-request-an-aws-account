@@ -9,7 +9,7 @@ class GithubService
 
   def create_new_account_pull_request(account_name, account_description, programme, email, admin_users)
     unless @client
-      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
@@ -58,7 +58,7 @@ Once the account is created, the following users should be granted access to the
 
   def create_new_user_pull_request(email_list, requester_email)
     unless @client
-      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
@@ -121,7 +121,7 @@ Co-authored-by: #{name} <#{requester_email}>",
 
   def create_remove_user_pull_request(email_list, requester_email)
     unless @client
-      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
@@ -186,7 +186,7 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
 
   def create_reset_user_email_pull_request(requester_name, requester_email)
     unless @client
-      log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
     end
 
@@ -237,7 +237,7 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
     begin
       @client.create_ref repo, 'heads/' + branch_name, sha
     rescue Octokit::UnprocessableEntity => e
-      log_error "Failed to create branch #{branch_name}. Perhaps there's already a branch with that name?", e
+      Errors::log_error "Failed to create branch #{branch_name}. Perhaps there's already a branch with that name?", e
     end
   end
 

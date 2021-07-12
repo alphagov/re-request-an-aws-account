@@ -23,17 +23,17 @@ class UserController < ApplicationController
       notify_service.new_user_email_user(email_list, requester_email, pull_request_url)
 
       redirect_to confirmation_user_path
-    rescue EmailTooLongError => e
+    rescue Errors::EmailTooLongError => e
       @form.errors.add 'email_list', 'contains email address over 64 characters in length - see if you can get the user an alias'
-      log_error 'Email provided was too long', e
+      Errors::log_error 'Email provided was too long', e
       return render :user
-    rescue UserAlreadyExistsError => e
+    rescue Errors::UserAlreadyExistsError => e
       @form.errors.add 'email_list', "user #{e.message} already exists"
-      log_error 'User already existed', e
+      Errors::log_error 'User already existed', e
       return render :user
     rescue StandardError => e
       @form.errors.add 'email_list', 'unknown error when opening pull request or sending email'
-      log_error 'Failed to raise new user PR or send email', e
+      Errors::log_error 'Failed to raise new user PR or send email', e
       return render :user
     end
   end

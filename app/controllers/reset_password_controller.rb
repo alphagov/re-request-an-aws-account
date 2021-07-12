@@ -23,13 +23,13 @@ class ResetPasswordController < ApplicationController
       notify_service.reset_password_email_user(requester_name, requester_email, pull_request_url)
 
       redirect_to confirmation_reset_password_path
-    rescue UserDoesntExistError => e
+    rescue Errors::UserDoesntExistError => e
       @form.errors.add 'commit', "user #{e.message} does not exist"
-      log_error 'User did not exist', e
+      Errors::log_error 'User did not exist', e
       return render :reset_password
     rescue StandardError => e
       @form.errors.add 'commit', 'unknown error when opening pull request or sending email'
-      log_error 'Failed to raise user password reset PR', e
+      Errors::log_error 'Failed to raise user password reset PR', e
       return render :reset_password
     end
   end

@@ -34,16 +34,16 @@ Description:
 #{account_description_quote}
 
 Co-authored-by: #{name} <#{email}>",
-    accounts_contents.sha,
-    new_account_terraform,
-    branch: new_branch_name
-  )
-  @client.create_pull_request(
-    github_repo,
-    'master',
-    new_branch_name,
-    "Add new AWS account for #{programme}: #{account_name}",
-    "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
+      accounts_contents.sha,
+      new_account_terraform,
+      branch: new_branch_name
+    )
+    @client.create_pull_request(
+      github_repo,
+      'master',
+      new_branch_name,
+      "Add new AWS account for #{programme}: #{account_name}",
+      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
 
 Description:
 #{account_description_quote}

@@ -32,7 +32,13 @@ EOTERRAFORM
 class TerraformAccountsServiceTest < ActiveSupport::TestCase
   test 'Adds an account' do
     terraform_accounts_service = TerraformAccountsService.new(INITIAL_ACCOUNTS_TERRAFORM)
-    result = terraform_accounts_service.add_account 'gds-wombles-of-wimbledon-test'
+    tags = {
+      'description' => 'Description.'
+    }
+    result = terraform_accounts_service.add_account(
+      'gds-wombles-of-wimbledon-test',
+      tags
+    )
 
     assert_match /"gds-wombles-of-wimbledon-test"/, result
     assert_match /"aws-root-accounts\+wom-of-wim-tes@digital\.cabinet-office\.gov\.uk"/, result

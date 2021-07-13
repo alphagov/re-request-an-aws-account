@@ -1,0 +1,67 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Out of hours support details</h1>
+    <%= error_summary_for(@form&.errors, :out_of_hours_support_form) %>
+    <%= form_for @form, url: out_of_hours_support_path, html: { novalidate: true } do |f| %>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:out_of_hours_support_contact_name) %>">
+          <%= f.label(
+            :out_of_hours_support_contact_name,
+            'Responsible person or group (optional)',
+            class: 'govuk-label govuk-label--m'
+          ) %>
+          <span class="govuk-hint">
+            This could be an individual, or the name of a group. Leave
+            blank if this isn't applicable.
+          </span>
+          <%= error_message_on(f.object.errors, :out_of_hours_support_contact_name) %>
+          <%= f.text_field(
+            :out_of_hours_support_contact_name,
+            value: @form.out_of_hours_support_contact_name,
+            class: "govuk-input govuk-input--width-20"
+          ) %>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <%= f.label(
+          :out_of_hours_support_email_address,
+          'Contact details',
+          class: 'govuk-label govuk-label--m'
+        ) %>
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:out_of_hours_support_phone_number) %>">
+          <%= f.label :out_of_hours_support_phone_number, 'Phone number', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :out_of_hours_support_phone_number) %>
+          <%= f.text_field(
+            :out_of_hours_support_phone_number, value: @form.out_of_hours_support_phone_number,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:out_of_hours_support_phone_number) ? 'govuk-input--error' : ''}",
+            type: "tel",
+            autocomplete: "tel"
+          ) %>
+        </div>
+        <div class="govuk-form-group">
+          <%= f.label :out_of_hours_support_pagerduty_link, 'PagerDuty link', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :out_of_hours_support_pagerduty_link) %>
+          <%= f.text_field(
+            :out_of_hours_support_pagerduty_link, value: @form.out_of_hours_support_pagerduty_link,
+            class: "govuk-input govuk-input--width-20"
+          ) %>
+        </div>
+        <div class="govuk-form-group">
+          <%= f.label :out_of_hours_support_email_address, 'Email address', class: 'govuk-label' %>
+          <span class="govuk-hint">
+            This may be a shared inbox or mailing list.
+          </span>
+          <%= error_message_on(f.object.errors, :out_of_hours_support_email_address) %>
+          <%= f.text_field(
+            :out_of_hours_support_email_address, value: @form.out_of_hours_support_email_address,
+            class: "govuk-input govuk-input--width-20"
+          ) %>
+        </div>
+      </fieldset>
+
+      <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
+    <% end %>
+  </div>
+</div>

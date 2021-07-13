@@ -34,6 +34,83 @@
           <td class="govuk-table__cell"><%= @answers[:admin_users] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', administrators_path, class: 'govuk-link' %></td>
         </tr>
+
+        <tr class="govuk-table__row">
+          <td colspan="3"
+              class="govuk-table__header govuk-!-font-size-24"
+              style="padding-top: 1.3em;">
+            Team</td>
+        </tr>
+        <% [["Team name", :team_name],
+            ["Team email address", :team_email_address],
+            ["Team lead name", :team_lead_name],
+            ["Team lead email address", :team_lead_email_address],
+            ["Team lead phone number", :team_lead_phone_number],
+            ["Team lead role", :team_lead_role]].each do |(label, field)|
+        %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__header"><%= label %></td>
+            <td class="govuk-table__cell"><%= @answers[field] %></td>
+            <td class="govuk-table__cell"><%= link_to 'Change', team_path, class: 'govuk-link' %></td>
+          </tr>
+        <% end %>
+
+        <tr class="govuk-table__row">
+          <td colspan="3"
+              class="govuk-table__header govuk-!-font-size-24"
+              style="padding-top: 1.3em;">
+            Service</td>
+        </tr>
+        <% [["Service name", :service_name],
+            ["Service: Is out of hours support provided?",
+             :service_is_out_of_hours_support_provided]].each do |(label, field)|
+        %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__header"><%= label %></td>
+            <td class="govuk-table__cell"><%= @answers[field] %></td>
+            <td class="govuk-table__cell"><%= link_to 'Change', service_path, class: 'govuk-link' %></td>
+          </tr>
+        <% end %>
+
+        <% if @answers[:service_is_out_of_hours_support_provided] == "true" %>
+          <tr class="govuk-table__row">
+            <td colspan="3"
+                class="govuk-table__header govuk-!-font-size-24"
+                style="padding-top: 1.3em;">
+              Out of hours support</td>
+          </tr>
+          <% [["Out of hours support contact name", :out_of_hours_support_contact_name],
+              ["Out of hours support phone number", :out_of_hours_support_phone_number],
+              ["Out of hours support PagerDuty link", :out_of_hours_support_pagerduty_link],
+              ["Out of hours support email address", :out_of_hours_support_email_addres]].each do |(label, field)|
+          %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header"><%= label %></td>
+              <td class="govuk-table__cell"><%= @answers[field] %></td>
+              <td class="govuk-table__cell"><%= link_to 'Change', out_of_hours_support_path, class: 'govuk-link' %></td>
+            </tr>
+          <% end %>
+        <% end %>
+
+        <tr class="govuk-table__row">
+          <td colspan="3"
+              class="govuk-table__header govuk-!-font-size-24"
+              style="padding-top: 1.3em;">
+            Security</td>
+        </tr>
+        <% [["Security requested alert priority level", :security_requested_alert_priority_level],
+            ["Security critical resources description", :security_critical_resources_description],
+            ["Security: does account hold Personally Identifiable Information?",
+             :security_does_account_hold_pii],
+            ["Security: does account hold Payment Card Industry data? ",
+             :security_does_account_hold_pci_dat]].each do |(label, field)|
+        %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__header"><%= label %></td>
+            <td class="govuk-table__cell"><%= @answers[field] %></td>
+            <td class="govuk-table__cell"><%= link_to 'Change', security_path, class: 'govuk-link' %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
 

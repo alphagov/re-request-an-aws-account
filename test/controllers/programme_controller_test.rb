@@ -22,16 +22,16 @@ class ProgrammeControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect on valid form with programme' do
     post programme_url, params: { programme_form: { programme: 'GOV.UK' } }
-    assert_redirected_to administrators_url
+    assert_redirected_to team_url
   end
 
   test 'should redirect on valid form with other programme' do
     post programme_url, params: { programme_form: { programme: 'Other', programme_other: 'Brexit' } }
-    assert_redirected_to administrators_url
+    assert_redirected_to team_url
   end
 
   test 'should redirect on valid form with nil programme but other set' do
     post programme_url, params: { programme_form: { programme: nil, programme_other: 'Brexit' } }
-    assert_redirected_to administrators_url
+    assert_redirected_to team_url
   end
 end

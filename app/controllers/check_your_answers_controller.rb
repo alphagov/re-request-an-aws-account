@@ -17,12 +17,45 @@ class CheckYourAnswersController < ApplicationController
     email = session['email']
 
     begin
+      tags = {
+        'description' => account_description,
+        'programme' => programme_or_other,
+
+        'team-name' => all_params['team_name'],
+        'team-email-address' => all_params['team_email_address'],
+        'team-lead-name' => all_params['team_lead_name'],
+        'team-lead-phone-number' => all_params['team_lead_phone_number'],
+        'team-lead-role' => all_params['team_lead_role'],
+
+        'service-name' => all_params['service_name'],
+        'service-is-out-of-hours-support-provided' => all_params['service_is_out_of_hours_support_provided'],
+
+        'security-requested-alert-priority-level' => all_params['security_requested_alert_priority_level'],
+        'security-critical-resources-description' => all_params['security_critical_resources_description'],
+        'security-does-account-hold-pii' => all_params['security_does_account_hold_personally_identifiable_information'],
+        'security-does-account-hold-pci-data' => all_params['security_does_account_hold_pci_data']
+      }
+
+      if all_params['service_is_out_of_hours_support_provided'] == 'true'
+        tags.merge!(
+          {
+            'out-of-hours-support-contact-name' => all_params['out_of_hours_support_contact_name'],
+            'out-of-hours-support-phone-number' => all_params['out_of_hours_support_phone_number'],
+            'out-of-hours-support-pagerduty-link' => all_params['out_of_hours_support_pagerduty_link'],
+            'out-of-hours-support-email-address' => all_params['out_of_hours_support_email_address']
+          }
+        )
+      end
+
+      tags.compact!
+
       pull_request_url = GithubService.new.create_new_account_pull_request(
         account_name,
         account_description,
         programme_or_other,
         email,
-        admin_users
+        admin_users,
+        tags
       )
 
       session['pull_request_url'] = pull_request_url

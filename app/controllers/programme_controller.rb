@@ -13,6 +13,6 @@ class ProgrammeController < ApplicationController
     session_form[:programme_or_other] = @form.programme_or_other
     session['form'] = session_form
 
-    redirect_to administrators_path
+    redirect_to team_path
   end
 end

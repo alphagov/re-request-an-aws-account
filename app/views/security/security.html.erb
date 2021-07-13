@@ -1,0 +1,121 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Security</h1>
+    <%= error_summary_for(@form&.errors, :out_of_hours_support_form) %>
+    <%= form_for @form, url: security_path, html: { novalidate: true } do |f| %>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:security_requested_alert_priority_level) %>">
+          <%= f.label :security_requested_alert_priority_level, 'Requested alert priority level', class: 'govuk-label govuk-label--m' %>
+          <span class="govuk-hint">
+            For the use of the Cyber team to prioritise handling
+            security issues for this specific account.
+          </span>
+          <%= error_message_on(f.object.errors, :security_requested_alert_priority_level) %>
+          <div class="govuk-radios">
+            <% [["P1", "Production account, or those with specific security concerns"],
+                ["P2", "Staging account with some important production data"],
+                ["P3", "Staging account with no sensitive data"],
+                ["P4", "Demo account, no sensitive data or infrastructure"]].each do |(priority, help)| %>
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :security_requested_alert_priority_level,
+                priority,
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                "security_requested_alert_priority_level_#{priority}".to_sym,
+                priority,
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+              <span style="display: inline-block;" class="govuk-hint"><%= help %></span>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:security_critical_resources_description) %>">
+          <%= f.label :security_critical_resources_description, 'What are the most critical resources?', class: 'govuk-label govuk-label--m' %>
+          <span class="govuk-hint">
+            From a security perspective, that will reside in this
+            account.
+          </span>
+          <%= error_message_on(f.object.errors, :security_critical_resources_description) %>
+          <%= f.text_field(
+            :security_critical_resources_description,
+            value: @form.security_critical_resources_description,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-textarea--error' : ''}"
+          ) %>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:security_does_account_hold_pii) %>">
+          <%= f.label :security_does_account_hold_pii, 'Does the account hold Personally Identifiable Information (PII)?', class: 'govuk-label govuk-label--m' %>
+          <%= error_message_on(f.object.errors, :security_does_account_hold_pii) %>
+          <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :security_does_account_hold_pii,
+                "yes",
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                "security_requested_alert_priority_level_yes".to_sym,
+                "Yes",
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :security_does_account_hold_pii,
+                "no",
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                "security_requested_alert_priority_level_no".to_sym,
+                "No",
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:security_does_account_hold_pci_data) %>">
+          <%= f.label :security_does_account_hold_pci_data, 'Does the account hold Payment Card Industry data?', class: 'govuk-label govuk-label--m' %>
+          <%= error_message_on(f.object.errors, :security_does_account_hold_pci_data) %>
+          <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :security_does_account_hold_pci_data,
+                "yes",
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                "security_requested_alert_priority_level_yes".to_sym,
+                "Yes",
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :security_does_account_hold_pci_data,
+                "no",
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                "security_requested_alert_priority_level_no".to_sym,
+                "No",
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
+    <% end %>
+  </div>
+</div>

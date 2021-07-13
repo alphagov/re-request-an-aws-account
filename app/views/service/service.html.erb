@@ -1,0 +1,68 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Service details</h1>
+    <%= error_summary_for(@form&.errors, :service_form) %>
+    <%= form_for @form, url: service_path, html: { novalidate: true } do |f| %>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:service_name) %>">
+          <%= f.label :service_name, 'Service name', class: 'govuk-label govuk-label--m' %>
+          <span class="govuk-hint">
+            This is like GOV.UK, or EIDAS (in the context of verify)
+          </span>
+          <%= error_message_on(f.object.errors, :service_name) %>
+          <%= f.text_field(
+            :service_name,
+            value: @form.service_name,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-textarea--error' : ''}"
+          ) %>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:service_is_out_of_hours_support_provided) %>">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h1 class="govuk-fieldset__heading">
+              Is out of hours support provided?
+            </h1>
+          </legend>
+          <span class="govuk-hint">
+            Select yes if there is a group or individual which would
+            respond to issues relating to this account, out of normal
+            working hours.
+          </span>
+          <%= error_message_on(f.object.errors, :service_is_out_of_hours_support_provided) %>
+
+          <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :service_is_out_of_hours_support_provided,
+                true,
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                :service_is_out_of_hours_support_provided_true,
+                'Yes',
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+            <div class="govuk-radios__item">
+              <%= f.radio_button(
+                :service_is_out_of_hours_support_provided,
+                false,
+                class: "govuk-radios__input"
+              ) %>
+              <%= f.label(
+                :service_is_out_of_hours_support_provided_false,
+                'No',
+                class: 'govuk-label govuk-radios__label'
+              ) %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
+    <% end %>
+  </div>
+</div>

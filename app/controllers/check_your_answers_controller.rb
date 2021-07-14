@@ -47,7 +47,7 @@ class CheckYourAnswersController < ApplicationController
         )
       end
 
-      tags.compact!
+      tags.compact_blank!
 
       pull_request_url = GithubService.new.create_new_account_pull_request(
         account_name,

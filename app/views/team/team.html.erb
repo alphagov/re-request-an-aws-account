@@ -1,0 +1,96 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <h1 class="govuk-heading-l">Team details</h1>
+    <%= error_summary_for(@form&.errors, :team_form) %>
+    <%= form_for @form, url: team_path, html: { novalidate: true } do |f| %>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_name) %>">
+          <%= f.label :team_name, 'Name', class: 'govuk-label govuk-label--m' %>
+          <span class="govuk-hint">
+            This might be the same as your programme, responsible
+            business unit or service team.
+          </span>
+          <%= error_message_on(f.object.errors, :team_name) %>
+          <%= f.text_field(
+            :team_name,
+            value: @form.team_name,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_name) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_email_address) %>">
+          <%= f.label(
+            :team_email_address,
+            'Shared email address',
+            class: 'govuk-label govuk-label--m'
+          ) %>
+          <span class="govuk-hint">
+            Please provide the email address for a shared inbox or
+            mailing list that the team can be contacted using.
+          </span>
+          <%= error_message_on(f.object.errors, :team_email_address) %>
+          <%= f.text_field(
+            :team_email_address, value: @form.team_email_address,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_email_address) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+      </fieldset>
+      <fieldset class="govuk-fieldset">
+        <%= f.label(
+          :team_email_address,
+          'Team lead',
+          class: 'govuk-label govuk-label--m'
+        ) %>
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_lead_name) %>">
+          <%= f.label :team_lead_name, 'Name', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :team_lead_name) %>
+          <%= f.text_field(
+            :team_lead_name,
+            value: @form.team_lead_name,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_lead_name) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_lead_role) %>">
+          <%= f.label :team_lead_role, 'Role', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :team_lead_role) %>
+          <%= f.text_field(
+            :team_lead_role, value: @form.team_lead_role,
+            required: true,
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_lead_role) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_lead_email_address) %>">
+          <%= f.label :team_lead_email_address, 'Email address', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :team_lead_email_address) %>
+          <span class="govuk-hint">
+            Shared inbox prefered
+          </span>
+          <%= f.text_field(
+            :team_lead_email_address,
+            value: @form.team_lead_email_address,
+            spellcheck: "false",
+            autocomplete: "email",
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_lead_email_address) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+        <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.include?(:team_lead_phone_number) %>">
+          <%= f.label :team_phone_number, 'Phone number', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :team_lead_phone_number) %>
+          <%= f.text_field(
+            :team_lead_phone_number, value: @form.team_lead_phone_number,
+            type: "tel",
+            autocomplete: "tel",
+            class: "govuk-input govuk-input--width-20 #{@form.errors.include?(:team_lead_phone_number) ? 'govuk-input--error' : ''}"
+          ) %>
+        </div>
+      </fieldset>
+
+      <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
+    <% end %>
+  </div>
+</div>

@@ -6,7 +6,7 @@ class TerraformAccountsService
     @users_terraform = JSON.parse users_terraform
   end
 
-  def add_account(account_name)
+  def add_account(account_name, tags)
     accounts = @users_terraform.fetch 'resource'
     resource_names = accounts.map {|u| u['aws_organizations_account'].keys }.flatten
 
@@ -20,6 +20,7 @@ class TerraformAccountsService
         'email': AWS_ROOT_ACCOUNTS_EMAIL_FORMAT % truncate_account_name_for_email(account_name),
         'role_name': 'bootstrap',
         'iam_user_access_to_billing': 'ALLOW',
+        'tags': tags,
         'lifecycle': {
           'ignore_changes': [
             'tags'

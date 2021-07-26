@@ -11,6 +11,6 @@ class AccountDetailsController < ApplicationController
     return render :account_details if @form.invalid?
 
     session['form'] = session.fetch('form', {}).merge form_params
-    redirect_to programme_path
+    redirect_to organisation_path
   end
 end

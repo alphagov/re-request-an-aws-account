@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class ProgrammeControllerTest < ActionDispatch::IntegrationTest
-  setup { sign_in 'test@example.com' }
+  setup {
+    sign_in 'test@example.com'
+    set_session(
+      'test@example.com',
+      'organisation' => 'Government Digital Service',
+    )
+  }
 
   test 'should get index' do
     get programme_url

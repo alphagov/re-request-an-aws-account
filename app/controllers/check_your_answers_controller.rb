@@ -12,6 +12,7 @@ class CheckYourAnswersController < ApplicationController
 
     account_name = all_params['account_name']
     account_description = all_params['account_description']
+    organisation_or_other = all_params['organisation_or_other']
     programme_or_other = all_params['programme_or_other']
     admin_users = all_params['admin_users']
     email = session['email']
@@ -19,6 +20,7 @@ class CheckYourAnswersController < ApplicationController
     begin
       tags = {
         'description' => account_description,
+        'organisation' => organisation_or_other,
         'programme' => programme_or_other,
 
         'team-name' => all_params['team_name'],

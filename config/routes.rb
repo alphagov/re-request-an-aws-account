@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get '/account-details', to: 'account_details#account_details', as: :account_details
   post '/account-details', to: 'account_details#post'
 
+  get '/organisation', to: 'organisation#organisation', as: :organisation
+  post '/organisation', to: 'organisation#post'
+
   get '/programme', to: 'programme#programme', as: :programme
   post '/programme', to: 'programme#post'
 

@@ -16,6 +16,6 @@ class AccountDetailsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect on valid form' do
     post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'some description' } }
-    assert_redirected_to programme_url
+    assert_redirected_to organisation_url
   end
 end

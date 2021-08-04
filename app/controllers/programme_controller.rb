@@ -15,4 +15,12 @@ class ProgrammeController < ApplicationController
 
     redirect_to team_path
   end
+
+  def programme_options
+    organisation = session.fetch('form', {})['organisation']
+
+    OrganisationController::ORGANISATIONS.dig(organisation, 'programmes') || []
+  end
+
+  helper_method :programme_options
 end

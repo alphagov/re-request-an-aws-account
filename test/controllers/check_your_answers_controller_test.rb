@@ -63,6 +63,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
           "role_name" => "bootstrap",
           "iam_user_access_to_billing" => "ALLOW",
           "tags" => {
+            "account-name" => "some-name",
             "description" => "some account description",
             "team-name" => "Platform Health",
             "team-email-address" => "foo@example.com",

@@ -19,6 +19,7 @@ class CheckYourAnswersController < ApplicationController
 
     begin
       tags = {
+        'account-name' => account_name,
         'description' => account_description,
         'organisation' => organisation_or_other,
         'programme' => programme_or_other,

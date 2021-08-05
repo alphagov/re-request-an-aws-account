@@ -30,7 +30,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
 
       'security_requested_alert_priority_level' => 'P1',
       'security_critical_resources_description' => 'User data stored in blah S3 bucket',
-      'security_does_account_hold_personally_identifiable_information' => 'true',
+      'security_does_account_hold_pii' => 'true',
       'security_does_account_hold_pci_data' => 'false'
     )
   }

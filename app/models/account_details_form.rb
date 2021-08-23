@@ -8,6 +8,8 @@ class AccountDetailsForm
 
   validates :account_name, :account_description, presence: true, length: { maximum: 256 }
 
+  validates_format_of :account_description, with: /\A[\w .:\/=+-@]+\z/, message: 'should only consist of alphanumeric characters, spaces and the characters .:/=+-@'
+
   def initialize(hash)
     params = hash.with_indifferent_access
     @account_name = params[:account_name]

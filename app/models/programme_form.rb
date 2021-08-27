@@ -4,6 +4,11 @@ class ProgrammeForm
   attr_reader :programme, :programme_other
   validate :programme_or_other_specified, :programme_and_other_not_both_specified
 
+  validates_format_of :programme,
+                      :programme_other,
+                      with: AwsTagValueValidator.allowed_chars_regexp,
+                      message: AwsTagValueValidator.allowed_chars_message
+
   def initialize(hash)
     params = hash.with_indifferent_access
     @programme = params[:programme]

@@ -19,6 +19,13 @@ class SecurityForm
             presence: true,
             inclusion: { in: %w[yes no] }
 
+  validates_format_of :security_requested_alert_priority_level,
+                      :security_critical_resources_description,
+                      :security_does_account_hold_pii,
+                      :security_does_account_hold_pci_data,
+                      with: AwsTagValueValidator.allowed_chars_regexp,
+                      message: AwsTagValueValidator.allowed_chars_message
+
   def initialize(hash)
     params = hash.with_indifferent_access
     @security_requested_alert_priority_level = params[:security_requested_alert_priority_level]

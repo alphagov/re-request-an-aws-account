@@ -10,6 +10,15 @@ class TeamForm
 
   validate :at_least_one_contact_detail_provided?
 
+  validates_format_of :team_name,
+                      :team_email_address,
+                      :team_lead_name,
+                      :team_lead_email_address,
+                      :team_lead_phone_number,
+                      :team_lead_role,
+                      with: AwsTagValueValidator.allowed_chars_regexp,
+                      message: AwsTagValueValidator.allowed_chars_message
+
   def at_least_one_contact_detail_provided?
     contact_fields = %w(
       team_lead_email_address

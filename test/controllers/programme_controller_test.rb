@@ -26,6 +26,12 @@ class ProgrammeControllerTest < ActionDispatch::IntegrationTest
     assert_select '.govuk-error-message', 'Error:Only one of Programme and Other should be set'
   end
 
+  test 'should validate allowed characters of programme other' do
+    post programme_url, params: { programme_form: { programme: 'Other', programme_other: 'Quiche (vegan!)' } }
+    assert_response :success
+    assert_select '.govuk-error-message', 'Error:Programme other should only consist of alphanumeric characters, spaces and the characters .:/=+-@'
+  end
+
   test 'should redirect on valid form with programme' do
     post programme_url, params: { programme_form: { programme: 'GOV.UK' } }
     assert_redirected_to team_url

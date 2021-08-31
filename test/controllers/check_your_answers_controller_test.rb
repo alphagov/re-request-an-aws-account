@@ -17,6 +17,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
       'team_name' => 'Platform Health',
       'team_email_address' => 'foo@example.com',
       'team_lead_name' => 'Team Lead',
+      'team_lead_email_address' => 'team-lead@example.com',
       'team_lead_phone_number' => '00000000000',
       'team_lead_role' => 'Developer',
 
@@ -68,6 +69,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
             "team-name" => "Platform Health",
             "team-email-address" => "foo@example.com",
             "team-lead-name" => "Team Lead",
+            "team-lead-email-address" => "team-lead@example.com",
             "team-lead-phone-number" => "00000000000",
             "team-lead-role" => "Developer",
             "service-name" => "GOV.UK",

@@ -27,6 +27,7 @@ class CheckYourAnswersController < ApplicationController
         'team-name' => all_params['team_name'],
         'team-email-address' => all_params['team_email_address'],
         'team-lead-name' => all_params['team_lead_name'],
+        'team-lead-email-address' => all_params['team_lead_email_address'],
         'team-lead-phone-number' => all_params['team_lead_phone_number'],
         'team-lead-role' => all_params['team_lead_role'],
 

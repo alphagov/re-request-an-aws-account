@@ -54,6 +54,7 @@
 
       <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.any? %>">
         <%= f.label :organisation_other, 'Other (please specify)', class: 'govuk-label' %>
+        <%= error_message_on(f.object.errors, :organization_other) %>
         <%= f.text_field :organisation_other, value: @form.organisation_other, required: false, class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-input--error' : ''}" %>
       </div>
       <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>

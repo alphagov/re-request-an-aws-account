@@ -4,6 +4,11 @@ class OrganisationForm
   attr_reader :organisation, :organisation_other
   validate :organisation_or_other_specified, :organisation_and_other_not_both_specified
 
+  validates_format_of :organisation,
+                      :organisation_other,
+                      with: AwsTagValueValidator.allowed_chars_regexp,
+                      message: AwsTagValueValidator.allowed_chars_message
+
   def initialize(hash)
     params = hash.with_indifferent_access
     @organisation = params[:organisation]

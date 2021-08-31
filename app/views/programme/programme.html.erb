@@ -56,6 +56,7 @@
 
         <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.any? %>">
           <%= f.label :programme_other, 'Other (please specify)', class: 'govuk-label' %>
+          <%= error_message_on(f.object.errors, :programme_other) %>
           <%= f.text_field :programme_other, value: @form.programme_other, required: false, class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-input--error' : ''}" %>
         </div>
       <% else %>

@@ -18,8 +18,20 @@ class GithubService
     master = @client.commit(github_repo, 'master')
     create_branch github_repo, new_branch_name, master.sha
 
-    accounts_path = 'terraform/accounts.tf'
-    accounts_contents = @client.contents github_repo, path: accounts_path
+    for accounts_path in ['terraform/accounts.tf.json', 'terraform/accounts.tf'] do
+      begin
+        accounts_contents = @client.contents github_repo, path: accounts_path
+      rescue Octokit::NotFound
+        # allow a final failure to be detected
+        accounts_path = nil
+      else
+        break
+      end
+    end
+    unless accounts_path
+      Errors::log_error "Couldn't locate accounts terraform file."
+      return nil
+    end
 
     name = email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
     terraform_accounts_service = TerraformAccountsService.new(Base64.decode64(accounts_contents.content))

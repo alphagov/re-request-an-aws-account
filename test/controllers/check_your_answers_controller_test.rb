@@ -123,6 +123,9 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
     stub_request(:post, "#{ACCOUNT_MANAGEMENT_GITHUB_API}/git/refs").
       to_return(status: 200, body: '{}', headers: {'Content-Type' => 'application/json'})
 
+    stub_request(:get, "#{ACCOUNT_MANAGEMENT_GITHUB_API}/contents/terraform/accounts.tf.json").
+     to_return(status: 404, body: '{}', headers: {'Content-Type' => 'application/json'})
+
     stub_request(:get, "#{ACCOUNT_MANAGEMENT_GITHUB_API}/contents/terraform/accounts.tf").
      to_return(status: 200, body: accounts_terraform, headers: {'Content-Type' => 'application/json'})
 

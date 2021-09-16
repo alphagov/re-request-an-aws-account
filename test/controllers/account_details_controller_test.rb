@@ -14,14 +14,20 @@ class AccountDetailsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.govuk-error-message', 'Error:Account name should be lower-case-separated-by-dashes'
   end
 
-  test 'should validate account description' do
-    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'A bad description,\ncausing trouble' } }
+  test 'should validate account description (commas)' do
+    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'A bad description, causing trouble' } }
+    assert_response :success
+    assert_select '.govuk-error-message', 'Error:Account description should only consist of alphanumeric characters, spaces and the characters .:/=+-@'
+  end
+
+  test 'should validate account description (various)' do
+    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'A \n ~really~\nbad description; causing (great) trouble!' } }
     assert_response :success
     assert_select '.govuk-error-message', 'Error:Account description should only consist of alphanumeric characters, spaces and the characters .:/=+-@'
   end
 
   test 'should redirect on valid form' do
-    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'some description' } }
+    post account_details_url, params: { account_details_form: { account_name: 'good-account-name', account_description: 'Some description - all valid.' } }
     assert_redirected_to organisation_url
   end
 end

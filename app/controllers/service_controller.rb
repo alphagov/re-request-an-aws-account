@@ -16,7 +16,7 @@ class ServiceController < ApplicationController
 
     session['form'] = session.fetch('form', {}).merge form_params
 
-    redirect_to @form.service_is_out_of_hours_support_provided ?
+    redirect_to @form.service_is_out_of_hours_support_provided == 'true' ?
       out_of_hours_support_path :
       security_path
   end

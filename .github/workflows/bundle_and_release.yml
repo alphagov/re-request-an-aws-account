@@ -1,0 +1,44 @@
+name: release-re-request-an-aws-account
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # V2.4.0
+      - name: add-cloudfoundry-repository
+        run: |
+          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+          echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        
+      - name: install-system-dependencies
+        run: |        
+          sudo apt-get update
+
+          sudo apt-get install -y ruby=1:2.7+1
+          sudo apt-get install -y nodejs=10.19.0~dfsg-3ubuntu1
+          sudo apt-get install -y cf7-cli
+          
+          sudo gem install bundler:2.1.4
+          sudo npm install --global yarn
+
+      - name: bundle-re-request-an-aws-account
+        run: |          
+          bundle install --without development
+          yarnpkg install
+
+      - name: deploy-to-paas
+        env:
+          CF_USERNAME: ${{ secrets.CF_EMAIL }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+        run: | 
+          cf api https://api.cloud.service.gov.uk 
+          cf auth
+          cf target -o gds-tech-ops -s docs
+
+          cf push -f ./manifest.yml --strategy rolling

@@ -39,6 +39,6 @@ jobs:
         run: | 
           cf api https://api.cloud.service.gov.uk 
           cf auth
-          cf target -o gds-tech-ops -s docs
+          cf target -o gds-tech-ops -s re-aws-account-management
 
           cf push -f ./manifest.yml --strategy rolling

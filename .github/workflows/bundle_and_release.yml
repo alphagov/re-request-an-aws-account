@@ -41,4 +41,4 @@ jobs:
           cf auth
           cf target -o gds-tech-ops -s docs
 
-          cf push -f ./manifest.yml
+          cf push -f ./manifest.yml --strategy rolling

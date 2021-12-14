@@ -207,8 +207,8 @@ GEM
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    webmock (3.13.0)
-      addressable (>= 2.3.6)
+    webmock (3.14.0)
+      addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.5)
@@ -231,7 +231,7 @@ DEPENDENCIES
   rack_session_access (~> 0.2.0)
   rails (~> 6)
   sassc-rails
-  webmock (~> 3.13)
+  webmock (~> 3.14)
 
 RUBY VERSION
    ruby 2.7.1p83

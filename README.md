@@ -34,8 +34,7 @@ To sign in as a development user, visit <http://localhost:3000/dev-login> (to tr
 Deploying to PaaS
 -----------------
 
-This is continuously deployed from master by the [multi-tenant Concourse](https://cd.gds-reliability.engineering) via the [internal-apps pipeline in the tech-ops repo](https://github.com/alphagov/tech-ops/blob/master/reliability-engineering/pipelines/internal-apps.yml).
-
+This is continuously deployed from master [by Github Actions](https://github.com/alphagov/re-request-an-aws-account/blob/master/.github/workflows/bundle_and_release.yml)
 
 To deploy to a separate route (e.g. for testing / previewing changes) you can push to PaaS manually:
 

@@ -79,6 +79,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert_match EmailValidator.allowed_emails_regexp, emails
   end
 
+  test 'Mixed case emails are matched by the allowed emails regexp' do
+    email = 'Test.User@cabinetoffice.gov.uk'
+    assert_match EmailValidator.allowed_emails_regexp, email
+  end
+
   test 'Other email addresses should not match emails regexp' do
     email = 'fname.lname@example.com'
     assert_no_match EmailValidator.allowed_emails_regexp, email

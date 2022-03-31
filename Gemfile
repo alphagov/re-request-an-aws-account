@@ -5,7 +5,7 @@ ruby '~> 2.7.0'
 
 gem 'dotenv-rails', groups: [:development]
 
-gem 'lograge', '~> 0.11.2'
+gem 'lograge', '~> 0.12.0'
 gem 'logstash-event', '~> 1.2.02'
 gem 'notifications-ruby-client', '~> 5.3'
 gem 'octokit', '~> 4.21'

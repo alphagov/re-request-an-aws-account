@@ -11,7 +11,7 @@ gem 'notifications-ruby-client', '~> 5.3'
 gem 'octokit', '~> 4.21'
 gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
-gem 'rails', '~> 6'
+gem 'rails', '~> 7'
 gem 'sassc-rails'
 gem 'webmock', '~> 3.14'
 

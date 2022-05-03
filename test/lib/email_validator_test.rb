@@ -71,6 +71,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert_match EmailValidator.allowed_emails_regexp, email
   end
 
+  test 'Emails with numbers in the local part are allowed' do
+    email = 'fname.lname1@digital.cabinet-office.gov.uk'
+    assert_match EmailValidator.allowed_emails_regexp, email
+  end
+
   test 'Mixed list of valid emails are matched by the allowed emails regexp' do
     emails = [
       'test.user@digital.cabinet-office.gov.uk',

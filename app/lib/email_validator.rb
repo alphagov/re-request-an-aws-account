@@ -19,10 +19,10 @@ module EmailValidator
   # which domains are allowed to be requested for a gds-users account
   def self.allowed_emails_regexp
     /\A(#{Regexp.union(
-      /([a-z.\-\']+@digital\.cabinet-office\.gov\.uk,?\s*)/,
-      /([a-z.\-\']+@cabinetoffice\.gov\.uk,?\s*)/,
-      /([a-z.\-\']+@softwire\.com,?\s*)/,
-      /([a-z.\-\']+@fidusinfosec\.com,?\s*)/,
+      /([a-z0-9.\-\']+@digital\.cabinet-office\.gov\.uk,?\s*)/,
+      /([a-z0-9.\-\']+@cabinetoffice\.gov\.uk,?\s*)/,
+      /([a-z0-9.\-\']+@softwire\.com,?\s*)/,
+      /([a-z0-9.\-\']+@fidusinfosec\.com,?\s*)/,
     )})+\z/
   end
 

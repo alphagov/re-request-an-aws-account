@@ -24,7 +24,7 @@ jobs:
           sudo apt-get install -y nodejs=12.22.9~dfsg-1ubuntu3
           sudo apt-get install -y cf8-cli
           
-          sudo gem install bundler:2.1.4
+          sudo gem install bundler:2.4.8
           sudo npm install --global yarn
 
       - name: bundle-re-request-an-aws-account

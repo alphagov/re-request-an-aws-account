@@ -7,13 +7,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # V2.4.0
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@e6689b4deb1cb2062ea45315001f687c0b52111b # V1.144.1
       with:
         ruby-version: '3.2'
     - name: Set up Node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # V3.6.0
       with:
         node-version: '12'
     - name: Build and test

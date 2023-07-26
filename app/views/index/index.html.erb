@@ -24,16 +24,16 @@
       <h2 class="govuk-heading-m" id="manage-users">Manage user access to Amazon Web Services (AWS)</h2>
 
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
-      <h3 class="govuk-heading-s">Grant AWS access to a user</h3>
+      <h3 class="govuk-heading-s">Request a new AWS user</h3>
       <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by reliability engineering with a base GDS account: <em>gds-users</em>.</p>
       <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
       <p> See <a href="https://reliability-engineering.cloudapps.digital/iaas.html#access-aws-accounts">accessing AWS accounts</a> in the reliability engineering docs.</p>
       <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
       <a href="<%= user_path %>" class="govuk-button" data-module="govuk-button">
-        Request user access
+        Request new user
       </a>
 
-      <h3 class="govuk-heading-s">Remove AWS access from a user</h3>
+      <h3 class="govuk-heading-s">Remove an AWS user</h3>
       <p>
         You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process.
         Users should only be removed when they leave GDS or no longer need access to any AWS resources.
@@ -69,8 +69,8 @@
       <p>Depending on your email domain, you can use this service to:</p>
       <ul class="govuk-list govuk-list--bullet">
         <li>Reset your AWS user password (for all users)</li>
-        <li>Grant AWS access to a user (e.g. for new joiners - Cabinet Office staff only)</li>
-        <li>Remove AWS access from a user (e.g. for leavers - Cabinet Office staff only)</li>
+        <li>Request a new AWS user (e.g. for new joiners - Cabinet Office staff only)</li>
+        <li>Remove an AWS user (e.g. for leavers - Cabinet Office staff only)</li>
         <li>Request a new AWS account (e.g. for a new service or environment - Cabinet Office staff only)</li>
       </ul>
       <p>First you need to sign in with your GDS or CO Google account so we know who you are.</p>

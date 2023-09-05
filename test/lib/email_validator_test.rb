@@ -26,6 +26,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert EmailValidator.email_is_allowed_basic?(email)
   end
 
+  test 'Pentestpartners email addresses are allowed to sign in' do
+    email = 'fname.lname@pentestpartners.com'
+    assert EmailValidator.email_is_allowed_basic?(email)
+  end
+
   test 'Other email addresses are not allowed to sign in' do
     email = 'fname.lname@example.com'
     assert ! EmailValidator.email_is_allowed_basic?(email)
@@ -83,6 +88,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
 
   test 'Cyberis emails are matched by the allowed emails regexp' do
     email = 'fname.lname@cyberis.com'
+    assert_match EmailValidator.allowed_emails_regexp, email
+  end
+
+  test 'Pentestpartners emails are matched by the allowed emails regexp' do
+    email = 'fname.lname@pentestpartners.com'
     assert_match EmailValidator.allowed_emails_regexp, email
   end
 

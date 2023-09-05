@@ -7,6 +7,7 @@ module EmailValidator
     return true if email.end_with? '@softwire.com'
     return true if email.end_with? '@fidusinfosec.com'
     return true if email.end_with? '@cyberis.com'
+    return true if email.end_with? '@pentestpartners.com'
     false
   end
 
@@ -25,6 +26,7 @@ module EmailValidator
       /([a-z0-9.\-\']+@softwire\.com,?\s*)/,
       /([a-z0-9.\-\']+@fidusinfosec\.com,?\s*)/,
       /([a-z0-9.\-\']+@cyberis\.com,?\s*)/,
+      /([a-z0-9.\-\']+@pentestpartners\.com,?\s*)/,
     )})+\z/
   end
 

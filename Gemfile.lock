@@ -94,7 +94,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    lograge (0.12.0)
+    lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -123,6 +123,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.14.2-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
@@ -234,12 +236,13 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   dotenv-rails
   listen (~> 3.7)
-  lograge (~> 0.12.0)
+  lograge (~> 0.14.0)
   logstash-event (~> 1.2.02)
   notifications-ruby-client (~> 5.4.0)
   octokit (~> 6.1.0)

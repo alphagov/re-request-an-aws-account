@@ -1,6 +1,7 @@
-FROM ghcr.io/alphagov/govuk-ruby-builder:3.2 AS builder
+FROM ruby:3.2-bullseye
+RUN apt-get update && apt-get install -y nodejs npm 
 
-
+ 
 # Default directory
 ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
@@ -13,8 +14,13 @@ WORKDIR /opt/app
 COPY . .
 
 RUN bundle install
+RUN npm install
 
 
 
 # Run a shell
-CMD ["/bin/bash"]
+#CMD ["bundle", "exec", "rails", "server"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "8888"]
+
+
+

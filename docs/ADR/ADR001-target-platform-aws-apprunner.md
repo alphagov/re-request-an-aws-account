@@ -59,8 +59,6 @@ is business critical and it needs to follow an straightforward UI/UX.
 Other ADRS required:
 
   - Deployment pipeline
-  - infrastructure as code
-  - image registry
   - Google SSO/OAuth - user auth
   - secrets management and deployment
   - monitoring/alerts

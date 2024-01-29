@@ -16,6 +16,10 @@ Date: YYYY-MM-DD
 
 > what the team has decided to do
 
+## Considered Options
+
+> bullet point what wasn't chosen and why
+
 ## Consequences
 
 > both positive and negative consequences of the decision

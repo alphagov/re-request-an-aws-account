@@ -4,7 +4,7 @@ Date: 2024-01-29
 
 ## Status
 
-  * Proposed (note requires investigation into apprunner integration with docker hub)
+  * Accepted
 
 ## Context
 
@@ -23,9 +23,5 @@ Date: 2024-01-29
 
 ## Consequences
 
-  * We need to understand AppRunner's deployment mechanism, it will need access to dockerhub private reg.
-  * It may be necessary/easier to deploy the image into apprunner from ECR (even if it means multiple copies of image)
-
-## Other Notes ##
-
-  * Requires a bit of investigation/spike
+  * [AWS acc will need to be able to log into Docker hub](https://aws.amazon.com/blogs/containers/authenticating-with-docker-hub-for-aws-container-services/) 
+  * [configure appRunner to use private docker hub as mentioned in this blog post](https://www.pulumi.com/ai/answers/6U4EwDmaAv9j1TYxyEZqfU/deploying-docker-images-on-aws-with-typescript)

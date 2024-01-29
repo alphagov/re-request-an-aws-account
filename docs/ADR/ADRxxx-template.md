@@ -23,3 +23,7 @@ Date: YYYY-MM-DD
 ## Consequences
 
 > both positive and negative consequences of the decision
+
+## Other Notes ##
+
+> If there are any other notes required to be mentioned - use rarely and delete if not required

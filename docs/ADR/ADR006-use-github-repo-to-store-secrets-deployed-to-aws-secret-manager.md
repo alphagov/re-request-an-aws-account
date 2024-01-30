@@ -9,7 +9,6 @@ Date: 2024-01-30
 ## Context
 
   * Request Account Tool app requires various secrets:
-    - Dockerhub API key to pull image from private registry
     - Google (cloud platform)  SSO/OAuth2 client secret for AWS 
     - Github PAT to store access API to raise PR for requested accounts
   * Secrets need to be deployed securely
@@ -39,4 +38,4 @@ Date: 2024-01-30
 
   * The single source of truth for the secrets will be stored in the Engineering Enablement Password Manager
   * Only team members with elevated privilages will be able to access these passwords and manually edit the secrets in the github repo settings.
-  * We will use the Engineering Enablement Bot accounts in Github and Docker Hub for API tokens
+  * We will use the Engineering Enablement Bot accounts in Github for PAT 

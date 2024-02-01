@@ -16,7 +16,8 @@ COPY . .
 RUN bundle install
 RUN npm install
 
-
+# Expose both port 3000 and 8888
+EXPOSE 3000 8888
 
 # Run a shell
 #CMD ["bundle", "exec", "rails", "server"]

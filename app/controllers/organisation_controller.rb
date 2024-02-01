@@ -3,11 +3,12 @@ class OrganisationController < ApplicationController
     'Government Digital Service' => {
       'programmes' => [
         'GOV.UK',
-        'GOV.UK Verify',
-        'Government as a Platform',
+        'Digital Identity',
+        'Platform & Services',
+        'Technology and Cyber Security',
       ],
     },
-    'Chief Digital and Information Office' => {
+    'Cabinet Office Digital' => {
       'programmes' => [
         'Security',
         'GovWifi',

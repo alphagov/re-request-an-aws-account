@@ -1,0 +1,60 @@
+name: Publish image to Docker Hub
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: governmentdigitalservice/ee-request-aws-account
+          tags: |
+            type=semver,pattern={{version}}
+            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+      
+      - name: Output tags
+        run: | 
+          echo "::notice tags: ${{steps.meta.outputs.tags}}"
+
+      - name: Build and push Docker image
+        id: docker_image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Push Docker image into ECR
+        uses: docker://ghcr.io/kciter/aws-ecr-action:latest
+        with:
+         access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+         repo: docker/repo
+         region: eu-west-2
+         tags: latest,${{ github.sha }}
+         create_repo: truegi
+         image_scanning_configuration: true
+         set_repo_policy: true
+         repo_policy_file: repo-policy.json
+        

@@ -1,0 +1,21 @@
+
+name: Tests
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - 'master'
+    - 'main'
+    - 'dockerise'
+    - 'publish-to-dockerhub'
+    - 'push-to-ghcr-and-ecr'
+    - 'dockerise-basic'
+  pull_request:
+    branches:
+    - 'master'
+    - 'main'
+    - 'dockerise'
+    - 'publish-to-dockerhub'
+    - 'push-to-ghcr-and-ecr'
+    - 'dockerise-basic'
+jobs:

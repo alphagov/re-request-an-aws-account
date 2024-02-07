@@ -16,11 +16,11 @@ COPY . .
 RUN bundle install
 RUN npm install
 
-
+EXPOSE 3000
 
 # Run a shell
 #CMD ["bundle", "exec", "rails", "server"]
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "8888"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "3000"]
 
 
 

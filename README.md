@@ -55,7 +55,7 @@ image to GHCR. This workflow runs every time a PR is raised to the branch called
 'main'. It uses the `docker/login-action`, `docker/metadata-action`, and
 `docker/build-push-action`.
 
-You can view the workflow at [ghcr.yml](https://github.com/alphagov/re-request-an-aws-account/blob/dockerise-basic/.github/workflows/ghcr.yml).
+You can [view the workflow at ghcr.yml](https://github.com/alphagov/re-request-an-aws-account/blob/dockerise-basic/.github/workflows/ghcr.yml).
 
 
 The workflow utilizes the following GitHub Actions:

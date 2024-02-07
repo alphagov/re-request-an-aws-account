@@ -29,8 +29,6 @@ bundle exec rails test
 
 To sign in as a development user, visit <http://localhost:3000/dev-login> (to try different email addresses, you can provide a `email` parameter). If you want to test with real Google SSO, you can [create an application in the Google Cloud Console](https://console.developers.google.com/apis/credentials).
 
-<<<<<<< Updated upstream
-=======
 ## Building the Docker image
 
 In order to move this app away from GOV.UK PaaS, we have containerised the 
@@ -44,11 +42,20 @@ docker build -t request-an-aws-account .
 docker run -p 3000:3000 -t request-an-aws-account
 ```
 
-## Deploying through Github Actions
+## Deploying through GitHub Actions
+
+We use a GitHub Action to automate the building and deploying of our Docker image to GHCR. This workflow runs every time a PR is raised to the branch called 'main'. It uses the `docker/login-action`, `docker/metadata-action`, and `docker/build-push-action`.
+
+You can view the workflow in action [here](https://github.com/alphagov/re-request-an-aws-account/actions/runs/7816113717).
+
+The workflow utilizes the following GitHub Actions:
+[`docker/login-action`](https://github.com/docker/login-action) for logging in to Docker.
+[`docker/metadata-action`](https://github.com/docker/metadata-action) for generating Docker image metadata.
+[`docker/build-push-action`](https://github.com/docker/build-push-action) for building and pushing the Docker image.
+
+This process ensures our Docker images are automatically built and pushed to the GitHub Container Registry (GHCR), streamlining our deployment process.
 
 
-
->>>>>>> Stashed changes
 ## Deploying to PaaS
 
 This is continuously deployed from master [by Github Actions](https://github.com/alphagov/re-request-an-aws-account/blob/master/.github/workflows/bundle_and_release.yml)

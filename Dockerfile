@@ -16,7 +16,12 @@ COPY . .
 RUN bundle install
 RUN npm install
 
+<<<<<<< HEAD
 EXPOSE 3000
+=======
+# Expose port 8888
+EXPOSE 8888
+>>>>>>> origin/dockerise-basic
 
 # Run a shell
 #CMD ["bundle", "exec", "rails", "server"]

@@ -11,7 +11,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@e6689b4deb1cb2062ea45315001f687c0b52111b # V1.144.1
       with:
-        ruby-version: '3.2'
+        ruby-version: '3.1'
     - name: Set up Node
       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # V3.6.0
       with:

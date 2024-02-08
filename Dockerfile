@@ -1,6 +1,4 @@
-FROM ruby:3.1-slim
-RUN apt-get update && apt-get install -y nodejs npm 
-
+FROM timbru31/ruby-node:@sha256:4ffd5f07be681e35ebeec21f966de45adc3b7fcd10ba17a2600bfad4fdf9ebee
  
 # Default directory
 ENV INSTALL_PATH /opt/app

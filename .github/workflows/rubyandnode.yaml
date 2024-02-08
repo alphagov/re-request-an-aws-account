@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # V2.4.0
     - name: Set up Ruby
-      uses: ruby/setup-ruby@e6689b4deb1cb2062ea45315001f687c0b52111b # V1.144.1
+      uses: ruby/setup-ruby@22fdc77bf4148f810455b226c90fb81b5cbc00a7 # v1.171.0
       with:
         ruby-version: '3.1'
     - name: Set up Node

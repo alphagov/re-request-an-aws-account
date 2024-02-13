@@ -2,15 +2,12 @@
 #TODO add .dockerignore
 #TODO add non root user
 FROM node:20.11-slim as nodebuilder
-
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
 RUN npm install
 
 FROM ruby:3.2 as rubybuilder
- 
-# Default directory
 RUN apt update -y && apt -y install rsync 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
@@ -25,7 +22,11 @@ COPY --from=rubybuilder /usr/local/bin /usr/local/bin
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
 COPY --from=nodebuilder /usr/local/lib/node_modules /usr/local/bin/node_modules
 
+RUN useradd -ms /bin/bash app
+USER app
+COPY --chown=app . ./
+RUN RAILS_ENV=production SECRET_KEY_BASE=assets bundle exec rake assets:precompile
+
 EXPOSE 3000
-COPY . .
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "3000"]
 

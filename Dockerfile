@@ -1,6 +1,5 @@
 #TODO pin all versions to sha digest
 #TODO add .dockerignore
-#TODO add non root user
 FROM node:20.11-slim as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./

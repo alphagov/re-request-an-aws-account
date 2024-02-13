@@ -41,3 +41,9 @@ To deploy to a separate route (e.g. for testing / previewing changes) you can pu
 ```sh
 cf push gds-request-an-aws-account-preview
 ```
+
+Building Docker Image
+--------------------
+
+Note - when building the docker image on a mac arm but wanting to run the image on x86 architecture then run the `docker build` with this flag: `--platform="linux/amd64"`
+

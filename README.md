@@ -56,8 +56,7 @@ If running in production a master key is required to decrypt `credentials.yml.en
 ENV vars
 --------
 
-  - `RAILS_ALLOW_LOCAHOST` true|false(default): allows application to be accessed via localhost
-  - `RAILS_FORCE_SSL` true|false(default): will redirect to https if set to true (producti)
+  - `RAILS_ALLOW_LOCALHOST` true|false(default): allows application to be accessed via localhost
   - `RAILS_SERVE_STATIC_FILES` true|false(default)
   - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults to logfile
 

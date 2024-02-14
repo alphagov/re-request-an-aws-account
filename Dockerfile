@@ -25,8 +25,7 @@ COPY --from=nodebuilder /usr/local/lib/node_modules /usr/local/bin/node_modules
 RUN useradd -ms /bin/bash app
 USER app
 COPY --chown=app . ./
-RUN RAILS_ENV=production SECRET_KEY_BASE=assets bundle exec rake assets:precompile
+RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "3000"]
-

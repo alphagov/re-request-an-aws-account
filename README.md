@@ -47,3 +47,24 @@ Building Docker Image
 
 Note - when building the docker image on a mac arm but wanting to run the image on x86 architecture then run the `docker build` with this flag: `--platform="linux/amd64"`
 
+Ruby App Master Key
+-------------------
+
+If running in production a master key is required to decrypt `credentials.yml.enc`. This has been created and is passed into the container/environment at runtime.
+
+
+ENV vars
+--------
+
+  - `RAILS_ALLOW_LOCALHOST` true|false(default): allows application to be accessed via localhost
+  - `RAILS_SERVE_STATIC_FILES` true|false(default)
+  - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults to logfile
+
+ENV secrets
+-----------
+
+  - `GOOGLE_CLIENT_ID`: an OAuth2 client ID
+  - `GOOGLE_CLIENT_SECRET`: an OAuth2 client secret
+  - `GITHUB_PERSONAL_ACCESS_TOKEN`: the PAT required to act on requied alphagov repos
+  - `NOTIFY_API_KEY`: a key to use the notify api to send emails
+  - `RAILS_MASTER_KEY`: the key that has been used to encode `config/credentials.yml.enc`

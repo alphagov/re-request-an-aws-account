@@ -8,7 +8,7 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
-  config.force_ssl = true
+  config.force_ssl = ENV['DISABLE_FORCE_SSL'].present?
   config.logger = ActiveSupport::Logger.new(STDERR)
 
   # Define a content security policy

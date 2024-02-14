@@ -16,9 +16,16 @@
 /public/assets
 .byebug_history
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
+# ignore env-specific master keys
+/config/credentials/*.key
+
+# ignore development credentials (each developer should have their own local copy to allow local customisation if needed, not committed to the repo)
+/config/credentials/development.yml.enc
+
+# ignore intellij
 .idea
+
+# ignore env file which may contain sensitive environment variables configured locally
 .env
 
 # Ignore node_modules

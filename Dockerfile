@@ -7,12 +7,13 @@ COPY package.json ./
 RUN npm install
 
 FROM ruby:3.2 as rubybuilder
-RUN apt update -y && apt -y install rsync 
+RUN apt update -y && apt -y install rsync nano
+RUN cp /usr/bin/nano /usr/local/bin/
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 RUN rsync -a /usr/local/nodebin /usr/local/bin
+RUN bundle install
 
 FROM ruby:3.2-slim
 WORKDIR /opt/app

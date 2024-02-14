@@ -15,15 +15,12 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
   config.logger = ActiveSupport::Logger.new(STDERR)
 
-  # so we can run production config in localhost to check it
-  # remove the force ssl config if env var set to false
-  # and ensure default will always be true
-  ENV['RAILS_FORCE_SSL'].blank? ? config.force.ssl = true :  config.force_ssl = ENV['RAILS_FORCE_SSL'].present?
-
   # so we can run procudion config in localhost to check it
   # if env var is set to true consider all request to be local and allow hosts
   config.consider_all_requests_local = ENV['RAILS_ALLOW_LOCALHOST'].present?
   config.hosts << "localhost:3000" if ENV['RAILS_ALLOW_LOCALHOST'].present?
+  config.force_ssl =  true
+  config.force_ssl =  false if ENV['RAILS_ALLOW_LOCALHOST'].present?
   
   # Define a content security policy
   # For further information see the following documentation

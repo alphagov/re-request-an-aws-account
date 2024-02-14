@@ -18,7 +18,7 @@ Rails.application.configure do
   # so we can run production config in localhost to check it
   # remove the force ssl config if env var set to false
   # and ensure default will always be true
-  ENV['RAILS_FORCE_SSL'].blank ? config.force.ssl = true :  config.force_ssl = ENV['RAILS_FORCE_SSL'].present?
+  ENV['RAILS_FORCE_SSL'].blank? ? config.force.ssl = true :  config.force_ssl = ENV['RAILS_FORCE_SSL'].present?
 
   # so we can run procudion config in localhost to check it
   # if env var is set to true consider all request to be local and allow hosts

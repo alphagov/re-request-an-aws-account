@@ -1,16 +1,27 @@
 Rails.application.configure do
+  # In app runner on aws we need to be able to test on host
+  # but ruby doesn't like app runner hosts so we have to add it
+  # @TODO remove these once we have perm host/domain set up
+  config.hosts << "dz83ne5st5.eu-west-2.awsapprunner.com"
+
+  
   config.cache_classes = true
   config.eager_load = true
-  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.log_level = :debug
   config.log_tags = [ :request_id ]
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
-  config.force_ssl = true
   config.logger = ActiveSupport::Logger.new(STDERR)
 
+  # so we can run procudion config in localhost to check it
+  # if env var is set to true consider all request to be local and allow hosts
+  config.consider_all_requests_local = ENV['RAILS_ALLOW_LOCALHOST'].present?
+  config.hosts << "localhost:3000" if ENV['RAILS_ALLOW_LOCALHOST'].present?
+  config.force_ssl =  true
+  config.force_ssl =  false if ENV['RAILS_ALLOW_LOCALHOST'].present?
+  
   # Define a content security policy
   # For further information see the following documentation
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy

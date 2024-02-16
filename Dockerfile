@@ -1,10 +1,11 @@
+# get official nodejs/npm binaries
 FROM node:20.11-slim as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
 RUN npm ci
 
-
+# bundle install the gems for production
 FROM ruby:3.2.3 as rubybuilder
 RUN apt update -y \
     && apt -y install nano \
@@ -14,7 +15,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' \
     && bundle install
 
-
+# copy required files from base images, precompile assets & cleanupS
 FROM ruby:3.2.3-slim
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle

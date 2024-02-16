@@ -1,0 +1,12 @@
+.DS_Store
+.git
+.github
+.gitignore
+.rbenv-gemsets
+.ruby-version
+.secrets
+node_modules
+yarn.lock
+node_modules/
+vendor/
+README.md

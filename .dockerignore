@@ -1,12 +1,30 @@
+#ensure these are copied
+!tmp/
+!lib/assets/
+!lib/tasks/
+!log/
+!vendor/
+
+#keep these directories but nothing in them
+lib/*
+log/*
+tmp/*
+vendor/*
+
+
+#ignore these files/directories
 .DS_Store
 .git
 .github
 .gitignore
 .rbenv-gemsets
 .ruby-version
-.secrets
-node_modules
 yarn.lock
-node_modules/
-vendor/
+node_modules
 README.md
+.dockerignore
+.env.example
+manifest.yml
+test
+Dockerfile
+

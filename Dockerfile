@@ -4,7 +4,7 @@ FROM node:20.11-slim as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
-RUN npm install
+RUN npm ci
 
 
 FROM ruby:3.2.3 as rubybuilder
@@ -14,7 +14,7 @@ WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 RUN rsync -a /usr/local/nodebin /usr/local/bin
-RUN bundle install
+RUN bundle config set --local without 'development test'
 
 FROM ruby:3.2.3-slim
 WORKDIR /opt/app

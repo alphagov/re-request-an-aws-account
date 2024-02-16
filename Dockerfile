@@ -16,7 +16,6 @@ COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 RUN export PATH=$PATH:usr/local/nodebin 
 RUN bundle install
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
-#COPY --from=nodebuilder /usr/local/lib/node_modules /usr/local/bin/node_modules
 RUN useradd -ms /bin/bash app
 USER app
 COPY --chown=app . ./

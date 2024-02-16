@@ -26,9 +26,6 @@ RUN export PATH=$PATH:usr/local/nodebin \
 USER app
 COPY --chown=app . ./
 RUN RAILS_ENV=production bundle exec rake assets:precompile
-USER root
-RUN rm -rf /usr/local/nodebin && rm -rf /opt/app/node_modules
-USER app
 
 EXPOSE 3000
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "3000"]

@@ -14,7 +14,7 @@ class RemoveUserController < ApplicationController
     email_list = @form.email_list
 
     begin
-      pull_request_url = GithubService.new.create_remove_user_pull_request(email_list, requester_email)
+      pull_request_url = GithubService.new.create_remove_user_pull_request(email_list, requester_email, request.host)
 
       session['pull_request_url'] = pull_request_url
 

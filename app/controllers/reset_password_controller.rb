@@ -14,7 +14,7 @@ class ResetPasswordController < ApplicationController
     requester_email = session.fetch('email')
 
     begin
-      pull_request_url = GithubService.new.create_reset_user_email_pull_request(requester_name, requester_email)
+      pull_request_url = GithubService.new.create_reset_user_email_pull_request(requester_name, requester_email, request.host)
 
       session['pull_request_url'] = pull_request_url
 

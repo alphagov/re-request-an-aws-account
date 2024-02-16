@@ -1,5 +1,3 @@
-#TODO pin all versions to sha digest
-#TODO add .dockerignore
 FROM node:20.11-slim as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
@@ -8,11 +6,13 @@ RUN npm ci
 
 
 FROM ruby:3.2.3 as rubybuilder
-RUN apt update -y && apt -y install nano
-RUN cp /usr/bin/nano /usr/local/bin/
+RUN apt update -y \
+    && apt -y install nano \
+    && cp /usr/bin/nano /usr/local/bin/
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test'
+RUN bundle config set --local without 'development test' \
+    && bundle install
 
 
 FROM ruby:3.2.3-slim
@@ -20,8 +20,8 @@ WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
-RUN export PATH=$PATH:usr/local/nodebin
-RUN useradd -ms /bin/bash app
+RUN export PATH=$PATH:usr/local/nodebin \
+    && useradd -ms /bin/bash app
 USER app
 COPY --chown=app . ./
 RUN RAILS_ENV=production bundle exec rake assets:precompile

@@ -15,7 +15,7 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' \
     && bundle install
 
-# copy required files from base images, precompile assets & cleanupS
+# copy required files from base images, precompile assets & cleanup
 FROM ruby:3.2.3-slim
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle

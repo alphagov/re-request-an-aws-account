@@ -12,6 +12,7 @@ RUN apt update -y && apt -y install nano
 RUN cp /usr/bin/nano /usr/local/bin/
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set --local without 'development test'
 RUN bundle install
 
 FROM ruby:3.2.3-slim

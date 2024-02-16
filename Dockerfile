@@ -6,7 +6,8 @@ COPY package-lock.json ./
 COPY package.json ./
 RUN npm install
 
-FROM ruby:3.2 as rubybuilder
+
+FROM ruby:3.2.3 as rubybuilder
 RUN apt update -y && apt -y install rsync nano
 RUN cp /usr/bin/nano /usr/local/bin/
 WORKDIR /opt/app
@@ -15,13 +16,14 @@ COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 RUN rsync -a /usr/local/nodebin /usr/local/bin
 RUN bundle install
 
-FROM ruby:3.2-slim
+FROM ruby:3.2.3-slim
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=rubybuilder /usr/local/bin /usr/local/bin
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
 COPY --from=nodebuilder /usr/local/lib/node_modules /usr/local/bin/node_modules
 
+#RUN mkdir /opt/app/tmp
 RUN useradd -ms /bin/bash app
 USER app
 COPY --chown=app . ./

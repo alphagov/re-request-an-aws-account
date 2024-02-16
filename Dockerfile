@@ -6,10 +6,10 @@ COPY package-lock.json ./
 COPY package.json ./
 RUN npm install
 
+
 FROM ruby:3.2.3 as rubybuilder
 RUN apt update -y && apt -y install rsync nano
 RUN cp /usr/bin/nano /usr/local/bin/
-
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
@@ -31,4 +31,3 @@ RUN RAILS_ENV=production bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "--port", "3000"]
-

@@ -3,7 +3,7 @@ FROM node:20.11-slim as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
-RUN npm ci
+RUN npm i
 
 # bundle install the gems for production
 FROM ruby:3.2.3 as rubybuilder

@@ -2,9 +2,8 @@ Rails.application.configure do
   # In app runner on aws we need to be able to test on host
   # but ruby doesn't like app runner hosts so we have to add it
   # @TODO remove these once we have perm host/domain set up
-  config.hosts << "dz83ne5st5.eu-west-2.awsapprunner.com"
+  config.hosts = [ENV['RAILS_ALLOWED_DOMAINS']] 
 
-  
   config.cache_classes = true
   config.eager_load = true
   config.action_controller.perform_caching = true
@@ -15,12 +14,14 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
   config.logger = ActiveSupport::Logger.new(STDERR)
 
-  # so we can run procudion config in localhost to check it
-  # if env var is set to true consider all request to be local and allow hosts
-  config.consider_all_requests_local = ENV['RAILS_ALLOW_LOCALHOST'].present?
-  config.hosts << "localhost:3000" if ENV['RAILS_ALLOW_LOCALHOST'].present?
-  config.force_ssl =  true
-  config.force_ssl =  false if ENV['RAILS_ALLOW_LOCALHOST'].present?
+  # so we can run production in localhost we check the allowd domain
+  if ENV['RAILS_ALLOWED_DOMAINS'] == "localhost:3000"
+    config.consider_all_requests_local = true
+    config.force_ssl =  false
+  else
+    config.consider_all_requests_local = false
+    config.force_ssl =  true
+  end
   
   # Define a content security policy
   # For further information see the following documentation

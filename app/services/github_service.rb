@@ -128,10 +128,10 @@ Co-authored-by: #{name} <#{requester_email}>",
       "Requested using #{host} by #{requester_email}
 
   #{email_list}"
-    ).html_url
+      ).html_url
   end
 
-  def create_remove_user_pull_request(email_list, requester_email)
+  def create_remove_user_pull_request(email_list, requester_email, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -165,7 +165,9 @@ Co-authored-by: #{name} <#{requester_email}>",
       github_repo,
       users_path,
       "#{commit_message_title}
+
 #{email_list}
+
 Co-authored-by: #{requester_name} <#{requester_email}>",
       users_contents.sha,
       new_users_contents,
@@ -173,7 +175,6 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
     )
     @client.update_contents(
       github_repo,
-      ).html_url      github_repo,
       groups_path,
       "Remove users from crossaccountaccess group
 

@@ -128,6 +128,51 @@ Co-authored-by: #{name} <#{requester_email}>",
       "Requested using #{host} by #{requester_email}
 
   #{email_list}"
+    ).html_url
+  end
+
+  def create_remove_user_pull_request(email_list, requester_email)
+    unless @client
+      Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
+      return nil
+    end
+
+    github_repo = 'alphagov/aws-user-management-account-users'
+    users_path = 'terraform/gds_users.tf.json'
+    groups_path = 'terraform/iam_crossaccountaccess_members.tf.json'
+
+    users_contents = @client.contents github_repo, path: users_path
+    groups_contents = @client.contents github_repo, path: groups_path
+
+    terraform_users_service = TerraformUsersService.new Base64.decode64(users_contents.content), Base64.decode64(groups_contents.content)
+    new_users_contents = terraform_users_service.remove_users(email_list)
+    new_groups_contents = terraform_users_service.remove_users_from_group(email_list)
+
+    first_part_of_new_email_address = email_list.split('@').first
+
+    new_branch_name = 'remove-aws-user-' + first_part_of_new_email_address.split('.').join('-') + ('-and-friends' if multiple_users?(email_list)).to_s
+    create_branch github_repo, new_branch_name, @client.commit(github_repo, 'master').sha
+    name = first_part_of_new_email_address.split('.').map { |name| name.capitalize }.join(' ')
+    requester_name = requester_email.split('@').first.split('.').map { |name| name.capitalize }.join(' ')
+
+    if multiple_users?(email_list)
+      commit_message_title = "Remove AWS user #{first_part_of_new_email_address} and friends"
+    else
+      commit_message_title = "Remove AWS user #{first_part_of_new_email_address}"
+    end
+
+    @client.update_contents(
+      github_repo,
+      users_path,
+      "#{commit_message_title}
+#{email_list}
+Co-authored-by: #{requester_name} <#{requester_email}>",
+      users_contents.sha,
+      new_users_contents,
+      branch: new_branch_name
+    )
+    @client.update_contents(
+      github_repo,
       ).html_url      github_repo,
       groups_path,
       "Remove users from crossaccountaccess group

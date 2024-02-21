@@ -7,7 +7,7 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users, tags)
+  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users, tags, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -55,7 +55,7 @@ Co-authored-by: #{name} <#{email}>",
       'master',
       new_branch_name,
       "Add new AWS account for #{programme}: #{account_name}",
-      "Account requested using gds-request-an-aws-account.cloudapps.digital by #{email}
+      "Account requested using #{host} by #{email}
 
 Description:
 #{account_description_quote}
@@ -68,7 +68,7 @@ Once the account is created, the following users should be granted access to the
     ).html_url
   end
 
-  def create_new_user_pull_request(email_list, requester_email)
+  def create_new_user_pull_request(email_list, requester_email, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -125,13 +125,13 @@ Co-authored-by: #{name} <#{requester_email}>",
       'master',
       new_branch_name,
       commit_message_title,
-      "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+      "Requested using #{host} by #{requester_email}
 
   #{email_list}"
       ).html_url
   end
 
-  def create_remove_user_pull_request(email_list, requester_email)
+  def create_remove_user_pull_request(email_list, requester_email, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -190,13 +190,13 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
       'master',
       new_branch_name,
       commit_message_title,
-      "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_email}
+      "Requested using #{host} by #{requester_email}
 
       #{email_list}"
     ).html_url
   end
 
-  def create_reset_user_email_pull_request(requester_name, requester_email)
+  def create_reset_user_email_pull_request(requester_name, requester_email, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -239,7 +239,7 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
       'master',
       new_branch_name,
       commit_message_title,
-      "Requested using gds-request-an-aws-account.cloudapps.digital by #{requester_name}"
+      "Requested using #{host} by #{requester_name}"
     ).html_url
   end
 

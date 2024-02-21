@@ -59,7 +59,8 @@ class CheckYourAnswersController < ApplicationController
         programme_or_other,
         email,
         admin_users,
-        tags
+        tags,
+        request.host
       )
 
       session['pull_request_url'] = pull_request_url

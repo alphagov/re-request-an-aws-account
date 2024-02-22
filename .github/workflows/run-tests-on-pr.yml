@@ -1,0 +1,8 @@
+name: Run tests on Pull request
+
+on:
+  pull_request:
+
+jobs:
+  run-tests: 
+    uses: alphagov/re-request-an-aws-account/.github/workflows/rubyandnode.yaml@main

@@ -2,13 +2,7 @@
 name: Create and publish a Docker image
 #todo this needs changing to be more of a manual trigger (or tied to development branch)
 on:
-  push:
-    branches:
-      - 'main'
-
-  pull_request:
-    branches:
-      - 'main'
+  workflow_call:
 
 # Defines two custom environment variables for the workflow. These are used
 # for the Container registry domain, and a name for the Docker image that

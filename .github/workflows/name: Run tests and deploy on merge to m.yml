@@ -5,8 +5,13 @@ on:
     branches:
       - 'main'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   run-tests: 
     uses: alphagov/re-request-an-aws-account/.github/workflows/rubyandnode.yaml@main
   publish-docker-image: 
     uses: alphagov/re-request-an-aws-account/.github/workflows/ghcr.yml@main
+    secrets: inherit

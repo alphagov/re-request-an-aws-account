@@ -121,6 +121,13 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert EmailValidator.email_is_allowed_advanced?(allowed_address)
     assert EmailValidator.email_is_allowed_advanced?('notallowed.person@digital.cabinet-office.gov.uk')
 
+    # blank string is ignored
+    ENV['RESTRICT_LOGIN_EMAIL_ADDRESSES_TO'] = " "
+    assert EmailValidator.email_is_allowed_basic?(allowed_address)
+    assert EmailValidator.email_is_allowed_basic?('notallowed.person@digital.cabinet-office.gov.uk')
+    assert EmailValidator.email_is_allowed_advanced?(allowed_address)
+    assert EmailValidator.email_is_allowed_advanced?('notallowed.person@digital.cabinet-office.gov.uk')
+
     ENV['RESTRICT_LOGIN_EMAIL_ADDRESSES_TO'] = allowed_address
     assert EmailValidator.email_is_allowed_basic?(allowed_address)
     assert ! EmailValidator.email_is_allowed_basic?('notallowed.person@digital.cabinet-office.gov.uk')

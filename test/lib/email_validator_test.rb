@@ -113,4 +113,21 @@ class EmailValidatorTest < ActiveSupport::TestCase
     email = 'fname.lname@example.com'
     assert_no_match EmailValidator.allowed_emails_regexp, email
   end
+
+  test "If ENV['RESTRICT_LOGIN_EMAIL_ADDRESSES_TO'] is set then only allow the specified emails to login" do
+    allowed_address = 'allowed.person@digital.cabinet-office.gov.uk'
+    assert EmailValidator.email_is_allowed_basic?(allowed_address)
+    assert EmailValidator.email_is_allowed_basic?('notallowed.person@digital.cabinet-office.gov.uk')
+    assert EmailValidator.email_is_allowed_advanced?(allowed_address)
+    assert EmailValidator.email_is_allowed_advanced?('notallowed.person@digital.cabinet-office.gov.uk')
+
+    ENV['RESTRICT_LOGIN_EMAIL_ADDRESSES_TO'] = allowed_address
+    assert EmailValidator.email_is_allowed_basic?(allowed_address)
+    assert ! EmailValidator.email_is_allowed_basic?('notallowed.person@digital.cabinet-office.gov.uk')
+    assert EmailValidator.email_is_allowed_advanced?(allowed_address)
+    assert ! EmailValidator.email_is_allowed_advanced?('notallowed.person@digital.cabinet-office.gov.uk')
+
+    # cleanup
+    ENV.delete('RESTRICT_LOGIN_EMAIL_ADDRESSES_TO')
+  end
 end

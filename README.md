@@ -45,9 +45,11 @@ If running in production a master key is required to decrypt `credentials.yml.en
 
 ENV vars
 --------
+
   - `RAILS_ALLOWED_DOMAINS`: the domain of the app runtime env (eg loalhost:3000 or sub.domain.tld)
   - `RAILS_SERVE_STATIC_FILES` true|false(default)
   - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults to logfile
+  - `RESTRICT_LOGIN_EMAIL_ADDRESSES_TO`: `example.one@digital.cabinet-office.gov.uk example.two@digital.cabinet-office.gov.uk` - should be a space separated list of email addresses if set it will only allow those email address to log in
 
 ENV secrets
 -----------

@@ -13,7 +13,7 @@ gem 'omniauth-google-oauth2', '~> 1.1.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'rails', '~> 7.1.0'
 gem 'sassc-rails'
-gem 'webmock', '~> 3.18.1'
+gem 'webmock', '~> 3.22.0'
 gem 'webrick', '~> 1.8.1'
 
 group :test do

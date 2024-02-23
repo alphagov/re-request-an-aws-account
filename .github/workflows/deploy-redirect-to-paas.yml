@@ -1,4 +1,4 @@
-name: release-re-request-an-aws-account
+name: deploy-redirect-to-paas
 
 on:
   push:

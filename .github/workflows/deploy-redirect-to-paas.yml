@@ -30,4 +30,4 @@ jobs:
           cf api https://api.cloud.service.gov.uk 
           cf auth
           cf target -o gds-tech-ops -s re-aws-account-management
-          cf push -f ./raat-redirect/manifest.yml --strategy rolling
+          cf push -f ./raat-redirect/manifest.yml

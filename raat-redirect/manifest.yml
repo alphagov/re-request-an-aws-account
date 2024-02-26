@@ -1,8 +1,0 @@
----
-applications:
-- name: gds-request-an-aws-account-redirect
-  memory: 128M
-  instances: 1
-  path: .
-
-  

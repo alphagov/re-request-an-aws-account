@@ -1,4 +1,4 @@
-name: deploy-redirect-to-paas
+name: Deploy redirect to PaaS
 
 on:
   push:

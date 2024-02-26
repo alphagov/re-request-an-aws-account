@@ -1,5 +1,5 @@
 #
-name: Create and publish a Docker image
+name: Create and publish a Docker image to GHCR
 #todo this needs changing to be more of a manual trigger (or tied to development branch)
 on:
   workflow_call:

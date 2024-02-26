@@ -37,7 +37,8 @@ class CheckYourAnswersController < ApplicationController
         'security-requested-alert-priority-level' => all_params['security_requested_alert_priority_level'],
         'security-critical-resources-description' => all_params['security_critical_resources_description'],
         'security-does-account-hold-pii' => all_params['security_does_account_hold_pii'],
-        'security-does-account-hold-pci-data' => all_params['security_does_account_hold_pci_data']
+        'security-does-account-hold-pci-data' => all_params['security_does_account_hold_pci_data'],
+        'last-modified' => Time.now.utc
       }
 
       if all_params['service_is_out_of_hours_support_provided'] == 'true'

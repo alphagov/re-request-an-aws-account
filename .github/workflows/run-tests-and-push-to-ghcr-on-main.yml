@@ -1,4 +1,4 @@
-name: Run tests and deploy on merge to main
+name: Run tests and publish Docker image to GHCR on merge to main
 
 on:
   push:

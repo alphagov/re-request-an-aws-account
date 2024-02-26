@@ -11,18 +11,17 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-      
+
+      - name: add-cloudfoundry-repository
+        run: |
+         wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+         echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+
       - name: Install CF CLI
         run: |
           sudo apt-get update
           sudo apt-get install cf-cli
       
-      - name: add-cloudfoundry-repository
-        run: |
-          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-          echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-
-
       - name: deploy-redirect
         env:
           CF_USERNAME: ${{ secrets.CF_EMAIL }}

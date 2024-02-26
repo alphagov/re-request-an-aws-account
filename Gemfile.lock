@@ -110,7 +110,7 @@ GEM
       rdoc
       reline (>= 0.4.2)
     jwt (2.7.1)
-    listen (3.8.0)
+    listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     lograge (0.14.0)
@@ -280,7 +280,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv-rails
-  listen (~> 3.7)
+  listen (~> 3.9)
   lograge (~> 0.14.0)
   logstash-event (~> 1.2.02)
   notifications-ruby-client (~> 5.4.0)

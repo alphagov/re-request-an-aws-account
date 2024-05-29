@@ -44,6 +44,9 @@
       <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
       <p> See <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts">accessing AWS accounts</a> in the GDS Way.</p>
       <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
+      <div class="govuk-inset-text">
+        Average processing time for this request is up to 2 days
+      </div>
       <a href="<%= user_path %>" class="govuk-button" data-module="govuk-button">
         Request new user
       </a>
@@ -54,6 +57,9 @@
         Users should only be removed when they leave GDS or no longer need access to any AWS resources.
       </p>
       <p>
+        <div class="govuk-inset-text">
+          Average processing time for this request is up to 2 days
+        </div>
         <a href="<%= remove_user_path %>" class="govuk-button govuk-button--warning" data-module="govuk-button">Request user removal</a>
       </p>
       <% end %>
@@ -61,6 +67,9 @@
       <h3 class="govuk-heading-s">Reset your AWS user password</h3>
       <p>If you need to reset your AWS password, you can do that here as well.</p>
       <p>
+        <div class="govuk-inset-text">
+          Average processing time for this request is up to 2 days
+        </div>
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
 
@@ -76,6 +85,9 @@
         <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#create-aws-accounts">how to create AWS accounts</a> page
         in the GDS Way.
       </p>
+      <div class="govuk-inset-text">
+        Average processing time for this request is up to 7 days
+      </div>
       <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         Request an account
       </a>

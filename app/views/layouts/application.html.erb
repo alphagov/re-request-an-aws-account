@@ -46,6 +46,22 @@
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper " id="main-content" role="main">
+        <% if @email %>
+        <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Update
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">
+            This tool is now owned by the GDS Engineering Enablement Team. For support, please contact:<br>
+            <a href="mailto:gds-engineering-enablement-team@digital.cabinet-office.gov.uk">gds-engineering-enablement-team@digital.cabinet-office.gov.uk</a>
+            </p>
+          </div>
+        </div>
+        <% end %>
+
         <%= content_for?(:main) ? yield(:main) : yield %>
       </main>
     </div>

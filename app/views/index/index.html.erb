@@ -1,18 +1,3 @@
-<% if @email %>
-<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Notice
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-    <p class="govuk-notification-banner__heading">
-    This Request an AWS Account Tool is now owned by the GDS Engineering Enablement Team. For support, please contact <a href="mailto:gds-engineering-enablement-team@digital.cabinet-office.gov.uk">gds-engineering-enablement-team@digital.cabinet-office.gov.uk</a>
-    </p>
-  </div>
-</div>
-<% end %>
-
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Manage AWS accounts and users</h1>
@@ -45,7 +30,7 @@
       <p> See <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts">accessing AWS accounts</a> in the GDS Way.</p>
       <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
       <div class="govuk-inset-text">
-        Average processing time for this request is up to 2 days
+        Processing time for this request is around 2 days
       </div>
       <a href="<%= user_path %>" class="govuk-button" data-module="govuk-button">
         Request new user
@@ -58,7 +43,7 @@
       </p>
       <p>
         <div class="govuk-inset-text">
-          Average processing time for this request is up to 2 days
+          Processing time for this request is around 2 days
         </div>
         <a href="<%= remove_user_path %>" class="govuk-button govuk-button--warning" data-module="govuk-button">Request user removal</a>
       </p>
@@ -68,11 +53,11 @@
       <p>If you need to reset your AWS password, you can do that here as well.</p>
       <p>
         <div class="govuk-inset-text">
-          Average processing time for this request is up to 2 days
+          Processing time for this request is around 2 days
         </div>
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
-
+      
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
 
       <h3 class="govuk-heading-s">Request a new AWS account (Infrastructure-as-a-Service)</h3>
@@ -86,7 +71,7 @@
         in the GDS Way.
       </p>
       <div class="govuk-inset-text">
-        Average processing time for this request is up to 7 days
+        Processing time for this request is around 2 weeks
       </div>
       <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         Request an account

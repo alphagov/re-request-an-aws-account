@@ -25,9 +25,8 @@
 
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
       <h3 class="govuk-heading-s">Request a new AWS user</h3>
-      <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by Engineering Enablement with a base GDS account: <em>gds-users</em>.</p>
-      <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
-      <p> See <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts">accessing AWS accounts</a> in the GDS Way.</p>
+      <p>There are a number of ways of accessing your AWS accounts, but GDS recommends users use AWS's cross account access pattern.</p>
+      <p>To support this, GDS maintains a set of <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts"centrally managed user identities in a base account called gds-users.</a></p>
       <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
       <div class="govuk-inset-text">
         Processing time for this request is around 2 days
@@ -38,8 +37,7 @@
 
       <h3 class="govuk-heading-s">Remove an AWS user</h3>
       <p>
-        You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process.
-        Users should only be removed when they leave GDS or no longer need access to any AWS resources.
+        You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process. It is not sufficient to remove the role or trust policy from your AWS account, you must also remove the user from gds-users by submitting the form below. Only request removal when the person leaves GDS/CO or they no longer need access to any AWS resources.
       </p>
       <p>
         <div class="govuk-inset-text">
@@ -61,10 +59,14 @@
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
 
       <h3 class="govuk-heading-s">Request a new AWS account (Infrastructure-as-a-Service)</h3>
-      <p>If your application or service cannot run on GOV.UK PaaS, you can request a new AWS account.</p>
-      <p>You can provision infrastructure directly from Amazon Web Services, you may need specialist capabilities to maintain this infrastructure.</p>
-      <p>You may need multiple accounts, one for each environment, for example development, staging, and production.</p>
-      <p>When requesting non-GDS AWS accounts, you should provide the relevant Cabinet Office cost centre.</p>
+      <p>Use this form to request a new AWS account. Before requesting an account you must:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Have prior financial approval from your business unit</li>
+        <li>Know the relevant Cabinet Office cost centre and provide it when making your request</li>
+        <li>ensure you have the required skills and capabilities to properly maintain, manage and ultimately decommission any services created, including adhering to all relevant Cabinet Office, GDS security policies, technical policies and standards </li>
+        <li>Ensure you have plans in place to manage credentials and users securely, including removing leavers before or immediately after their last day with your organisation.</li>
+      </ul>
+      
       <p>
         More information is available on the
         <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#create-aws-accounts">how to create AWS accounts</a> page
@@ -94,4 +96,3 @@
     <% end %>
   </div>
 </div>
-

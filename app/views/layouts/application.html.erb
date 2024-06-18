@@ -35,7 +35,7 @@
       <div class="govuk-header__container govuk-width-container">
         <div class="govuk-header__logo">
           <div class="govuk-header__product-name">
-            Reliability Engineering
+            Engineering Enablement
             <strong class="govuk-tag govuk-phase-banner__content__tag">
               INTERNAL
             </strong>
@@ -46,6 +46,22 @@
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper " id="main-content" role="main">
+      <% if @email or !current_page?('')%>
+        <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+          <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+              Update
+            </h2>
+          </div>
+          <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">
+            This tool is now owned by the GDS Engineering Enablement Team. For support, please contact:<br>
+            <%= link_to(Rails.application.config.support_email) %>
+            </p>
+          </div>
+        </div>
+        <% end %>
+
         <%= content_for?(:main) ? yield(:main) : yield %>
       </main>
     </div>

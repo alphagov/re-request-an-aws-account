@@ -25,20 +25,24 @@
 
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
       <h3 class="govuk-heading-s">Request a new AWS user</h3>
-      <p>GDS manages a number of AWS accounts. Users for these accounts are managed centrally by reliability engineering with a base GDS account: <em>gds-users</em>.</p>
-      <p>For a user to access resources in AWS they should be added to the <em>gds-users</em> base account and permitted to assume a role in the target account.</p>
-      <p> See <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts">accessing AWS accounts</a> in the GDS Way.</p>
+      <p>There are a number of ways of accessing your AWS accounts, but GDS recommends users use AWS's cross account access pattern.</p>
+      <p>To support this, GDS maintains a set of <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#access-aws-accounts">centrally managed user identities in a base account called gds-users.</a></p>
       <p>Anyone within GDS or the Cabinet Office can request user access to AWS for one or more people.</p>
+      <div class="govuk-inset-text">
+        Processing time for this request is around 2 days
+      </div>
       <a href="<%= user_path %>" class="govuk-button" data-module="govuk-button">
         Request new user
       </a>
 
       <h3 class="govuk-heading-s">Remove an AWS user</h3>
       <p>
-        You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process.
-        Users should only be removed when they leave GDS or no longer need access to any AWS resources.
+        You should ensure that users are removed from <em>gds-users</em> as part of your team's leavers process. It is not sufficient to remove the role or trust policy from your AWS account, you must also remove the user from gds-users by submitting the form below. Only request removal when the person leaves GDS/CO or they no longer need access to any AWS resources.
       </p>
       <p>
+        <div class="govuk-inset-text">
+          Processing time for this request is around 2 days
+        </div>
         <a href="<%= remove_user_path %>" class="govuk-button govuk-button--warning" data-module="govuk-button">Request user removal</a>
       </p>
       <% end %>
@@ -46,21 +50,31 @@
       <h3 class="govuk-heading-s">Reset your AWS user password</h3>
       <p>If you need to reset your AWS password, you can do that here as well.</p>
       <p>
+        <div class="govuk-inset-text">
+          Processing time for this request is around 2 days
+        </div>
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
-
+      
       <% if EmailValidator.email_is_allowed_advanced?(@email) %>
 
       <h3 class="govuk-heading-s">Request a new AWS account (Infrastructure-as-a-Service)</h3>
-      <p>If your application or service cannot run on GOV.UK PaaS, you can request a new AWS account.</p>
-      <p>You can provision infrastructure directly from Amazon Web Services, you may need specialist capabilities to maintain this infrastructure.</p>
-      <p>You may need multiple accounts, one for each environment, for example development, staging, and production.</p>
-      <p>When requesting non-GDS AWS accounts, you should provide the relevant Cabinet Office cost centre.</p>
+      <p>Use this form to request a new AWS account. Before requesting an account you must:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>have prior <b>financial approval</b> from your business unit</li>
+        <li>know the relevant Cabinet Office <b>cost centre code</b> and provide it when making your request</li>
+        <li>ensure you have the required <b>skills and capabilities</b> to maintain, manage and decommission any services created, including adhering to all relevant Cabinet Office/GDS security policies, technical policies and standards </li>
+        <li>ensure you have plans in place to <b>manage credentials and users securely</b>, including removing leavers before or immediately after their last day with your organisation.</li>
+      </ul>
+      
       <p>
         More information is available on the
         <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#create-aws-accounts">how to create AWS accounts</a> page
         in the GDS Way.
       </p>
+      <div class="govuk-inset-text">
+        Processing time for this request is around 2 weeks
+      </div>
       <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
         Request an account
       </a>
@@ -82,4 +96,3 @@
     <% end %>
   </div>
 </div>
-

@@ -56,7 +56,7 @@
           <div class="govuk-notification-banner__content">
             <p class="govuk-notification-banner__heading">
             This tool is now owned by the GDS Engineering Enablement Team. For support, please contact:<br>
-            <a href="mailto:gds-engineering-enablement-team@digital.cabinet-office.gov.uk">gds-engineering-enablement-team@digital.cabinet-office.gov.uk</a>
+            <%= link_to(Rails.application.config.support_email) %>
             </p>
           </div>
         </div>

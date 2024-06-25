@@ -11,7 +11,6 @@
           <th class="govuk-table__header govuk-visually-hidden" scope="col">account name</th>
           <th class="govuk-table__header govuk-visually-hidden" scope="col">description</th>
           <th class="govuk-table__header govuk-visually-hidden" scope="col">organisation</th>
-          <th class="govuk-table__header govuk-visually-hidden" scope="col">programme</th>
         </tr>
       </thead>
       <tbody class="govuk-table__body">
@@ -29,11 +28,6 @@
           <td class="govuk-table__header">Organisation</td>
           <td class="govuk-table__cell"><%= @answers[:organisation_or_other] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
-        </tr>
-        <tr class="govuk-table__row">
-          <td class="govuk-table__header">Programme</td>
-          <td class="govuk-table__cell"><%= @answers[:programme_or_other] %></td>
-          <td class="govuk-table__cell"><%= link_to 'Change', programme_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__header">Admin users</td>

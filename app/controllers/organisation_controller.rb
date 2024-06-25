@@ -34,7 +34,7 @@ class OrganisationController < ApplicationController
     session_form[:organisation_or_other] = @form.organisation_or_other
     session['form'] = session_form
 
-    redirect_to programme_path
+    redirect_to team_path
   end
 
   def organisation_options

@@ -7,9 +7,10 @@
         <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
         <div class="govuk-error-summary__body">
           <ul class="govuk-list govuk-error-summary__list">
-            <% @form.errors[:organisation_or_other_specified].each do |err| %>
+            <% @form.errors[:organisation_specified].each do |err| %>
               <span class="govuk-error-message"><%= err %></span>
             <% end %>
+            <span class="govuk-error-message"><%= @form.errors[:cost_centre_code_specified].first %></span>
           </ul>
         </div>
       </div>
@@ -19,14 +20,30 @@
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-fieldset__heading">
-            Organisation owning the account
+            Who is paying for the account?
           </h1>
         </legend>
+        <p class=govuk-body>You must confirm who is paying for this account. In most cases this is by a recharge to a cost center in others we invoice your business unit directly. You must have the budget holder's permission before continuing. You can find the Cabinet Office cost centre's <a href="https://intranet.cabinetoffice.gov.uk/task/cabinet-office-cost-centres/" class=govuk-link>here</a>. (You must be on the VPN.)</p>
         <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.any? %>">
           <span id="value-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span><%= @form.errors[:organisation_or_other_specified].first %>
+            <span class="govuk-visually-hidden">Error:</span><%= @form.errors[:organisation_specified].first %>
           </span>
-          <div class="govuk-radios">
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+                <%= f.radio_button :organisation, 'Cabinet Office', checked: @form.organisation == 'Cabinet Office', id: 'cost_centre_code', class: 'govuk-radios__input', data:{"aria-controls": "conditional-contact"} %>
+                <%= f.label :organisation, 'I have a Cabinet Office cost centre', for: 'cost_centre_code', class: 'govuk-label govuk-radios__label' %>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact">
+              <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.any? %>">
+                <%= f.label :cost_centre_code, 'Child Cost Centre (eg 12345678)', class: 'govuk-label' %>
+                <%= error_message_on(f.object.errors, :organization_other) %>
+              <span id="value-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span><%= @form.errors[:cost_centre_code_specified].first %>
+              </span>
+                <%= f.text_field(:cost_centre_code, value: @form.cost_centre_code, required: false, class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-input--error' : ''}") %>
+              </div>
+            </div>
+
             <% organisation_options.each do |organisation| %>
               <div class="govuk-radios__item">
                 <%= f.radio_button(
@@ -38,25 +55,16 @@
                 ) %>
                 <%= f.label(
                   :organisation,
-                  organisation,
+                  "Invoice " + organisation,
                   for: "organisation_#{organisation.parameterize}",
                   class: 'govuk-label govuk-radios__label'
                 ) %>
               </div>
             <% end %>
-            <div class="govuk-radios__item">
-              <%= f.radio_button :organisation, 'Other', checked: @form.organisation == 'Other', id: 'organisation_other', class: 'govuk-radios__input' %>
-              <%= f.label :organisation, 'Other', for: 'organisation_other', class: 'govuk-label govuk-radios__label' %>
-            </div>
           </div>
         </div>
       </fieldset>
-
-      <div class="govuk-form-group <%= 'govuk-form-group--error' if @form.errors.any? %>">
-        <%= f.label :organisation_other, 'Other (please specify)', class: 'govuk-label' %>
-        <%= error_message_on(f.object.errors, :organization_other) %>
-        <%= f.text_field :organisation_other, value: @form.organisation_other, required: false, class: "govuk-input govuk-input--width-20 #{@form.errors&.any? ? 'govuk-input--error' : ''}" %>
-      </div>
+      <p govuk-body>If you need to be invoiced directly and are not in the options above please contact: <a class=govuk-link href="mailto:gds-engineering-enablement-support@digital.cabinet-office.gov.uk">gds-engineering-enablement-support@digital.cabinet-office.gov.uk</a></p>     
       <%= f.submit 'Next', class: 'govuk-button', data: { module: "govuk-button" } %>
     <% end %>
   </div>

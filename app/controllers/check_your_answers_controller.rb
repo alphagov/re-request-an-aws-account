@@ -12,7 +12,7 @@ class CheckYourAnswersController < ApplicationController
 
     account_name = all_params['account_name']
     account_description = all_params['account_description']
-    organisation_or_other = all_params['organisation_or_other']
+    organisation = all_params['organisation']
     admin_users = all_params['admin_users']
     email = session['email']
 
@@ -20,7 +20,7 @@ class CheckYourAnswersController < ApplicationController
       tags = {
         'account-name' => account_name,
         'description' => account_description,
-        'organisation' => organisation_or_other,
+        'organisation' => organisation,
 
         'team-name' => all_params['team_name'],
         'team-email-address' => all_params['team_email_address'],
@@ -48,6 +48,14 @@ class CheckYourAnswersController < ApplicationController
           }
         )
       end
+
+      tags.merge!(
+        {
+          "billing-cost-centre" => all_params['cost_centre_code'],
+          "billing-business-unit" => all_params['business_unit'],
+          "billing-business-unit-subsection" => all_params['subsection']
+        }
+      )
 
       tags.compact_blank!
 

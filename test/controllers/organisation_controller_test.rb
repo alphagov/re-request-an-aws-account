@@ -5,7 +5,7 @@ class OrganisationControllerTest < ActionDispatch::IntegrationTest
     sign_in 'test@example.com'
     set_session(
       'test@example.com',
-      'organisation' => 'Government Digital Service',
+      'account_name' => "good-account-name"
     )
   }
 
@@ -19,7 +19,6 @@ class OrganisationControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select '.govuk-error-message', 'Billing information is required'
   end
-
 
   test 'should error if cost centre code is not entered when Cabinet Office selected' do
     post organisation_url, params: { organisation_form: { organisation: "Cabinet Office"} }
@@ -35,13 +34,22 @@ class OrganisationControllerTest < ActionDispatch::IntegrationTest
     post organisation_url, params: { organisation_form: { organisation: "Cabinet Office", cost_centre_code: "12345678"} }
     
     session_form = session[:form]
-    puts session_form
     assert_equal session_form[:organisation], "Cabinet Office"
     assert_equal session_form[:cost_centre_code], "12345678"
     assert_equal session_form[:cost_centre_description], "BOOM"
     assert_equal session_form[:business_unit], "BING"
     assert_equal session_form[:subsection], "BAZ"
 
-
+  end
+  
+  test 'should not save cost centre data to session if org isnt cabinet office'  do
+    post organisation_url, params: { organisation_form: { organisation: "Government Property Agency", cost_centre_code: ""} }
+    
+    session_form = session[:form]
+    assert_equal session_form[:organisation], "Government Property Agency"
+    assert_nil session_form[:cost_centre_code]
+    assert_nil session_form[:cost_centre_description]
+    assert_nil session_form[:business_unit]
+    assert_nil session_form[:subsection]
   end 
 end

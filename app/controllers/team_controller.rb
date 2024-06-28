@@ -1,6 +1,8 @@
 class TeamController < ApplicationController
   def team
-    @form = TeamForm.new(session.fetch('form', {}))
+    session_data = session.fetch('form', {}).with_indifferent_access
+    @form = TeamForm.new(session_data)
+    @back_url = session_data['organisation'] == "Cabinet Office" ? organisation_summary_path : organisation_path
   end
 
   def post

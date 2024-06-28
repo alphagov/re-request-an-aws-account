@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <a href="<%= index_path %>" class="govuk-back-link">Back</a>
+    <a href="<%= @back_url %>" class="govuk-back-link">Back</a>
     <h1 class="govuk-heading-l">Team details</h1>
     <%= error_summary_for(@form&.errors, :team_form) %>
     <%= form_for @form, url: team_path, html: { novalidate: true } do |f| %>

@@ -5,13 +5,12 @@ class OrganisationController < ApplicationController
   ]
 
   def organisation
-    @form = OrganisationForm.new(session.fetch('form', {}), nil, logger)
+    @form = OrganisationForm.new(session.fetch('form', {}), cost_centres)
   end
 
   def post
     form_params = params.fetch('organisation_form', {}).permit(:organisation, :cost_centre_code).to_h
-    puts "FORM PARAMASSSSSSSS #{form_params}"
-    @form = OrganisationForm.new(form_params, cost_centres, logger)
+    @form = OrganisationForm.new(form_params, cost_centres)
       return render :organisation if @form.invalid?
       session_form = session.fetch('form', {})
       
@@ -24,7 +23,6 @@ class OrganisationController < ApplicationController
         session_form[:subsection] = @form.subsection
 
         session['form'] = session_form
-        puts session.fetch("form", {})
         redirect_to organisation_summary_path
       else
         session_form[:cost_centre_code] = nil
@@ -33,7 +31,6 @@ class OrganisationController < ApplicationController
         session_form[:subsection] = nil
         
         session['form'] = session_form
-        puts session.fetch("form", {})
         redirect_to team_path
       end
   end

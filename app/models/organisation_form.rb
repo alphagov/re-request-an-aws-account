@@ -10,7 +10,7 @@ class OrganisationForm
                       with: AwsTagValueValidator.allowed_chars_regexp,
                       message: AwsTagValueValidator.allowed_chars_message
 
-  def initialize(hash, cost_centres, logger)
+  def initialize(hash, cost_centres)
     params = hash.with_indifferent_access
     @organisation = params[:organisation]
     @cost_centre_code = params[:cost_centre_code]

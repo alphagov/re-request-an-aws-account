@@ -12,7 +12,7 @@ class CostCentreReaderTest < ActiveSupport::TestCase
     assert_equal "BOOM", cost_centre.cost_centre_description
     assert_equal "12345678", cost_centre.cost_centre_code
     assert_equal "BING", cost_centre.business_unit
-    assert_equal "BAZ", cost_centre.sub_section
+    assert_equal "BAZ", cost_centre.subsection
   end
 
   test 'we return nil if no matching cost centre' do
@@ -24,4 +24,5 @@ class CostCentreReaderTest < ActiveSupport::TestCase
     
     assert_nil cost_centre
   end
+
 end

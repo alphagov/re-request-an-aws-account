@@ -24,7 +24,7 @@ class CostCentreReader
       get("Level 04 Parent Descr")
     end
     
-    def sub_section
+    def subsection
       get("Level 05 Parent Descr")
     end
   end

@@ -22,17 +22,20 @@ class OrganisationController < ApplicationController
         session_form[:cost_centre_description] = @form.cost_centre_description
         session_form[:business_unit] = @form.business_unit
         session_form[:subsection] = @form.subsection
+
+        session['form'] = session_form
+        puts session.fetch("form", {})
+        redirect_to organisation_summary_path
       else
         session_form[:cost_centre_code] = nil
         session_form[:cost_centre_description] = nil
         session_form[:business_unit] = nil
         session_form[:subsection] = nil
+        
+        session['form'] = session_form
+        puts session.fetch("form", {})
+        redirect_to team_path
       end
-      
-      session['form'] = session_form
-      puts session.fetch("form", {})
-
-    redirect_to team_path
   end
 
   def organisation_options

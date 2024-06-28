@@ -39,7 +39,6 @@ class OrganisationControllerTest < ActionDispatch::IntegrationTest
     assert_equal session_form[:cost_centre_description], "BOOM"
     assert_equal session_form[:business_unit], "BING"
     assert_equal session_form[:subsection], "BAZ"
-
   end
   
   test 'should not save cost centre data to session if org isnt cabinet office'  do
@@ -50,6 +49,16 @@ class OrganisationControllerTest < ActionDispatch::IntegrationTest
     assert_nil session_form[:cost_centre_code]
     assert_nil session_form[:cost_centre_description]
     assert_nil session_form[:business_unit]
-    assert_nil session_form[:subsection]
+    assert_nil session_form[:subsection]    
+  end 
+  
+  test 'should redirect to org summaary if org is cabinet office'  do
+    post organisation_url, params: { organisation_form: { organisation: "Cabinet Office", cost_centre_code: "12345678"} }
+    assert_redirected_to organisation_summary_url
+  end
+  
+  test 'should redirect to team path if org is not cabinet office'  do
+    post organisation_url, params: { organisation_form: { organisation: "Government Property Agency", cost_centre_code: ""} }
+    assert_redirected_to team_url
   end 
 end

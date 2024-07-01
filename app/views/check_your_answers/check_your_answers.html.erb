@@ -6,17 +6,15 @@
     <%= error_summary_for(@form&.errors, :account_form) %>
 
     <table class="govuk-table">  
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th class="govuk-table__header govuk-visually-hidden" scope="col">account name</th>
-          <th class="govuk-table__header govuk-visually-hidden" scope="col">description</th>
-          <th class="govuk-table__header govuk-visually-hidden" scope="col">organisation</th>
-        </tr>
-      </thead>
       <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td colspan="3" class="govuk-table__header govuk-!-font-size-24" style="padding-top: 1.3em;">
+            Account</td>
+        </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__header">Account name</td>
           <td class="govuk-table__cell"><%= error_message_on(@form&.errors, :account_name) %> <%= @answers[:account_name] %></td>
+          <td class="govuk-table__cell"><%= @answers[:account_name] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">
@@ -25,8 +23,32 @@
           <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">
+          <td colspan="3" class="govuk-table__header govuk-!-font-size-24" style="padding-top: 1.3em;">
+            Billing</td>
+        </tr>
+        <tr class="govuk-table__row">
           <td class="govuk-table__header">Organisation</td>
-          <td class="govuk-table__cell"><%= @answers[:organisation_or_other] %></td>
+          <td class="govuk-table__cell"><%= @answers[:organisation] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Business Unit</td>
+          <td class="govuk-table__cell"><%= @answers[:business_unit].nil? ? "N/A" : @answers[:business_unit]%></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Subsection</td>
+          <td class="govuk-table__cell"><%= @answers[:subsection].nil? ? "N/A" : @answers[:subsection] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Cost Centre Code</td>
+          <td class="govuk-table__cell"><%= @answers[:cost_centre_code].nil? ? "N/A" : @answers[:cost_centre_code] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Cost Centre</td>
+          <td class="govuk-table__cell"><%= @answers[:cost_centre_description].nil? ? "N/A" : @answers[:cost_centre_description] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">

@@ -3,9 +3,9 @@ require "cost_centre_reader"
 
 class CostCentreReaderTest < ActiveSupport::TestCase
   test 'we can read a cost centre CSV file' do
-    fixture_file = File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv"
-    cost_centres = CostCentreReader.new(fixture_file)
-    
+    fixture_data = File.read(File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv")
+    cost_centres = CostCentreReader.new(fixture_data)
+
     cost_centre = cost_centres.get_by_cost_centre_code("12345678")
 
     assert cost_centre != nil
@@ -16,12 +16,12 @@ class CostCentreReaderTest < ActiveSupport::TestCase
   end
 
   test 'we return nil if no matching cost centre' do
-    fixture_file = File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv"
-    cost_centres = CostCentreReader.new(fixture_file)
+    fixture_data = File.read(File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv")
+    cost_centres = CostCentreReader.new(fixture_data)
 
     non_extant_code = "999999"
     cost_centre = cost_centres.get_by_cost_centre_code(non_extant_code)
-    
+
     assert_nil cost_centre
   end
 

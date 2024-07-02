@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def cost_centres
-    @cost_centres ||= CostCentreReader.new(COST_CENTRES_CSV_LOCATION)
+    @cost_centres ||= COST_CENTRES
   end
 end

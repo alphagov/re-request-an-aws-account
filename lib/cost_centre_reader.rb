@@ -15,22 +15,22 @@ class CostCentreReader
     def cost_centre_description
       get("Cost Centre Description")
     end
-    
+
     def cost_centre_code
       get("Cost Centre")
     end
-    
+
     def business_unit
       get("Level 04 Parent Descr")
     end
-    
+
     def subsection
       get("Level 05 Parent Descr")
     end
   end
 
-  def initialize(filename)
-    @data = CSV.read(filename, headers: true)
+  def initialize(data)
+    @data = CSV.parse(data, headers: true)
   end
 
   def get_by_cost_centre_code(cost_centre_code)

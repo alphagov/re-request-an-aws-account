@@ -13,8 +13,7 @@
         </tr>
         <tr class="govuk-table__row">
           <td class="govuk-table__header">Account name</td>
-          <td class="govuk-table__cell"><%= error_message_on(@form&.errors, :account_name) %> <%= @answers[:account_name] %></td>
-          <td class="govuk-table__cell"><%= @answers[:account_name] %></td>
+          <td class="govuk-table__cell"><%= error_message_on(@form&.errors, :account_name)%> <%= @answers[:account_name] %></td>
           <td class="govuk-table__cell"><%= link_to 'Change', account_details_path, class: 'govuk-link' %></td>
         </tr>
         <tr class="govuk-table__row">

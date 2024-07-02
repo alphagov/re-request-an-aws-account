@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def cost_centres
-    @cost_centres ||= CostCentreReader.new(File.join(Rails.root, 'config', 'cost_centres.csv'))
+    @cost_centres ||= CostCentreReader.new(COST_CENTRES_CSV_LOCATION)
   end
 end

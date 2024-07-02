@@ -135,7 +135,7 @@
       </tbody>
     </table>
 
-    <% if [@answers[:account_name], @answers[:account_description], @answers[:programme_or_other], @answers[:admin_users]].all? &:present? %>
+    <% if [@answers[:account_name], @answers[:account_description], @answers[:admin_users]].all? &:present? %>
       <h2 class="govuk-heading-m">Request your AWS account</h2>
       <p>Please make sure the details above are correct before you submit your application.</p>
       <%= form_for @form, url: check_your_answers_path, html: { novalidate: true } do |f| %>

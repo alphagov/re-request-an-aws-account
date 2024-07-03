@@ -1,4 +1,5 @@
 require 'test_helper'
+require "cost_centre_reader"
 
 class CostCentreReaderTest < ActiveSupport::TestCase
   test 'we can read a cost centre CSV file' do

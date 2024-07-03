@@ -6,7 +6,6 @@
 !vendor/
 
 #keep these directories but nothing in them
-lib/*
 log/*
 tmp/*
 vendor/*

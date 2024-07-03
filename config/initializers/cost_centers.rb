@@ -16,7 +16,7 @@ end
 data = if ENV.has_key?('COST_CENTRE_S3_BUCKET_NAME')
   load_from_s3(ENV['COST_CENTRE_S3_BUCKET_NAME'], 'cost_centres.csv')
 else
-  File.read(File.join(Rails.root, 'test', 'fixtures', 'cost_centre_fixture.csv'))
+  File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
 end
 
 COST_CENTRES = CostCentreReader.new(data)

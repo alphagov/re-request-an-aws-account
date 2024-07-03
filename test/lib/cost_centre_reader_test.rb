@@ -1,8 +1,9 @@
 require 'test_helper'
+require "cost_centre_reader"
 
 class CostCentreReaderTest < ActiveSupport::TestCase
   test 'we can read a cost centre CSV file' do
-    fixture_data = File.read(File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv")
+    fixture_data = File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
     cost_centres = CostCentreReader.new(fixture_data)
 
     cost_centre = cost_centres.get_by_cost_centre_code("12345678")
@@ -15,7 +16,7 @@ class CostCentreReaderTest < ActiveSupport::TestCase
   end
 
   test 'we return nil if no matching cost centre' do
-    fixture_data = File.read(File.dirname(__FILE__) + "/../fixtures/cost_centre_fixture.csv")
+    fixture_data = File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
     cost_centres = CostCentreReader.new(fixture_data)
 
     non_extant_code = "999999"

@@ -1,36 +1,49 @@
+
 class OrganisationForm
   include ActiveModel::Model
 
-  attr_reader :organisation, :organisation_other
-  validate :organisation_or_other_specified, :organisation_and_other_not_both_specified
+  attr_reader :organisation, :cost_centre_code, :cost_centre_description, :business_unit, :subsection
+  validate :organisation_specified, :cost_centre_code_specified
 
   validates_format_of :organisation,
-                      :organisation_other,
+                      :cost_centre_code,
                       with: AwsTagValueValidator.allowed_chars_regexp,
                       message: AwsTagValueValidator.allowed_chars_message
 
-  def initialize(hash)
+  def initialize(hash, cost_centres)
     params = hash.with_indifferent_access
     @organisation = params[:organisation]
-    @organisation_other = params[:organisation_other]
-  end
+    @cost_centre_code = params[:cost_centre_code]
 
-  def organisation_or_other
-    is_other ? organisation_other : organisation
-  end
-
-  def is_other
-    organisation.to_s.empty? || organisation == 'Other'
-  end
-
-  def organisation_or_other_specified
-    errors.add(:organisation_or_other_specified, 'Organisation is required') if organisation_or_other.to_s.empty?
-  end
-
-  def organisation_and_other_not_both_specified
-    if !organisation.to_s.empty? && organisation != 'Other' && !organisation_other.to_s.empty?
-      errors.add(:organisation_or_other_specified, 'Only one of Organisation and Other should be set')
+    if cost_centres.nil?     
+      return
     end
+
+    @cost_centre_data = cost_centres.get_by_cost_centre_code(@cost_centre_code)
+  end
+
+  def organisation_specified
+    errors.add(:organisation_specified, 'Billing information is required') if organisation.to_s.empty?
+  end
+
+  def cost_centre_code_specified
+    if organisation.to_s != "Cabinet Office"
+      return
+    end
+
+    if cost_centre_code.to_s.empty?
+      errors.add(:cost_centre_code_specified, 'Enter a cost centre')
+      return
+    end
+
+    if @cost_centre_data.nil?
+      errors.add(:cost_centre_code_specified, 'Cost centre code not found')
+      return
+    end
+    
+    @cost_centre_description = @cost_centre_data.cost_centre_description
+    @business_unit = @cost_centre_data.business_unit
+    @subsection = @cost_centre_data.subsection
   end
 
 end

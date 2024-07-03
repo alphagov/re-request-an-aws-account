@@ -56,7 +56,7 @@
           <div class="govuk-notification-banner__content">
             <p class="govuk-notification-banner__heading">
             This tool is now owned by the GDS Engineering Enablement Team. For support, please contact:<br>
-            <%= link_to(Rails.application.config.support_email) %>
+            <%= mail_to(Rails.application.config.support_email, :target => 'top') %>
             </p>
           </div>
         </div>

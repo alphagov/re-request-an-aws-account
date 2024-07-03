@@ -16,9 +16,9 @@ Rails.application.routes.draw do
 
   get '/organisation', to: 'organisation#organisation', as: :organisation
   post '/organisation', to: 'organisation#post'
-
-  get '/programme', to: 'programme#programme', as: :programme
-  post '/programme', to: 'programme#post'
+  
+  get '/organisation_summary', to: 'organisation_summary#organisation_summary', as: :organisation_summary
+  post '/organisation_summary', to: 'organisation_summary#post'
 
   get '/team', to: 'team#team', as: :team
   post '/team', to: 'team#post'

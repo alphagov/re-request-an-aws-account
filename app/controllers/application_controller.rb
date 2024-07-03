@@ -5,4 +5,8 @@ class ApplicationController < ActionController::Base
   def authenticate
     redirect_to index_path unless session.has_key? 'email'
   end
+
+  def cost_centres
+    @cost_centres ||= COST_CENTRES
+  end
 end

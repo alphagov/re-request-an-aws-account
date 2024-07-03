@@ -7,7 +7,7 @@ class GithubService
     end
   end
 
-  def create_new_account_pull_request(account_name, account_description, programme, email, admin_users, tags, host)
+  def create_new_account_pull_request(account_name, account_description, email, admin_users, tags, host)
     unless @client
       Errors::log_error 'No GITHUB_PERSONAL_ACCESS_TOKEN set. Skipping pull request.'
       return nil
@@ -40,7 +40,8 @@ class GithubService
     @client.update_contents(
       github_repo,
       accounts_path,
-      "Add new AWS account for #{programme}: #{account_name}
+      # TODO add cost center an org in here.
+      "Add new AWS account for: #{account_name} 
 
 Description:
 #{account_description_quote}
@@ -54,7 +55,8 @@ Co-authored-by: #{name} <#{email}>",
       github_repo,
       'master',
       new_branch_name,
-      "Add new AWS account for #{programme}: #{account_name}",
+      # TODO add org and const centre in this string
+      "Add new AWS account for: #{account_name}",
       "Account requested using #{host} by #{email}
 
 Description:

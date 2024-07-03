@@ -1,0 +1,48 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <a href="<%= organisation_path %>" class="govuk-back-link">Back</a>
+
+    <h1 class="govuk-heading-l">Check your cost centre</h1>
+    
+    <table class="govuk-table">  
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">Organisation</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">Business Unit</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">Subsection</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">Cost Centre Code</th>
+          <th class="govuk-table__header govuk-visually-hidden" scope="col">Cost Centre</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Organisation</td>
+          <td class="govuk-table__cell"><%= @answers[:organisation] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Business Unit</td>
+          <td class="govuk-table__cell"><%= @answers[:business_unit].nil? ? "N/A" : @answers[:business_unit]%></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Subsection</td>
+          <td class="govuk-table__cell"><%= @answers[:subsection].nil? ? "N/A" : @answers[:subsection] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Cost Centre Code</td>
+          <td class="govuk-table__cell"><%= @answers[:cost_centre_code].nil? ? "N/A" : @answers[:cost_centre_code] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__header">Cost Centre</td>
+          <td class="govuk-table__cell"><%= @answers[:cost_centre_description].nil? ? "N/A" : @answers[:cost_centre_description] %></td>
+          <td class="govuk-table__cell"><%= link_to 'Change', organisation_path, class: 'govuk-link' %></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="<%= team_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+        Next
+    </a>
+</div>

@@ -12,8 +12,7 @@ class CheckYourAnswersController < ApplicationController
 
     account_name = all_params['account_name']
     account_description = all_params['account_description']
-    organisation_or_other = all_params['organisation_or_other']
-    programme_or_other = all_params['programme_or_other']
+    organisation = all_params['organisation']
     admin_users = all_params['admin_users']
     email = session['email']
 
@@ -21,8 +20,7 @@ class CheckYourAnswersController < ApplicationController
       tags = {
         'account-name' => account_name,
         'description' => account_description,
-        'organisation' => organisation_or_other,
-        'programme' => programme_or_other,
+        'organisation' => organisation,
 
         'team-name' => all_params['team_name'],
         'team-email-address' => all_params['team_email_address'],
@@ -51,12 +49,19 @@ class CheckYourAnswersController < ApplicationController
         )
       end
 
+      tags.merge!(
+        {
+          "billing-cost-centre" => all_params['cost_centre_code'],
+          "billing-business-unit" => all_params['business_unit'],
+          "billing-business-unit-subsection" => all_params['subsection']
+        }
+      )
+
       tags.compact_blank!
 
       pull_request_url = GithubService.new.create_new_account_pull_request(
         account_name,
         account_description,
-        programme_or_other,
         email,
         admin_users,
         tags,
@@ -69,7 +74,6 @@ class CheckYourAnswersController < ApplicationController
       notify_service.new_account_email_support(
         account_name: account_name,
         account_description: account_description,
-        programme: programme_or_other,
         email: email,
         pull_request_url: pull_request_url,
         admin_users: admin_users

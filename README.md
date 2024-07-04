@@ -84,3 +84,7 @@ Production environment:
 
 Path to file is from the root of the project eg ```/app/cost_centres.csv```.
 **Important note:** The csv file should not be made public, so if you save it inside the project, ensure you delete it after running the script and DO NOT push it to GitHub. 
+
+**To apply the changes, you must restart the app.** 
+Login to the AWS account by running: ```gds aws <account-name> -l```.
+In the AWS console, open App Runner and click Actions -> Pause, and then Resume. 

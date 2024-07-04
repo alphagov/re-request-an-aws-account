@@ -59,3 +59,32 @@ ENV secrets
   - `GITHUB_PERSONAL_ACCESS_TOKEN`: the PAT required to act on requied alphagov repos
   - `NOTIFY_API_KEY`: a key to use the notify api to send emails
   - `RAILS_MASTER_KEY`: the key that has been used to encode `config/credentials.yml.enc`
+
+
+Updating the Cost Centre Information
+-----------
+
+We have a csv file in S3 which contains the Cabinet Office cost centre information. This is used to check the cost centre details entered by the user when requesting an AWS account. The original source for cost centre information in the intranet is updated monthly and we should replace the file in out S3 bucket periodically with the most up to date version.
+
+You will need to be on the VPN both to access the file on the intranet, and to upload to to S3. 
+
+Download the Cost Center Hierarchy file available on this page: <https://intranet.cabinetoffice.gov.uk/task/cabinet-office-cost-centres/>, and export to a CSV if in another format.
+
+Run the CSV Updater script from the root of the project with:
+```sh
+gds aws <account-name> -- ruby bin/csv_updater -b "<bucket-name>" -f "<path-to-file>"
+```
+For test environment:
+- Account name: ```ee-request-aws-account-test-admin```
+- Bucket name: ```gds-ee-raat-test-csv```
+
+Production environment:
+- Account name: ```ee-request-aws-account-prod```
+- Bucket name: ```gds-ee-raat-csv```
+
+Path to file is from the root of the project eg ```/app/cost_centres.csv```.
+**Important note:** The csv file should not be made public, so if you save it inside the project, ensure you delete it after running the script and DO NOT push it to GitHub. 
+
+**To apply the changes, you must restart the app.** 
+Login to the AWS account by running: ```gds aws <account-name> -l```.
+In the AWS console, open App Runner and click Actions -> Pause, and then Resume. 

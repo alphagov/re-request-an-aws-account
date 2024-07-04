@@ -11,8 +11,7 @@ options = Slop.parse do |opts|
     opts.string '-f', '--file-path', 'Specify the file path eg. \"./my-csv-file.csv\"'
 end
 
-
-if !options.all?
+if options[:bucket].nil? or options[:'file-path'].nil?
     puts "Required fields missing:"
     puts options
     exit(1)

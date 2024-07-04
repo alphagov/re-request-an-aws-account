@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+require 'aws-sdk-s3'
+require 'csv'
+require 'slop'
+
+puts "Running csv updater"
+
+options = Slop.parse do |opts|
+    opts.string '-b', '--bucket', 'Specify the bucket eg. \"gds-ee-raat-test-csv\"' 
+    opts.string '-f', '--file-path', 'Specify the file path eg. \"./my-csv-file.csv\"'
+end
+
+
+if !options.all?
+    puts "Required fields missing:"
+    puts options
+    exit(1)
+end
+
+bucket_name = options[:bucket]
+file_path = File.join(Dir.pwd, options[:'file-path'])
+
+csv_file_headers = CSV.open(file_path, 'r') { |csv| csv.first }
+
+
+def validate_csv_format(csv_file_headers)
+    required_headers = ["Cost Centre Description", "Cost Centre", "Level 04 Parent Descr", "Level 05 Parent Descr"]
+    is_valid = required_headers.all? { |header| csv_file_headers.include?(header)}
+    if not is_valid
+        STDERR.puts "The required headers are not present in the csv file."   
+    else
+        puts "The file is in valid a format"
+    end
+    is_valid
+end
+
+def upload_to_s3(file, bucket)
+    s3 = Aws::S3::Client.new
+    File.open(file, 'rb') do |body|
+        begin
+            s3.put_object(
+                body: body,
+                bucket: bucket,
+                key: "cost_centres.csv"
+                )
+            puts "Successfully uploaded file"
+        rescue Aws::S3::Errors::ServiceError => error
+            STDERR.puts "File not uploaded: #{error.message}"
+        end
+    end
+end
+
+if validate_csv_format(csv_file_headers)
+    upload_to_s3(file_path, bucket_name)
+    exit 0
+end
+exit 1

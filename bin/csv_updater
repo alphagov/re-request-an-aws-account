@@ -24,7 +24,7 @@ csv_file_headers = CSV.open(file_path, 'r') { |csv| csv.first }
 
 
 def validate_csv_format(csv_file_headers)
-  required_headers = ["Cost Centre Description", "Cost Centre", "Level 04 Parent Descr", "Level 05 Parent Descr"]
+  required_headers = ["Cost Centre Description", "Cost Centre", "Operating Unit Description", "Parent Cost Centre Description"]
   is_valid = required_headers.all? { |header| csv_file_headers.include?(header)}
   if not is_valid
     STDERR.puts "The required headers are not present in the csv file."   

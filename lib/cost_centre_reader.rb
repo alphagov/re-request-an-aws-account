@@ -21,11 +21,11 @@ class CostCentreReader
     end
 
     def business_unit
-      get("Level 04 Parent Descr")
+      get("Operating Unit Description")
     end
 
     def subsection
-      get("Level 05 Parent Descr")
+      get("Parent Cost Centre Description")
     end
   end
 

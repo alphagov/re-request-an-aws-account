@@ -83,6 +83,9 @@ Production environment:
 - Bucket name: ```gds-ee-raat-csv```
 
 Path to file is from the root of the project eg ```/app/cost_centres.csv```.
+
+The script checks that the headers in the CSV have the expected values. If the upload fails because the headers have been changed, you need to update the keys accordingly in the ```mapping``` hash in the ```/bin/csv_updater``` file.  
+
 **Important note:** The csv file should not be made public, so if you save it inside the project, ensure you delete it after running the script and DO NOT push it to GitHub. 
 
 **To apply the changes, you must restart the app.** 

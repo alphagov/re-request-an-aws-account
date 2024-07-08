@@ -16,9 +16,9 @@ end
 def get_cost_centre_data()
   begin
     return load_from_s3(ENV['COST_CENTRE_S3_BUCKET_NAME'], 'cost_centres.csv')
-  rescue Aws::S3::Errors::ServiceError
+  rescue Aws::S3::Errors::ServiceError, Aws::Errors::MissingRegionError
     Rails.logger.error("Failed unable to retrieve cost_centres.csv from s3")
-    return File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))    
+    return File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
   end
 end
 

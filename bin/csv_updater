@@ -4,6 +4,15 @@ require 'aws-sdk-s3'
 require 'csv'
 require 'slop'
 
+# key value pair mapping from headers in the ingested csv file to the headers required by the RAAT.
+# if required headers are not found adjust the keys to match the updated headers in the new file.
+mapping = {
+  "Cost Centre Description" => "Cost Centre Description",
+  "Cost Centre" => "Cost Centre",
+  "Operating Unit Description" => "Operating Unit Description",
+  "Parent Cost Centre Description" => "Parent Cost Centre Description"
+}
+
 puts "Running csv updater"
 
 options = Slop.parse do |opts|
@@ -20,38 +29,50 @@ end
 bucket_name = options[:bucket]
 file_path = File.join(Dir.pwd, options[:'file-path'])
 
-csv_file_headers = CSV.open(file_path, 'r') { |csv| csv.first }
 
 
 def validate_csv_format(csv_file_headers)
   required_headers = ["Cost Centre Description", "Cost Centre", "Operating Unit Description", "Parent Cost Centre Description"]
   is_valid = required_headers.all? { |header| csv_file_headers.include?(header)}
   if not is_valid
-    STDERR.puts "The required headers are not present in the csv file."   
+    STDERR.puts "The required headers: #{required_headers} are not present in the csv file. Please update the mapping in this script and re-run it to continue"   
   else
     puts "The file is in valid a format"
   end
   is_valid
 end
 
-def upload_to_s3(file, bucket)
+def upload_to_s3(csv, bucket)
   s3 = Aws::S3::Client.new
-  File.open(file, 'rb') do |body|
-    begin
+
+  begin
       s3.put_object(
-        body: body,
-        bucket: bucket,
-        key: "cost_centres.csv"
-        )
+      body: csv,
+      bucket: bucket,
+      key: "cost_centres.csv"
+      )
       puts "Successfully uploaded file"
-    rescue Aws::S3::Errors::ServiceError => error
+  rescue Aws::S3::Errors::ServiceError => error
       STDERR.puts "File not uploaded: #{error.message}"
+  end
+end
+
+def map_csv_headers(csv, mapping)
+  CSV.generate do | out_csv |
+    out_csv << mapping.keys
+    CSV.foreach(csv, headers: true) do |in_row|
+      out_row = []
+      mapping.each do |old_header, new_header|
+        out_row.append(in_row[old_header])
+      end
+      out_csv << out_row
     end
   end
 end
 
-if validate_csv_format(csv_file_headers)
-  upload_to_s3(file_path, bucket_name)
+if validate_csv_format(CSV.open(file_path, 'r').first)
+  mapped_csv = map_csv_headers(file_path, mapping)
+  upload_to_s3(mapped_csv, bucket_name)
   exit 0
 end
 exit 1

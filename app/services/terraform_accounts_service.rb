@@ -14,6 +14,12 @@ class TerraformAccountsService
       raise Errors::AccountAlreadyExistsError.new account_name
     end
 
+    tags.each {| name, value |
+    new_value = value
+      new_value = new_value.gsub("&", "AND")
+      new_value = new_value.gsub(/[^ A-Za-z0-9.:+=@_\/\-]/, '')
+      tags[name] = new_value
+    }
     accounts.push('aws_organizations_account' => {
       account_name => {
         'name': account_name,

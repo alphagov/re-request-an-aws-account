@@ -26,12 +26,7 @@ class TerraformAccountsService
         'email': AWS_ROOT_ACCOUNTS_EMAIL_FORMAT % truncate_account_name_for_email(account_name),
         'role_name': 'bootstrap',
         'iam_user_access_to_billing': 'ALLOW',
-        'tags': tags,
-        'lifecycle': {
-          'ignore_changes': [
-            'tags'
-          ]
-        }
+        'tags': tags
       }
     })
 

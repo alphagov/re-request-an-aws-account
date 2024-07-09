@@ -9,8 +9,7 @@ INITIAL_ACCOUNTS_TERRAFORM = <<EOTERRAFORM
           "name": "wombles-of-wimbledon-common-prod",
           "email": "aws-root-accounts+wom-of-wim-pro@digital.cabinet-office.gov.uk",
           "role_name": "bootstrap",
-          "iam_user_access_to_billing": "ALLOW",
-          "lifecycle": {"ignore_changes": ["tags"]}
+          "iam_user_access_to_billing": "ALLOW"
         }
       }
     },
@@ -20,8 +19,7 @@ INITIAL_ACCOUNTS_TERRAFORM = <<EOTERRAFORM
           "name": "wombles-of-wimbledon-common-staging",
           "email": "aws-root-accounts+wom-of-wim-sta@digital.cabinet-office.gov.uk",
           "role_name": "bootstrap",
-          "iam_user_access_to_billing": "ALLOW",
-          "lifecycle": {"ignore_changes": ["tags"]}
+          "iam_user_access_to_billing": "ALLOW" 
         }
       }
     }
@@ -55,5 +53,19 @@ class TerraformAccountsServiceTest < ActiveSupport::TestCase
     assert_equal result, JSON.pretty_generate(JSON.parse(result)) + "\n"
     result_tags = JSON.parse(result)["resource"][0]["aws_organizations_account"]['gds-wombles-of-wimbledon-test']['tags']
     assert_equal expected_tags, result_tags
+  end
+
+  test 'Doesnt add lifecycle policy ignore tags' do
+    terraform_accounts_service = TerraformAccountsService.new(INITIAL_ACCOUNTS_TERRAFORM)
+    tags = {
+      'description' => 'Description.'
+    }
+    result = terraform_accounts_service.add_account(
+      'gds-wombles-of-wimbledon-test',
+      tags
+    )
+
+    has_lifecycle = JSON.parse(result)["resource"][0]["aws_organizations_account"]['gds-wombles-of-wimbledon-test'].has_key?('lifecycle')
+    assert_equal false, has_lifecycle
   end
 end

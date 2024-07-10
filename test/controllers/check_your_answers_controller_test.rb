@@ -91,8 +91,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
             "billing-cost-centre" => "87654321",
             "billing-business-unit" => "some-business-unit",
             "billing-business-unit-subsection" => "some-subsection"      
-          },
-          "lifecycle" => { "ignore_changes" => ["tags"]}
+          }
         }
       },
       accounts_terraform_after['resource'][0]['aws_organizations_account']
@@ -174,8 +173,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
             "out-of-hours-support-phone-number" => "000000000000",
             "out-of-hours-support-pagerduty-link" => "https://pagerduty.example.com",
             "out-of-hours-support-email-address" => "outofhours@example.com"
-          },
-          "lifecycle" => { "ignore_changes" => ["tags"]}
+          }
         }
       },
       accounts_terraform_after['resource'][0]['aws_organizations_account']
@@ -240,8 +238,7 @@ class CheckYourAnswersControllerTest < ActionDispatch::IntegrationTest
             "security-critical-resources-description" => "User data stored in blah S3 bucket",
             "security-does-account-hold-pii" => "true",
             "security-does-account-hold-pci-data" => "false"
-          },
-          "lifecycle" => { "ignore_changes" => ["tags"]}
+          }
         }
       },
       accounts_terraform_after['resource'][0]['aws_organizations_account']

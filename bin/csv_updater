@@ -7,10 +7,10 @@ require 'slop'
 # key value pair mapping from headers in the ingested csv file to the headers required by the RAAT.
 # if required headers are not found adjust the keys to match the updated headers in the new file.
 mapping = {
-  "Cost Centre Description" => "Cost Centre Description",
-  "Cost Centre" => "Cost Centre",
-  "Operating Unit Description" => "Operating Unit Description",
-  "Parent Cost Centre Description" => "Parent Cost Centre Description"
+  "Cost Centre Description" => "Cost Centre Description", #eg "SOME TEAM"
+  "Cost Centre" => "Cost Centre", #eg "12345678"
+  "Level 04 Parent Descr" => "Business Unit", #eg "OU - SOME GROUP"
+  "Level 05 Parent Descr" => "Subsection" #eg "SOME GROUP/UNIT/OFFICE/DIVISION/PROGRAMME/STREAM"
 }
 
 puts "Running csv updater"
@@ -27,12 +27,11 @@ if options[:bucket].nil? or options[:'file-path'].nil?
 end
 
 bucket_name = options[:bucket]
-file_path = File.join(Dir.pwd, options[:'file-path'])
+file_path = options[:'file-path']
 
 
-
-def validate_csv_format(csv_file_headers)
-  required_headers = ["Cost Centre Description", "Cost Centre", "Operating Unit Description", "Parent Cost Centre Description"]
+def validate_csv_format(csv_file_headers, mapping)
+  required_headers = mapping.keys
   is_valid = required_headers.all? { |header| csv_file_headers.include?(header)}
   if not is_valid
     STDERR.puts "The required headers: #{required_headers} are not present in the csv file. Please update the mapping in this script and re-run it to continue"   
@@ -70,7 +69,7 @@ def map_csv_headers(csv, mapping)
   end
 end
 
-if validate_csv_format(CSV.open(file_path, 'r').first)
+if validate_csv_format(CSV.open(file_path, 'r').first, mapping)
   mapped_csv = map_csv_headers(file_path, mapping)
   upload_to_s3(mapped_csv, bucket_name)
   exit 0

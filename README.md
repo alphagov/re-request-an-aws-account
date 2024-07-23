@@ -72,7 +72,7 @@ Download the Cost Center Hierarchy file available on this page: <https://intrane
 
 Run the CSV Updater script from the root of the project with:
 ```sh
-gds aws <account-name> -- ruby bin/csv_updater -b "<bucket-name>" -f "<path-to-file>"
+gds aws <account-name> -- bundle exec ruby bin/csv_updater -b "<bucket-name>" -f "<path-to-file>"
 ```
 For test environment:
 - Account name: ```ee-request-aws-account-test-admin```

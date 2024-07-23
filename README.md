@@ -68,7 +68,7 @@ We have a csv file in S3 which contains the Cabinet Office cost centre informati
 
 You will need to be on the VPN both to access the file on the intranet, and to upload to to S3. 
 
-Download the Cost Center Hierarchy file available on this page: <https://intranet.cabinetoffice.gov.uk/task/cabinet-office-cost-centres/>, and export to a CSV if in another format.
+Download the Cost Center Hierarchy file available on this page: <https://intranet.cabinetoffice.gov.uk/wagtail-user-sandbox-area/cdt-information-hub/co-reporting/cabinet-office-cost-centres/>, and export to a CSV if in another format.
 
 Run the CSV Updater script from the root of the project with:
 ```sh
@@ -82,9 +82,9 @@ Production environment:
 - Account name: ```ee-request-aws-account-prod```
 - Bucket name: ```gds-ee-raat-csv```
 
-Path to file is from the root of the project eg ```/app/cost_centres.csv```.
+Path to file is the absolute path of the file eg: ```/Users/myusername/Downloads/cost_centres.csv```.
 
-The script checks that the headers in the CSV have the expected values. If the upload fails because the headers have been changed, you need to update the keys accordingly in the ```mapping``` hash in the ```/bin/csv_updater``` file.  
+The script checks that the headers in the CSV have the expected values. If the upload fails because the headers have been changed, you need to update the keys accordingly in the ```mapping``` hash in the ```/bin/csv_updater``` file, leaving the values in the hash as they are (the examples shown in comments in the mapping give an idea of the format of the data in each column - this is to help identify which columns are needed if the headers have changed.)  
 
 **Important note:** The csv file should not be made public, so if you save it inside the project, ensure you delete it after running the script and DO NOT push it to GitHub. 
 

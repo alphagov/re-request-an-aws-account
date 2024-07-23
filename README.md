@@ -80,7 +80,7 @@ For test environment:
 
 Production environment:
 - Account name: ```ee-request-aws-account-prod```
-- Bucket name: ```gds-ee-raat-csv```
+- Bucket name: ```gds-ee-raat-prod-csv```
 
 Path to file is the absolute path of the file eg: ```/Users/myusername/Downloads/cost_centres.csv```.
 

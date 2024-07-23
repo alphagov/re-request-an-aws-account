@@ -21,11 +21,11 @@ class CostCentreReader
     end
 
     def business_unit
-      get("Operating Unit Description")
+      get("Business Unit")
     end
 
     def subsection
-      get("Parent Cost Centre Description")
+      get("Subsection")
     end
   end
 

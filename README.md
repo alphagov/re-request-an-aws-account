@@ -90,4 +90,4 @@ The script checks that the headers in the CSV have the expected values. If the u
 
 **To apply the changes, you must restart the app.** 
 Login to the AWS account by running: ```gds aws <account-name> -l```.
-In the AWS console, open App Runner and click Actions -> Pause, and then Resume. 
+In the AWS console, open App Runner and click the orange deploy button to refresh the instance without downtime.

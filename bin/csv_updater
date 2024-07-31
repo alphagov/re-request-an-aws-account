@@ -58,7 +58,8 @@ end
 
 def map_csv_headers(csv, mapping)
   CSV.generate do | out_csv |
-    out_csv << mapping.keys
+    out_csv << mapping.values
+
     CSV.foreach(csv, headers: true) do |in_row|
       out_row = []
       mapping.each do |old_header, new_header|

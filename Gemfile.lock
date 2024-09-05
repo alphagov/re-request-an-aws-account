@@ -1735,7 +1735,7 @@ GEM
       stringio
     public_suffix (6.0.0)
     racc (1.8.0)
-    rack (3.1.4)
+    rack (3.1.5)
     rack-protection (4.0.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0, < 4)

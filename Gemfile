@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 3.2.3'
+ruby '~> 3.3.5'
 
 gem 'dotenv-rails', groups: [:development]
 
@@ -16,6 +16,7 @@ gem 'sassc-rails'
 gem 'webmock', '~> 3.23.0'
 gem 'webrick', '~> 1.8.1'
 gem 'aws-sdk', '~> 3'
+gem 'rexml', '~> 3.3.7'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

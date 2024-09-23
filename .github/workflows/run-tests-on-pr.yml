@@ -5,4 +5,4 @@ on:
 
 jobs:
   run-tests: 
-    uses: alphagov/re-request-an-aws-account/.github/workflows/run-tests.yaml@ENG-487
+    uses: alphagov/re-request-an-aws-account/.github/workflows/run-tests.yaml@main

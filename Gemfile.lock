@@ -1852,14 +1852,14 @@ DEPENDENCIES
   pry
   rack_session_access (~> 0.2.0)
   rails (~> 7.1.0)
-  rexml (~> 3.3.3)
+  rexml (~> 3.3.7)
   sassc-rails
   slop
   webmock (~> 3.23.0)
   webrick (~> 1.8.1)
 
 RUBY VERSION
-   ruby 3.2.5p208
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.19

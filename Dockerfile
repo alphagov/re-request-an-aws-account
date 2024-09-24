@@ -6,23 +6,37 @@ COPY package.json ./
 RUN npm i
 
 # bundle install the gems for production
-FROM ruby:3.3.5 as rubybuilder
-RUN apt update -y \
-    && apt -y install nano \
-    && cp /usr/bin/nano /usr/local/bin/
+FROM ruby:3.3.5-alpine as rubybuilder
+RUN apk update && apk add --no-cache \
+    build-base \
+    postgresql-dev \
+    tzdata \
+    nano \
+    linux-headers \
+    libxml2-dev \
+    libxslt-dev \
+    nodejs \
+    yarn \
+    gcompat
+
+ENV BUNDLER_VERSION=2.5.19
+RUN gem install bundler -v $BUNDLER_VERSION
+
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' \
     && bundle install
 
 # copy required files from base images, precompile assets & cleanup
-FROM ruby:3.3.5-slim
+FROM ruby:3.3.5-alpine
+
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
-RUN export PATH=$PATH:usr/local/nodebin \
-    && useradd -ms /bin/bash app
+RUN apk add --no-cache gcompat 
+RUN export PATH=$PATH:/usr/local/nodebin \
+    && adduser -D -s /bin/sh app
 USER app
 COPY --chown=app . ./
 RUN RAILS_ENV=production bundle exec rake assets:precompile

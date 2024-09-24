@@ -1649,6 +1649,7 @@ GEM
       logger
     faraday-net_http (3.3.0)
       net-http
+    ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
@@ -1702,6 +1703,8 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
+    nokogiri (1.16.7-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
@@ -1822,6 +1825,8 @@ GEM
     timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2024.2)
+      tzinfo (>= 1.0.0)
     uri (0.13.1)
     version_gem (1.1.4)
     webmock (3.23.1)
@@ -1835,6 +1840,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
+  aarch64-linux-musl
   arm64-darwin-22
   arm64-darwin-23
   x86_64-linux
@@ -1855,6 +1861,7 @@ DEPENDENCIES
   rexml (~> 3.3.7)
   sassc-rails
   slop
+  tzinfo-data
   webmock (~> 3.23.0)
   webrick (~> 1.8.1)
 

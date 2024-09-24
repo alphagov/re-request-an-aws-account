@@ -14,7 +14,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'rails', '~> 7.1.0'
 gem 'sassc-rails'
 gem 'webmock', '~> 3.23.0'
-gem 'webrick', '~> 1.8.1'
+gem 'webrick', '~> 1.8.2'
 gem 'aws-sdk', '~> 3'
 gem 'rexml', '~> 3.3.7'
 

@@ -1,5 +1,5 @@
 # get official nodejs/npm binaries
-FROM node:22.9-slim as nodebuilder
+FROM node:22.9-alpine as nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
@@ -18,9 +18,6 @@ RUN apk update && apk add --no-cache \
     nodejs \
     yarn \
     gcompat
-
-ENV BUNDLER_VERSION=2.5.19
-RUN gem install bundler -v $BUNDLER_VERSION
 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./

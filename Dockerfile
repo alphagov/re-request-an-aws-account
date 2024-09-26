@@ -11,7 +11,6 @@ RUN apk update && apk add --no-cache \
     build-base \
     postgresql-dev \
     tzdata \
-    nano \
     linux-headers \
     libxml2-dev \
     libxslt-dev \

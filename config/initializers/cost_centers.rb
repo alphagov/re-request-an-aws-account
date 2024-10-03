@@ -13,9 +13,18 @@ def load_from_s3(bucket, key)
   return data
 end
 
+def load_dummy_cost_centres()
+  File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
+end
+
+def running_inside_a_rake_task?
+  !defined?(Rails::Server)
+end
+
 def get_cost_centre_data()
-  if Rails.env.development?
-    return File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
+  # dont load the cost centers from s3 if were not running the server or we're not in RAILS_ENV != production
+  if Rails.env.development? or running_inside_a_rake_task?
+    return load_dummy_cost_centres()
   end
 
   begin
@@ -27,5 +36,6 @@ def get_cost_centre_data()
     raise "Failed unable to retrieve cost_centres.csv from s3"
   end
 end
+
 
 COST_CENTRES = CostCentreReader.new(get_cost_centre_data())

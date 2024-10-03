@@ -1,12 +1,12 @@
 # get official nodejs/npm binaries
-FROM node:22.9-alpine as nodebuilder
+FROM node:22.9-alpine AS nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
 RUN npm i
 
 # bundle install the gems for production
-FROM ruby:3.3.5-alpine as rubybuilder
+FROM ruby:3.3.5-alpine AS rubybuilder
 RUN apk update && apk add --no-cache \
     build-base \
     postgresql-dev \

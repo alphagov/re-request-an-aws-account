@@ -1636,6 +1636,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.2.8)
     date (3.3.4)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
@@ -1736,6 +1737,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    ostruct (0.6.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -1847,6 +1849,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 3)
+  csv
   dotenv-rails
   listen (~> 3.9)
   lograge (~> 0.14.0)
@@ -1855,6 +1858,7 @@ DEPENDENCIES
   octokit (~> 6.1.0)
   omniauth-google-oauth2 (~> 1.1.1)
   omniauth-rails_csrf_protection (~> 1.0.1)
+  ostruct
   pry
   rack_session_access (~> 0.2.0)
   rails (~> 7.1.0)

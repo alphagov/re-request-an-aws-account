@@ -18,6 +18,8 @@ gem 'webrick', '~> 1.8.2'
 gem 'aws-sdk', '~> 3'
 gem 'rexml', '~> 3.3.7'
 gem 'tzinfo-data'
+gem 'csv'
+gem 'ostruct'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

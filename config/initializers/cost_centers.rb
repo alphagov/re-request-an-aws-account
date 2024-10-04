@@ -17,13 +17,9 @@ def load_dummy_cost_centres()
   File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
 end
 
-def running_inside_a_rake_task?
-  !defined?(Rails::Server)
-end
-
 def get_cost_centre_data()
-  # dont load the cost centers from s3 if were not running the server or we're not in RAILS_ENV != production
-  if ENV['COST_CENTRE_S3_BUCKET_NAME'].blank? or running_inside_a_rake_task?
+  # dont load the cost centers from s3 if the cost centre S3 bucket variable is not present.
+  if ENV['COST_CENTRE_S3_BUCKET_NAME'].blank? 
     return load_dummy_cost_centres()
   end
 

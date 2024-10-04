@@ -14,9 +14,12 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'rails', '~> 7.1.0'
 gem 'sassc-rails'
 gem 'webmock', '~> 3.23.0'
-gem 'webrick', '~> 1.8.1'
+gem 'webrick', '~> 1.8.2'
 gem 'aws-sdk', '~> 3'
 gem 'rexml', '~> 3.3.7'
+gem 'tzinfo-data'
+gem 'csv'
+gem 'ostruct'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

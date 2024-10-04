@@ -13,13 +13,25 @@ def load_from_s3(bucket, key)
   return data
 end
 
+def load_dummy_cost_centres()
+  File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
+end
+
 def get_cost_centre_data()
+  # dont load the cost centers from s3 if the cost centre S3 bucket variable is not present.
+  if ENV['COST_CENTRE_S3_BUCKET_NAME'].blank? 
+    return load_dummy_cost_centres()
+  end
+
   begin
-    return load_from_s3(ENV['COST_CENTRE_S3_BUCKET_NAME'], 'cost_centres.csv')
+    bucket = ENV['COST_CENTRE_S3_BUCKET_NAME']
+    raise 'Failed COST_CENTRE_S3_BUCKET_NAME env var is NOT set' unless bucket
+
+    return load_from_s3(bucket, 'cost_centres.csv')
   rescue Aws::S3::Errors::ServiceError, Aws::Errors::MissingRegionError
-    Rails.logger.error("Failed unable to retrieve cost_centres.csv from s3")
-    return File.read(File.join(Rails.root, 'config', 'cost_centre_fixture.csv'))
+    raise "Failed unable to retrieve cost_centres.csv from s3"
   end
 end
+
 
 COST_CENTRES = CostCentreReader.new(get_cost_centre_data())

@@ -1653,6 +1653,7 @@ GEM
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux-musl)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.1)
@@ -1846,6 +1847,7 @@ PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
   x86_64-linux
+  x86_64-linux-musl
 
 DEPENDENCIES
   aws-sdk (~> 3)

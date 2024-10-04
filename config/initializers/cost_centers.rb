@@ -23,7 +23,7 @@ end
 
 def get_cost_centre_data()
   # dont load the cost centers from s3 if were not running the server or we're not in RAILS_ENV != production
-  if Rails.env.development? or running_inside_a_rake_task?
+  if ENV['COST_CENTRE_S3_BUCKET_NAME'].blank? or running_inside_a_rake_task?
     return load_dummy_cost_centres()
   end
 

@@ -1666,7 +1666,7 @@ GEM
       reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.7.2)
-    jwt (2.9.1)
+    jwt (2.9.3)
       base64
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -1853,6 +1853,7 @@ DEPENDENCIES
   aws-sdk (~> 3)
   csv
   dotenv-rails
+  jwt (~> 2.9.3)
   listen (~> 3.9)
   lograge (~> 0.14.0)
   logstash-event (~> 1.2.02)

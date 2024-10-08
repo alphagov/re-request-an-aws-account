@@ -1636,7 +1636,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (3.2.8)
+    csv (3.3.0)
     date (3.3.4)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)

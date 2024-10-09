@@ -68,7 +68,7 @@ We have a csv file in S3 which contains the Cabinet Office cost centre informati
 
 You will need to be on the VPN both to access the file on the intranet, and to upload to to S3. 
 
-Download the Cost Center Hierarchy file available on this page: <https://intranet.cabinetoffice.gov.uk/wagtail-user-sandbox-area/cdt-information-hub/co-reporting/cabinet-office-cost-centres/>, and export to a CSV if in another format.
+Download the Cost Center Hierarchy CSV file available on [this Cabinet Office intranet page](https://intranet.cabinetoffice.gov.uk/managing-people-and-services/corporate-services-directory/cdt-information-hub/co-reporting/cabinet-office-cost-centres/).
 
 Run the CSV Updater script from the root of the project with:
 ```sh

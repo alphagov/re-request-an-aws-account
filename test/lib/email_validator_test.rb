@@ -16,6 +16,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert EmailValidator.email_is_allowed_basic?(email)
   end
 
+  test 'Infrastructure and Projects Authority email addresses are allowed to sign in' do
+    email = 'fname.lname@ipa.gov.uk'
+    assert EmailValidator.email_is_allowed_basic?(email)
+  end
+
   test 'Softwire email addresses are allowed to sign in' do
     email = 'fname.lname@softwire.com'
     assert EmailValidator.email_is_allowed_basic?(email)
@@ -56,6 +61,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
     assert EmailValidator.email_is_allowed_advanced?(email)
   end
 
+  test 'Infrastructure and Projects Authority email addresses are allowed to manage users' do
+    email = 'fname.lname@ipa.gov.uk'
+    assert EmailValidator.email_is_allowed_advanced?(email)
+  end
+
   test 'Softwire email addresses are not allowed to manage users' do
     email = 'fname.lname@softwire.com'
     assert ! EmailValidator.email_is_allowed_advanced?(email)
@@ -88,6 +98,11 @@ class EmailValidatorTest < ActiveSupport::TestCase
 
   test 'Government Property Agency emails can be used as usernames for new users' do
     email = 'fname.lname@gpa.gov.uk'
+    assert_match EmailValidator.allowed_emails_regexp, email
+  end
+
+  test 'Infrastructure and Projects Authority emails can be used as usernames for new users' do
+    email = 'fname.lname@ipa.gov.uk'
     assert_match EmailValidator.allowed_emails_regexp, email
   end
 

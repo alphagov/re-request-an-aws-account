@@ -8,6 +8,7 @@ module EmailValidator
     return true if email.end_with? '@digital.cabinet-office.gov.uk'
     return true if email.end_with? '@cabinetoffice.gov.uk'
     return true if email.end_with? '@gpa.gov.uk'
+    return true if email.end_with? '@ipa.gov.uk'
     return true if email.end_with? '@softwire.com'
     return true if email.end_with? '@fidusinfosec.com'
     return true if email.end_with? '@cyberis.com'
@@ -23,6 +24,7 @@ module EmailValidator
     return true if email.end_with? '@digital.cabinet-office.gov.uk'
     return true if email.end_with? '@cabinetoffice.gov.uk'
     return true if email.end_with? '@gpa.gov.uk'
+    return true if email.end_with? '@ipa.gov.uk'
     false
   end
 
@@ -32,6 +34,7 @@ module EmailValidator
       /([a-z0-9.\-\']+@digital\.cabinet-office\.gov\.uk,?\s*)/,
       /([a-z0-9.\-\']+@cabinetoffice\.gov\.uk,?\s*)/,
       /([a-z0-9.\-\']+@gpa\.gov\.uk,?\s*)/,
+      /([a-z0-9.\-\']+@ipa\.gov\.uk,?\s*)/,
       /([a-z0-9.\-\']+@softwire\.com,?\s*)/,
       /([a-z0-9.\-\']+@fidusinfosec\.com,?\s*)/,
       /([a-z0-9.\-\']+@cyberis\.com,?\s*)/,

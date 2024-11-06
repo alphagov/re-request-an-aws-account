@@ -1,0 +1,26 @@
+name: Run Tests after Pull Request is merged and Tag
+
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  run-tests-and-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      with:
+        fetch-depth: 0 
+
+    - name: Run tests
+      uses: ./.github/workflows/run-tests.yaml
+
+    - name: Tag commit if tests pass
+      if: success()
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git tag -f release_test
+        git push origin release_test --force

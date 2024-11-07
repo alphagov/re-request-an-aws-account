@@ -1,26 +1,33 @@
 name: Run Tests after Pull Request is merged and Tag
 
 on:
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   run-tests-and-tag:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      with:
-        fetch-depth: 0 
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
 
-    - name: Run tests
-      uses: ./.github/workflows/run-tests.yaml
+      - name: Run tests
+        uses: ./.github/workflows/run-tests.yaml
 
-    - name: Tag commit if tests pass
-      if: success()
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git tag -f release_test
-        git push origin release_test --force
+      - name: Tag release
+        run: |
+          LATEST_RELEASE_NUMBER=$(git describe --abbrev=0 --tags --match "pre_release_*" | awk -F- '{print $2}' || echo "0")
+          NEW_RELEASE_NUMBER=$((LATEST_RELEASE_NUMBER + 1))
+          TAG_NAME=pre_release_-${NEW_RELEASE_NUMBER}
+          echo "TAG_NAME: ${TAG_NAME}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          DATE=$(date +%Y-%m-%d:%H:%M:%S)
+          git tag -a ${TAG_NAME} ${GITHUB_SHA} -m "Release candidate tag created on ${DATE}"
+          git push origin ${TAG_NAME}

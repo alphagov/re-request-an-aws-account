@@ -6,28 +6,30 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  run-tests-and-tag:
+  run-tests:
+    uses: alphagov/re-request-an-aws-account/.github/workflows/run-tests.yaml@main
+
+  create-tag:
+    needs: run-tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
-
-      - name: Run tests
-        uses: ./.github/workflows/run-tests.yaml
-
+      
       - name: Tag release
         run: |
           LATEST_RELEASE_NUMBER=$(git describe --abbrev=0 --tags --match "pre_release_*" | awk -F- '{print $2}' || echo "0")
           NEW_RELEASE_NUMBER=$((LATEST_RELEASE_NUMBER + 1))
-          TAG_NAME=pre_release_-${NEW_RELEASE_NUMBER}
+          TAG_NAME=pre_release_${NEW_RELEASE_NUMBER}
           echo "TAG_NAME: ${TAG_NAME}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          DATE=$(date +%Y-%m-%d:%H:%M:%S)
-          git tag -a ${TAG_NAME} ${GITHUB_SHA} -m "Release candidate tag created on ${DATE}"
+          git tag ${TAG_NAME} ${GITHUB_SHA}
           git push origin ${TAG_NAME}

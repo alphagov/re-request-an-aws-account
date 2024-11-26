@@ -26,6 +26,14 @@ RUN bundle config set --local without 'development test' \
 # copy required files from base images, precompile assets & cleanup
 FROM ruby:3.3.5-alpine
 
+# Build arguments for image metadata
+ARG COMMIT_HASH
+ARG REPO_URL
+
+# Add OCI standard labels for image tracking and metadata
+LABEL org.opencontainers.image.revision=$COMMIT_HASH \
+      org.opencontainers.image.source=$REPO_URL
+
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin

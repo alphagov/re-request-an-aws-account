@@ -24,7 +24,14 @@ gem 'jwt', '~> 2.9.3'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'
+  gem 'rspec-rails'
+  gem 'rspec-core'
+  gem 'rspec'
+  gem 'capybara'
+  gem 'capybara-mechanize'
+  gem 'site_prism'
 end
+ 
 
 gem "listen", "~> 3.9", :group => :development
 

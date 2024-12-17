@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+
+echo "Running smoke tests..."
+SMOKE_TEST_HOST=${SMOKE_TEST_HOST:-https://request-an-aws-account-test.gds-reliability.engineering/} bundle exec rspec ../smoke/application_smoke_spec.rb

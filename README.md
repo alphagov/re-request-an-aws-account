@@ -51,6 +51,7 @@ ENV vars
   - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults to logfile
   - `RESTRICT_LOGIN_EMAIL_ADDRESSES_TO`: `example.one@digital.cabinet-office.gov.uk example.two@digital.cabinet-office.gov.uk` - should be a space separated list of email addresses if set it will only allow those email address to log in
 
+
 ENV secrets
 -----------
 
@@ -83,6 +84,7 @@ Production environment:
 - Bucket name: ```gds-ee-raat-prod-csv```
 
 Path to file is the absolute path of the file eg: ```/Users/myusername/Downloads/cost_centres.csv```.
+
 
 The script checks that the headers in the CSV have the expected values. If the upload fails because the headers have been changed, you need to update the keys accordingly in the ```mapping``` hash in the ```/bin/csv_updater``` file, leaving the values in the hash as they are (the examples shown in comments in the mapping give an idea of the format of the data in each column - this is to help identify which columns are needed if the headers have changed.)  
 

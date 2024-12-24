@@ -61,7 +61,6 @@ ENV secrets
   - `NOTIFY_API_KEY`: a key to use the notify api to send emails
   - `RAILS_MASTER_KEY`: the key that has been used to encode `config/credentials.yml.enc`
 
-
 Updating the Cost Centre Information
 -----------
 
@@ -84,7 +83,6 @@ Production environment:
 - Bucket name: ```gds-ee-raat-prod-csv```
 
 Path to file is the absolute path of the file eg: ```/Users/myusername/Downloads/cost_centres.csv```.
-
 
 The script checks that the headers in the CSV have the expected values. If the upload fails because the headers have been changed, you need to update the keys accordingly in the ```mapping``` hash in the ```/bin/csv_updater``` file, leaving the values in the hash as they are (the examples shown in comments in the mapping give an idea of the format of the data in each column - this is to help identify which columns are needed if the headers have changed.)  
 

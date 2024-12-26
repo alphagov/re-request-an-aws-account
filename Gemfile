@@ -20,7 +20,7 @@ gem 'rexml', '~> 3.3.8'
 gem 'tzinfo-data'
 gem 'csv'
 gem 'ostruct'
-gem 'jwt', '~> 2.9.3'
+gem 'jwt', '~> 2.10.0'
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

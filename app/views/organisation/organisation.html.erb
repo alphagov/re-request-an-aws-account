@@ -61,6 +61,10 @@
                 ) %>
               </div>
             <% end %>
+            <div class="govuk-radios__item">
+                <%= f.radio_button :organisation, 'GDS or CDDO or I.AI', checked: @form.organisation == 'GDS or CDDO or I.AI', id: 'cost_centre_code', class: 'govuk-radios__input'  %>
+                <%= f.label :organisation, 'I have a GDS, CDDO, or I.AI cost center', for: 'cost_centre_code', class: 'govuk-label govuk-radios__label' %>
+            </div>
           </div>
         </div>
       </fieldset>

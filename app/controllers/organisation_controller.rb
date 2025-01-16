@@ -4,7 +4,7 @@ class OrganisationController < ApplicationController
     'Crown Commercial Services'
   ]
 
-  VENDING_README = 'https://github.com/alphagov/gds-aws-organisation-accounts?tab=readme-ov-file#vending-a-new-aws-account'
+  GDS_ORG_ACCOUNT_VENDING_README = 'https://github.com/alphagov/gds-aws-organisation-accounts?tab=readme-ov-file#vending-a-new-aws-account'
 
   def organisation
     @form = OrganisationForm.new(session.fetch('form', {}), cost_centres)
@@ -27,7 +27,7 @@ class OrganisationController < ApplicationController
         session['form'] = session_form
         redirect_to organisation_summary_path
       elsif @form.organisation == 'GDS or CDDO or I.AI'
-        redirect_to VENDING_README, allow_other_host: true
+        redirect_to GDS_ORG_ACCOUNT_VENDING_README, allow_other_host: true
       else
         session_form[:cost_centre_code] = nil
         session_form[:cost_centre_description] = nil

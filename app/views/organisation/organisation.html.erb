@@ -30,6 +30,10 @@
           </span>
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
+                <%= f.radio_button :organisation, 'GDS or CDDO or I.AI', checked: @form.organisation == 'GDS or CDDO or I.AI', id: 'cost_centre_code', class: 'govuk-radios__input'  %>
+                <%= f.label :organisation, 'I have a GDS, CDDO, or I.AI cost centre (your request process has changed, you will be redirected to alphagov)', for: 'cost_centre_code', class: 'govuk-label govuk-radios__label' %>
+            </div>
+            <div class="govuk-radios__item">
                 <%= f.radio_button :organisation, 'Cabinet Office', checked: @form.organisation == 'Cabinet Office', id: 'cost_centre_code', class: 'govuk-radios__input', data:{"aria-controls": "conditional-contact"} %>
                 <%= f.label :organisation, 'I have a Cabinet Office cost centre', for: 'cost_centre_code', class: 'govuk-label govuk-radios__label' %>
             </div>
@@ -61,10 +65,6 @@
                 ) %>
               </div>
             <% end %>
-            <div class="govuk-radios__item">
-                <%= f.radio_button :organisation, 'GDS or CDDO or I.AI', checked: @form.organisation == 'GDS or CDDO or I.AI', id: 'cost_centre_code', class: 'govuk-radios__input'  %>
-                <%= f.label :organisation, 'I have a GDS, CDDO, or I.AI cost center', for: 'cost_centre_code', class: 'govuk-label govuk-radios__label' %>
-            </div>
           </div>
         </div>
       </fieldset>

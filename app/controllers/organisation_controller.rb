@@ -4,7 +4,7 @@ class OrganisationController < ApplicationController
     'Crown Commercial Services'
   ]
 
-  GDS_ORG_ACCOUNT_VENDING_README = 'https://github.com/alphagov/gds-aws-organisation-accounts?tab=readme-ov-file#vending-a-new-aws-account'
+  GDS_ORG_ACCOUNT_VENDING_README = 'https://github.com/alphagov/gds-aws-organisation-accounts#requesting-a-new-aws-account-in-gds'
 
   def organisation
     @form = OrganisationForm.new(session.fetch('form', {}), cost_centres)

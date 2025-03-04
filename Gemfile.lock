@@ -1822,7 +1822,7 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    rexml (3.3.8)
+    rexml (3.4.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -1899,7 +1899,7 @@ DEPENDENCIES
   pry
   rack_session_access (~> 0.2.0)
   rails (~> 7.2.1)
-  rexml (~> 3.3.8)
+  rexml (~> 3.4.1)
   sassc-rails
   slop
   tzinfo-data

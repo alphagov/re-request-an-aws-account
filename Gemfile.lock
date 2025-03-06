@@ -1650,12 +1650,12 @@ GEM
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.13.1)
-    faraday (2.12.0)
-      faraday-net_http (>= 2.0, < 3.4)
+    faraday (2.12.2)
+      faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.3.0)
-      net-http
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -1678,7 +1678,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jmespath (1.6.2)
-    json (2.7.2)
+    json (2.10.1)
     jwt (2.10.1)
       base64
     listen (3.9.0)
@@ -1706,7 +1706,7 @@ GEM
     minitest (5.25.4)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
-    net-http (0.4.1)
+    net-http (0.6.0)
       uri
     net-imap (0.4.19)
       date
@@ -1749,12 +1749,12 @@ GEM
     octokit (9.2.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
-    omniauth (2.1.2)
+    omniauth (2.1.3)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-google-oauth2 (1.2.0)
-      jwt (>= 2.9)
+    omniauth-google-oauth2 (1.2.1)
+      jwt (>= 2.9.2)
       oauth2 (~> 2.0)
       omniauth (~> 2.0)
       omniauth-oauth2 (~> 1.8)
@@ -1777,8 +1777,9 @@ GEM
     public_suffix (6.0.1)
     racc (1.8.1)
     rack (3.1.11)
-    rack-protection (4.0.0)
+    rack-protection (4.1.1)
       base64 (>= 0.1.0)
+      logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
     rack-session (2.1.0)
       base64 (>= 0.1.0)
@@ -1861,9 +1862,9 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2025.1)
       tzinfo (>= 1.0.0)
-    uri (0.13.1)
+    uri (1.0.3)
     useragent (0.16.11)
-    version_gem (1.1.4)
+    version_gem (1.1.6)
     webmock (3.24.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -1900,7 +1901,7 @@ DEPENDENCIES
   logstash-event (~> 1.2.02)
   notifications-ruby-client (~> 6.2.0)
   octokit (~> 9.2.0)
-  omniauth-google-oauth2 (~> 1.2.0)
+  omniauth-google-oauth2 (~> 1.2.1)
   omniauth-rails_csrf_protection (~> 1.0.1)
   ostruct
   pry

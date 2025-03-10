@@ -1865,7 +1865,7 @@ GEM
     uri (1.0.3)
     useragent (0.16.11)
     version_gem (1.1.6)
-    webmock (3.25.0)
+    webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -1911,7 +1911,7 @@ DEPENDENCIES
   sassc-rails
   slop
   tzinfo-data
-  webmock (~> 3.25.0)
+  webmock (~> 3.25.1)
   webrick (~> 1.9.1)
 
 RUBY VERSION

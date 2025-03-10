@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.3.5'
 
 gem 'dotenv-rails', groups: [:development]
-
 gem 'lograge', '~> 0.14.0'
 gem 'logstash-event', '~> 1.2.02'
 gem 'notifications-ruby-client', '~> 6.2.0'

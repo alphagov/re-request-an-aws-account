@@ -26,6 +26,5 @@ group :test do
 end
 
 gem "listen", "~> 3.9", :group => :development
-
 gem "pry"
 gem "slop"

@@ -13,6 +13,7 @@ module EmailValidator
     return true if email.end_with? '@fidusinfosec.com'
     return true if email.end_with? '@cyberis.com'
     return true if email.end_with? '@pentestpartners.com'
+    return true if email.end_with? '@ibca.org.uk'
     false
   end
 
@@ -25,6 +26,7 @@ module EmailValidator
     return true if email.end_with? '@cabinetoffice.gov.uk'
     return true if email.end_with? '@gpa.gov.uk'
     return true if email.end_with? '@ipa.gov.uk'
+    return true if email.end_with? '@ibca.org.uk'
     false
   end
 
@@ -39,6 +41,7 @@ module EmailValidator
       /([a-z0-9.\-\']+@fidusinfosec\.com,?\s*)/,
       /([a-z0-9.\-\']+@cyberis\.com,?\s*)/,
       /([a-z0-9.\-\']+@pentestpartners\.com,?\s*)/,
+      /([a-z0-9.\-\']+@ibca\.org\.uk,?\s*)/,
     )})+\z/
   end
 

@@ -55,44 +55,21 @@
         </div>
         <a href="<%= reset_password_path %>" class="govuk-button" data-module="govuk-button">Request password reset</a>
       </p>
-      
-      <% if EmailValidator.email_is_allowed_advanced?(@email) %>
 
-      <h3 class="govuk-heading-s">Request a new AWS account (Infrastructure-as-a-Service)</h3>
-      <p>Use this form to request a new AWS account. Before requesting an account you must:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>have prior <b>financial approval</b> from your business unit</li>
-        <li>know the relevant Cabinet Office <b>cost centre code</b> and provide it when making your request</li>
-        <li>ensure you have the required <b>skills and capabilities</b> to maintain, manage and decommission any services created, including adhering to all relevant Cabinet Office/GDS security policies, technical policies and standards </li>
-        <li>ensure you have plans in place to <b>manage credentials and users securely</b>, including removing leavers before or immediately after their last day with your organisation.</li>
-      </ul>
-      
+      <h3 class="govuk-heading-s">Request a new AWS account</h3>
+
       <p>
-        More information is available on the
-        <a href="https://gds-way.digital.cabinet-office.gov.uk/manuals/working-with-aws-accounts.html#create-aws-accounts">how to create AWS accounts</a> page
-        in the GDS Way.
+        <strong>If you work in GDS</strong> and wish to request an account in the GDS AWS
+        organisation, please open a pull request in <a href="https://github.com/alphagov/gds-aws-organisation-accounts">the <code>gds-aws-organisation-accounts</code> repo</a>, as
+        described in <a href="https://github.com/alphagov/gds-aws-organisation-accounts/blob/main/README.md">the
+        README</a>.
       </p>
-      <div class="govuk-inset-text">
-        Processing time for this request is around 2 weeks
-      </div>
-      <a href="<%= account_details_path %>" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
-        Request an account
-      </a>
-      <% end %>
-    <% else %>
-      <p>Depending on your email domain, you can use this service to:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Reset your AWS user password (for all users)</li>
-        <li>Request a new AWS user (e.g. for new joiners - Cabinet Office staff only)</li>
-        <li>Remove an AWS user (e.g. for leavers - Cabinet Office staff only)</li>
-        <li>Request a new AWS account (e.g. for a new service or environment - Cabinet Office staff only)</li>
-      </ul>
-      <p>First you need to sign in with your GDS or CO Google account so we know who you are.</p>
-      <%= form_tag('/auth/google_oauth2', method: 'post') do %>
-        <button type="submit" class="govuk-button" data-module="govuk-button">
-          Sign in
-        </button>
-      <% end %>
+
+      <p> 
+        <strong>If you are part of the Cabinet Office</strong>, please open an account request
+        using <a href="https://request-an-aws-account.platforms.cabinetoffice.gov.uk/">the
+        Cabinet Office Request and AWS Account Tool</a>.
+      </p>
     <% end %>
   </div>
 </div>

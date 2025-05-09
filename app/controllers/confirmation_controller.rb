@@ -13,9 +13,4 @@ class ConfirmationController < ApplicationController
     @pull_request_url = session.fetch('pull_request_url', 'error')
     session['form'] = nil
   end
-
-  def account
-    @pull_request_url = session.fetch('pull_request_url', 'ERROR')
-    session['form'] = nil
-  end
 end

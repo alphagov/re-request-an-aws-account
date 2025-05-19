@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 3.3.5'
+ruby '~> 3.4.4'
 
 gem 'dotenv-rails', groups: [:development]
 gem 'lograge', '~> 0.14.0'
@@ -19,7 +19,9 @@ gem 'rexml', '~> 3.4.1'
 gem 'tzinfo-data'
 gem 'csv'
 gem 'ostruct'
+gem 'puma', '~> 6.6.0'
 gem 'jwt', '~> 2.10.1'
+# gem "ffi", force_ruby_platform: true
 
 group :test do
   gem 'rack_session_access', '~> 0.2.0'

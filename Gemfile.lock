@@ -1656,16 +1656,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.0-aarch64-linux-gnu)
-    ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
-    ffi (1.17.0-arm-linux-musl)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
-    ffi (1.17.0-x86-linux-musl)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
-    ffi (1.17.0-x86_64-linux-musl)
+    ffi (1.17.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
@@ -1895,6 +1886,7 @@ DEPENDENCIES
   aws-sdk (~> 3)
   csv
   dotenv-rails
+  ffi
   jwt (~> 2.10.1)
   listen (~> 3.9)
   lograge (~> 0.14.0)
@@ -1915,7 +1907,7 @@ DEPENDENCIES
   webrick (~> 1.9.1)
 
 RUBY VERSION
-   ruby 3.3.5p100
+   ruby 3.4.4p34
 
 BUNDLED WITH
    2.5.19

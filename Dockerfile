@@ -16,16 +16,22 @@ RUN apk update && apk add --no-cache \
     libxslt-dev \
     nodejs \
     yarn \
+    yaml-dev \
+    ruby-sassc \
     gcompat
 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test' \
-    && bundle install
+RUN bundle config set --local without 'development test' 
+RUN bundle config --delete without
+RUN bundle config --delete with
+RUN bundle install
 
 # copy required files from base images, precompile assets & cleanup
 FROM ruby:3.4.4-alpine
 
+RUN apk update && apk add --no-cache \
+    ruby-sassc 
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin

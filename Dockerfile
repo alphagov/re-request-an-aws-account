@@ -22,7 +22,8 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test' 
+RUN bundle config set without development 
+RUN bundle config set without test
 RUN bundle config --delete without
 RUN bundle config --delete with
 RUN bundle install

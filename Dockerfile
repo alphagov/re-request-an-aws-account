@@ -20,8 +20,11 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local without 'development test' \
-    && bundle install
+RUN bundle config set without development
+RUN bundle config set without test
+RUN bundle config --delete without
+RUN bundle config --delete with
+RUN bundle install
 
 # copy required files from base images, precompile assets & cleanup
 FROM ruby:3.3.5-alpine

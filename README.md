@@ -48,7 +48,7 @@ container/environment at runtime.
 
 ## ENV vars
 
-- `RAILS_ALLOWED_DOMAINS`: the domain of the app runtime env (eg loalhost:3000
+- `RAILS_ALLOWED_DOMAINS`: a comma-seperated list of the domains of the app runtime env (eg loalhost:3000
   or sub.domain.tld)
 - `RAILS_SERVE_STATIC_FILES` true|false(default)
 - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults

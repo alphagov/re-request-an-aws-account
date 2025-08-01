@@ -4,7 +4,7 @@ Rails.application.configure do
   # In app runner on aws we need to be able to test on host
   # but ruby doesn't like app runner hosts so we have to add it
   # @TODO remove these once we have perm host/domain set up
-  config.hosts = [ENV['RAILS_ALLOWED_DOMAINS']] 
+  config.hosts = ENV.fetch('RAILS_ALLOWED_DOMAINS', '').split(',').map(&:strip)
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -72,7 +72,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
     # so we can run production in localhost we check the allowd domain
-  if ENV['RAILS_ALLOWED_DOMAINS'] == "localhost:3000"
+  if ENV.fetch('RAILS_ALLOWED_DOMAINS', '').include?("localhost:3000")
     config.consider_all_requests_local = true
     config.force_ssl =  false
     config.assume_ssl = false

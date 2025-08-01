@@ -1,10 +1,13 @@
 require "active_support/core_ext/integer/time"
+require "uri"
 
 Rails.application.configure do
   # In app runner on aws we need to be able to test on host
   # but ruby doesn't like app runner hosts so we have to add it
-  # @TODO remove these once we have perm host/domain set up
   config.hosts = ENV.fetch('RAILS_ALLOWED_DOMAINS', '').split(',').map(&:strip)
+  if ENV["AWS_APP_RUNNER_SERVICE_URL"]
+    allowed_hosts << URI.parse(ENV["AWS_APP_RUNNER_SERVICE_URL"]).host
+  end
 
   # Code is not reloaded between requests.
   config.cache_classes = true

@@ -28,6 +28,7 @@ module EmailValidator
     return true if email.end_with? '@gpa.gov.uk'
     return true if email.end_with? '@ipa.gov.uk'
     return true if email.end_with? '@ibca.org.uk'
+    return true if email.end_with? '@nista.gov.uk'
     false
   end
 
@@ -43,6 +44,7 @@ module EmailValidator
       /([a-z0-9.\-\']+@cyberis\.com,?\s*)/,
       /([a-z0-9.\-\']+@pentestpartners\.com,?\s*)/,
       /([a-z0-9.\-\']+@ibca\.org\.uk,?\s*)/,
+      /([a-z0-9.\-\']+@nista\.gov\.uk,?\s*)/,
     )})+\z/
   end
 

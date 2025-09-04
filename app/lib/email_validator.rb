@@ -14,6 +14,7 @@ module EmailValidator
     return true if email.end_with? '@cyberis.com'
     return true if email.end_with? '@pentestpartners.com'
     return true if email.end_with? '@ibca.org.uk'
+    return true if email.end_with? '@nista.gov.uk'
     false
   end
 

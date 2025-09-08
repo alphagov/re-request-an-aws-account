@@ -20,6 +20,13 @@ updates:
     update-types:
       - version-update:semver-major
 
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "03:00"
+  open-pull-requests-limit: 10
+
 - package-ecosystem: "docker"
   directory: "/"
   schedule:

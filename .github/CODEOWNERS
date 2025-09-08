@@ -1,0 +1,8 @@
+# Technical members of EE are codeowners of all files in this repo.
+# In combination with a branch protection rule that requires approval
+# from codeowners, this ensures that all changes to this repo are
+# approved by a member of the EE team
+* @alphagov/engineering-enablement-tech
+
+# Only EE tech leads can modify the codeowners file
+.github/CODEOWNERS @alphagov/engineering-enablement-tech-leads

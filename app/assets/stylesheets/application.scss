@@ -1,7 +1,7 @@
 $govuk-global-styles: true;
 $govuk-images-path: "govuk-frontend/govuk/assets/images/";
 $govuk-font-family: arial, sans-serif;
-@import "govuk-frontend/govuk/all";
+@import "govuk-frontend/dist/govuk/all";
 
 .govuk-header__product-name {
   width: 150%;

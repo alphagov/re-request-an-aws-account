@@ -15,7 +15,6 @@ RUN apk update && apk add --no-cache \
     libxml2-dev \
     libxslt-dev \
     nodejs \
-    yarn \
     gcompat
 
 WORKDIR /opt/app

@@ -4,4 +4,4 @@
 //
 //= link_directory ../stylesheets .css
 //
-//= link_tree ../../../node_modules/govuk-frontend/govuk/assets
+//= link_tree ../../../node_modules/govuk-frontend/dist/govuk/assets

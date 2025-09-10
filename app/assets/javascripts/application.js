@@ -12,4 +12,4 @@
 //
 //= require rails-ujs
 //= require_tree .
-//= require govuk-frontend/govuk/all
+//= require govuk-frontend/dist/govuk/all.bundle.js

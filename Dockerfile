@@ -3,7 +3,7 @@ FROM node:24.7-alpine AS nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./
-RUN npm i
+RUN npm ci
 
 # bundle install the gems for production
 FROM ruby:3.3.5-alpine AS rubybuilder

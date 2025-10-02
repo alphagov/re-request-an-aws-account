@@ -18,7 +18,7 @@ gem 'rexml', '~> 3.4.4'
 gem 'tzinfo-data'
 gem 'csv'
 gem 'ostruct'
-gem 'jwt', '~> 2.10.2'
+gem 'jwt', '~> 3.1.2'
 gem 'puma', '~>7.0.4'
 
 group :test do

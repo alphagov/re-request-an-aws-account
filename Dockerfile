@@ -6,7 +6,7 @@ COPY package.json ./
 RUN npm ci
 
 # bundle install the gems for production
-FROM ruby:3.4.6-alpine AS rubybuilder
+FROM ruby:3.4-alpine AS rubybuilder
 RUN apk update && apk add --no-cache \
     build-base \
     postgresql-dev \
@@ -15,7 +15,8 @@ RUN apk update && apk add --no-cache \
     libxml2-dev \
     libxslt-dev \
     nodejs \
-    gcompat
+    gcompat \
+    yaml-dev
 
 WORKDIR /opt/app
 COPY Gemfile Gemfile.lock ./
@@ -26,13 +27,15 @@ bundle config --delete with && \
 bundle install
 
 # copy required files from base images, precompile assets & cleanup
-FROM ruby:3.4.6-alpine
+FROM ruby:3.4-alpine
 
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle
 COPY --from=nodebuilder /usr/local/bin /usr/local/nodebin
 COPY --from=nodebuilder /opt/app/node_modules /opt/app/node_modules
-RUN apk add --no-cache gcompat 
+RUN apk add --no-cache \
+    gcompat \
+    libstdc++
 RUN export PATH=$PATH:/usr/local/nodebin \
     && adduser -D -s /bin/sh app
 USER app

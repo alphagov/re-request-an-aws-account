@@ -6,7 +6,7 @@ COPY package.json ./
 RUN npm ci
 
 # bundle install the gems for production
-FROM ruby:3.4-alpine AS rubybuilder
+FROM ruby:3.4.7-alpine AS rubybuilder
 RUN apk update && apk add --no-cache \
     build-base \
     postgresql-dev \
@@ -27,7 +27,7 @@ bundle config --delete with && \
 bundle install
 
 # copy required files from base images, precompile assets & cleanup
-FROM ruby:3.4-alpine
+FROM ruby:3.4.7-alpine
 
 WORKDIR /opt/app
 COPY --from=rubybuilder /usr/local/bundle /usr/local/bundle

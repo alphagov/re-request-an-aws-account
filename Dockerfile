@@ -1,5 +1,5 @@
 # get official nodejs/npm binaries
-FROM node:24.9-alpine AS nodebuilder
+FROM node:24.10-alpine AS nodebuilder
 WORKDIR /opt/app
 COPY package-lock.json ./
 COPY package.json ./

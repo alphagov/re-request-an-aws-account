@@ -48,8 +48,8 @@ container/environment at runtime.
 
 ## ENV vars
 
-- `RAILS_ALLOWED_DOMAINS`: a comma-seperated list of the domains of the app runtime env (eg loalhost:3000
-  or sub.domain.tld)
+- `RAILS_ALLOWED_DOMAINS`: a comma-seperated list of the domains of the app
+  runtime env (eg loalhost:3000 or sub.domain.tld)
 - `RAILS_SERVE_STATIC_FILES` true|false(default)
 - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults
   to logfile
@@ -67,3 +67,5 @@ container/environment at runtime.
 - `NOTIFY_API_KEY`: a key to use the notify api to send emails
 - `RAILS_MASTER_KEY`: the key that has been used to encode
   `config/credentials.yml.enc`
+
+  test

@@ -1712,10 +1712,10 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    date (3.5.0)
-    dotenv (3.1.8)
-    dotenv-rails (3.1.8)
-      dotenv (= 3.1.8)
+    date (3.4.1)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
       railties (>= 6.1)
     drb (2.2.3)
     erb (6.0.0)
@@ -1824,7 +1824,7 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.2)
+    omniauth-rails_csrf_protection (2.0.0)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     ostruct (0.6.3)
@@ -1964,7 +1964,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 3)
   csv
-  dotenv-rails
+  dotenv-rails (~> 3.2.0)
   jwt (~> 3.1.2)
   listen (~> 3.9)
   lograge (~> 0.14.0)
@@ -1972,7 +1972,7 @@ DEPENDENCIES
   notifications-ruby-client (~> 6.3.0)
   octokit (~> 10.0.0)
   omniauth-google-oauth2 (~> 1.2.1)
-  omniauth-rails_csrf_protection (~> 1.0.1)
+  omniauth-rails_csrf_protection (~> 2.0.0)
   ostruct
   pry
   puma (~> 7.1.0)

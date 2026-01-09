@@ -48,7 +48,7 @@ container/environment at runtime.
 
 ## ENV vars
 
-- `RAILS_ALLOWED_DOMAINS`: a comma-seperated list of the domains of the app runtime env (eg loalhost:3000
+- `RAILS_ALLOWED_DOMAINS`: a comma-separated list of the domains of the app runtime env (eg localhost:3000
   or sub.domain.tld)
 - `RAILS_SERVE_STATIC_FILES` true|false(default)
 - `RAILS_LOG_TO_STDOUT` true : will log out errors etc since production defaults
@@ -56,13 +56,13 @@ container/environment at runtime.
 - `RESTRICT_LOGIN_EMAIL_ADDRESSES_TO`:
   `example.one@digital.cabinet-office.gov.uk example.two@digital.cabinet-office.gov.uk` -
   should be a space separated list of email addresses if set it will only allow
-  those email address to log in
+  those email addresses to log in
 
 ## ENV secrets
 
 - `GOOGLE_CLIENT_ID`: an OAuth2 client ID
 - `GOOGLE_CLIENT_SECRET`: an OAuth2 client secret
-- `GITHUB_PERSONAL_ACCESS_TOKEN`: the PAT required to act on requied alphagov
+- `GITHUB_PERSONAL_ACCESS_TOKEN`: the PAT required to act on required alphagov
   repos
 - `NOTIFY_API_KEY`: a key to use the notify api to send emails
 - `RAILS_MASTER_KEY`: the key that has been used to encode

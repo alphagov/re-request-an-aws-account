@@ -18,7 +18,6 @@ raat-redirect
 .github
 .gitignore
 .rbenv-gemsets
-.ruby-version
 yarn.lock
 node_modules
 README.md

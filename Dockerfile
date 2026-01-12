@@ -23,7 +23,7 @@ RUN apk update && apk add --no-cache \
     yaml-dev
 
 WORKDIR /opt/app
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock .ruby-version ./
 
 RUN bundle config set without development && \
     bundle config set without test && \

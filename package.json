@@ -1,6 +1,6 @@
 {
   "name": "re-request-an-aws-account",
   "dependencies": {
-    "govuk-frontend": "^5.13.0"
+    "govuk-frontend": "^5.14.0"
   }
 }

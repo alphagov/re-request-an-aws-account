@@ -22,7 +22,7 @@ yarn.lock
 node_modules
 README.md
 .dockerignore
-.env.example
+.env*
 manifest.yml
 test
 Dockerfile

@@ -19,7 +19,7 @@ gem 'tzinfo-data'
 gem 'csv'
 gem 'ostruct'
 gem 'jwt', '~> 3.1.2'
-gem 'puma', '~>7.2.0'
+gem 'puma', '~>8.0.0'
 gem 'rack-session', '~>2.1.2'
 
 group :test do

@@ -18,7 +18,7 @@ gem 'rexml', '~> 3.4.4'
 gem 'tzinfo-data'
 gem 'csv'
 gem 'ostruct'
-gem 'jwt', '~> 3.1.2'
+gem 'jwt', '~> 3.2.0'
 gem 'puma', '~>7.2.0'
 gem 'rack-session', '~>2.1.2'
 

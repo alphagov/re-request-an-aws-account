@@ -11,7 +11,7 @@ gem 'octokit', '~> 10.0.0'
 gem 'omniauth-google-oauth2', '~> 1.2.2'
 gem 'omniauth-rails_csrf_protection', '~> 2.0.1'
 gem 'rails', '~> 7.2.3'
-gem 'sassc-rails'
+gem 'sprockets-rails', '~> 3.5.2'
 gem 'webmock', '~> 3.26.2'
 gem 'aws-sdk', '~> 3'
 gem 'rexml', '~> 3.4.4'
@@ -29,3 +29,5 @@ end
 gem "listen", "~> 3.10", :group => :development
 gem "pry"
 gem "slop"
+
+gem "dartsass-rails", "~> 0.5.1"

@@ -1,7 +1,7 @@
 //= link application.js
+//= link application.css
 //
 //= link_tree ../images
 //
-//= link_directory ../stylesheets .css
-//
 //= link_tree ../../../node_modules/govuk-frontend/dist/govuk/assets
+//= link_tree ../builds

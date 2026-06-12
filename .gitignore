@@ -29,3 +29,9 @@ yarn-error.log
 # emacs 
 .#*
 *.*#
+
+# Dart Sass
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/app/assets/builds/*
+!/app/assets/builds/.keep

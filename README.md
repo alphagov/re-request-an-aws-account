@@ -8,8 +8,16 @@ This is a rails app, with dependencies managed by bundler. To run the app
 locally clone this repo, then:
 
 ```sh
+make install
+make serve
+```
+
+Or manually:
+
+```sh
 bundle install
 npm install
+bundle exec rake dartsass:build
 bundle exec rails server
 ```
 
@@ -26,6 +34,12 @@ $EDITOR .env
 Run the tests with:
 
 ```sh
+make test
+```
+
+Or manually:
+
+```sh
 bundle exec rails test
 ```
 
@@ -34,11 +48,28 @@ try different email addresses, you can provide a `email` parameter). If you want
 to test with real Google SSO, you can
 [create an application in the Google Cloud Console](https://console.developers.google.com/apis/credentials).
 
-## Building Docker Image
+## Running with Docker
 
-Note - when building the docker image on a mac arm but wanting to run the image
-on x86 architecture then run the `docker build` with this flag:
-`--platform="linux/amd64"`
+To build and run the app in Docker locally:
+
+```sh
+make docker-build
+make docker-up
+```
+
+To stop the container:
+
+```sh
+make docker-down
+```
+
+> [!NOTE]
+> The platform is auto-detected via `uname -m`. If you need to build for a
+> different target platform (e.g. building on a Mac ARM for x86) override it with:
+
+```sh
+make docker-build PLATFORM=linux/amd64
+```
 
 ## Ruby App Master Key
 

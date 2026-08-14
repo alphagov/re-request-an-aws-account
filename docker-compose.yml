@@ -1,0 +1,19 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        RUBY_VERSION: ${RUBY_VERSION}
+        NODE_VERSION: ${NODE_VERSION}
+    platform: ${PLATFORM:-}
+    image: re-request-aws-test
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_LOG_TO_STDOUT=true
+      - SECRET_KEY_BASE=dummy
+      - RAILS_MASTER_KEY=dummy
+    env_file:
+      - path: .env
+        required: false

@@ -1996,7 +1996,7 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.14)
-    webmock (3.26.2)
+    webmock (3.26.4)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -2045,7 +2045,7 @@ DEPENDENCIES
   slop
   sprockets-rails (~> 3.5.2)
   tzinfo-data
-  webmock (~> 3.26.2)
+  webmock (~> 3.26.4)
 
 RUBY VERSION
    ruby 3.4.6p54

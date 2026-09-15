@@ -1784,7 +1784,7 @@ GEM
       reline (>= 0.4.2)
     jmespath (1.6.2)
     json (2.21.2)
-    jwt (3.2.0)
+    jwt (3.3.0)
       base64
     listen (3.10.0)
       logger
@@ -2027,7 +2027,7 @@ DEPENDENCIES
   csv
   dartsass-rails (~> 0.5.1)
   dotenv-rails (~> 3.2.0)
-  jwt (~> 3.2.0)
+  jwt (~> 3.3.0)
   listen (~> 3.10)
   lograge (~> 0.15.0)
   logstash-event (~> 1.2.02)

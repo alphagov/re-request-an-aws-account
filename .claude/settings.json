@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(app/services/notify_service.rb)",
+      "Read(config/application.rb)",
+      "Read(test/controllers/remove_users_controller_test.rb)",
+      "Read(test/controllers/users_controller_test.rb)"
+    ]
+  }
+}

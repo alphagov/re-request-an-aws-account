@@ -1,5 +1,8 @@
 # Engineering Enablement: Request an AWS Account
 
+> [!IMPORTANT]
+> This repository is OFFICIAL-SENSITIVE, please see [HANDLING_INSTRUCTIONS.md](/HANDLING_INSTRUCTIONS.md) for more info.
+
 User interface to manage AWS users within the base AWS account.
 
 ## Running locally

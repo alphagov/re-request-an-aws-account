@@ -18,7 +18,6 @@ RUN apk update && apk add --no-cache \
     linux-headers \
     libxml2-dev \
     libxslt-dev \
-    nodejs \
     gcompat \
     yaml-dev
 

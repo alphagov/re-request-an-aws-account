@@ -131,7 +131,9 @@ Co-authored-by: #{requester_name} <#{requester_email}>",
       commit_message_title,
       "Requested using #{host} by #{requester_email}
 
-      #{email_list}"
+      #{email_list}
+
+Remind to check the runbook [removing-aws-user](https://github.com/alphagov/engineering-enablement/wiki/Runbook:-Removing-an-AWS-User) for further actions."
     ).html_url
   end
 

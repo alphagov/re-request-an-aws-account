@@ -28,7 +28,7 @@ class UserController < ApplicationController
       Errors::log_error 'Email provided was too long', e
       return render :user
     rescue Errors::UserAlreadyExistsError => e
-      @form.errors.add 'email_list', "user #{e.message} already exists"
+      @form.errors.add 'email_list', "user #{e.message} already exists, or another user with the same username but a different email domain already has an account. Contact #{Rails.application.config.support_email} for help"
       Errors::log_error 'User already existed', e
       return render :user
     rescue StandardError => e
